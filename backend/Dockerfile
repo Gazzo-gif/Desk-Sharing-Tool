@@ -1,17 +1,24 @@
-# Use an official Maven image as a base image
-FROM maven:3.8-openjdk-11
+# Use an official Maven image to build the application
+FROM maven:3.8.4-openjdk-11-slim AS build
 
-# Set the working directory in the container
+# Set the working directory inside the container
 WORKDIR /usr/src/app
 
-# Copy the project files to the container
+# Copy the Maven project files into the container
 COPY . .
 
-# Build the application
+# Build the Maven project
 RUN mvn clean install
 
-# Expose the port the app runs on
-EXPOSE 8080
+# Use a lightweight Java runtime image
+FROM openjdk:11-jre-slim
 
-# Define the command to run your application
-CMD ["java", "-jar", "target/your-backend-app.jar"]
+# Set the working directory for the runtime stage
+WORKDIR /usr/src/app
+
+# Copy the compiled JAR file from the build stage
+# Adjust the path if your JAR file is in a different location
+COPY --from=build /usr/src/app/target/backend-1.0-SNAPSHOT.jar backend.jar
+
+# Specify the default command to run your application
+CMD ["java", "-jar", "backend.jar"]
