@@ -79,6 +79,10 @@ jobs:
           -v $(pwd)/database:/docker-entrypoint-initdb.d \
           mariadb:latest
 
+    - name: Connect to MariaDB container
+      run: docker exec -it your_container_id sh
+        
+
     # - name: Database Tests (if applicable)
     #   run: |
     #     # Add commands to run additional database tests here
