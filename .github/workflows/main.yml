@@ -52,11 +52,6 @@ jobs:
       run: |
         ./mvnw clean install
 
-    - name: Set up Docker
-      uses: actions/setup-docker@v2
-      with:
-        docker-version: 'latest'
-
     - name: Build and run Docker images
       run: |
         docker-compose build
