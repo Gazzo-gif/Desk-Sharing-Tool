@@ -3,10 +3,10 @@ CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    surname VARCHAR(255) NOT NULL,
-    visibility BOOLEAN NOT NULL,
-    admin BOOLEAN NOT NULL
+    -- name VARCHAR(255) NOT NULL,
+    -- surname VARCHAR(255) NOT NULL,
+    -- visibility BOOLEAN NOT NULL,
+    -- admin BOOLEAN NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS rooms (

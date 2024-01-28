@@ -1,0 +1,23 @@
+spring:
+  security:
+    user:
+      password:
+        encoder: bcrypt
+
+  datasource:
+    url: jdbc:mariadb://localhost:3306/mydatabase
+    # username: your_username
+    password: mypass
+
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDBDialect
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
