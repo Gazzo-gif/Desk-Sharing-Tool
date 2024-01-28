@@ -31,7 +31,11 @@ services:
       - mynetwork
     ports:
       - 3306:3306
-    options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=30s --health-retries=3
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 30s
+      retries: 3
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
