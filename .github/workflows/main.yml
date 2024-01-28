@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mariadb:
+        image: mariadb:latest
+        env:
+          MYSQL_ROOT_PASSWORD: mypass
+          MYSQL_DATABASE: mydatabase
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
+
+    # - name: Install frontend dependencies
+    #   working-directory: frontend
+    #   run: |
+    #     npm install
+
+    # - name: Build frontend
+    #   working-directory: frontend
+    #   run: |
+    #     npm run build
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
+    - name: Build and test backend with Maven
+      working-directory: backend
+      run: |
+        ./mvnw clean install
+
+    - name: Set up Docker
+      uses: actions/setup-docker@v2
+      with:
+        docker-version: 'latest'
+
+    - name: Build and run Docker images
+      run: |
+        docker-compose build
+        docker-compose up -d
+
+    # - name: Run tests against deployed application
+    #   run: |
+    #     HEALTH_CHECK_URL="http://localhost:your_application_port/health"
+    #     if curl -s --head "$HEALTH_CHECK_URL" | grep "200 OK" > /dev/null; then
+    #       echo "Application health check passed."
+    #     else
+    #       echo "Application health check failed."
+    #       exit 1
+    #     fi
+
+    - name: Test Database Initialization
+      run: |
+        # Assuming your init.sql is in the database folder
+        docker run --rm \
+          -e MYSQL_ROOT_PASSWORD=mypass \
+          -e MYSQL_DATABASE=mydatabase \
+          -v $(pwd)/database:/docker-entrypoint-initdb.d \
+          mariadb:latest
+
+    # - name: Database Tests (if applicable)
+    #   run: |
+    #     # Add commands to run additional database tests here
+
+    - name: Cleanup Docker Compose
+      run: |
+        docker-compose down
