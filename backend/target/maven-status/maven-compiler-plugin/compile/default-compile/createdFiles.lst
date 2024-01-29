@@ -1,10 +1,10 @@
 com/desk_sharing/App.class
-com/desk_sharing/dto/LoginResponse.class
 com/desk_sharing/entities/User2.class
+com/desk_sharing/dto/LoginResponse.class
 com/desk_sharing/repositories/UserRepository.class
 com/desk_sharing/dto/RegistrationRequest.class
 com/desk_sharing/entities/User.class
-com/desk_sharing/dto/LoginRequest.class
 com/desk_sharing/services/UserService.class
+com/desk_sharing/dto/LoginRequest.class
 com/desk_sharing/config/SecurityConfig.class
 com/desk_sharing/controllers/UserController.class

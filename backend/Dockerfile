@@ -1,4 +1,4 @@
-# Use an official Maven image to build the application
+# Use an official Maven image as the build environment
 FROM maven:3.8.4-openjdk-11-slim AS build
 
 # Set the working directory inside the container
@@ -17,8 +17,9 @@ FROM openjdk:11-jre-slim
 WORKDIR /usr/src/app
 
 # Copy the compiled JAR file from the build stage
-COPY --from=build /usr/src/app/target/backend-1.0-SNAPSHOT.jar backend-1.0-SNAPSHOT.jar
+COPY --from=build /usr/src/app/target/backend-1.0-SNAPSHOT.jar .
 
+# Expose the application port
 EXPOSE 8080
 
 # Specify the default command to run your application

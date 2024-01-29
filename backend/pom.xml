@@ -38,19 +38,11 @@
             <version>${spring.boot.version}</version>
         </dependency>
 
-        <!-- H2 Database (for testing, you can replace it with your preferred database) -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.200</version>
-            <scope>runtime</scope>
-        </dependency>
-
         <!-- MariaDB Connector/J -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
-            <version>2.7.2</version>
+            <version>3.3.2</version>
         </dependency>
 
         <!-- Hibernate -->
@@ -66,6 +58,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.6.1</version>
                 <executions>
                     <execution>
                         <goals>
