@@ -16,10 +16,6 @@ services:
       - mynetwork
     depends_on:
       - database
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/mydatabase
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: mypass
 
   database:
     image: mariadb:latest
@@ -31,11 +27,6 @@ services:
       - mynetwork
     ports:
       - 3306:3306
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 30s
-      retries: 3
     volumes:
       - mariadb_data:/var/lib/mysql
 

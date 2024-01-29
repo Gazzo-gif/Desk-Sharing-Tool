@@ -45,11 +45,11 @@
             <version>3.3.2</version>
         </dependency>
 
-        <!-- Hibernate -->
+        <!-- JAXB API -->
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.6.5.Final</version>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
         </dependency>
     </dependencies>
 

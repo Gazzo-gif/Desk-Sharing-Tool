@@ -23,70 +23,70 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=30s --health-retries=3
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 14
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
 
-    # - name: Install frontend dependencies
-    #   working-directory: frontend
-    #   run: |
-    #     npm install
+      # - name: Install frontend dependencies
+      #   working-directory: frontend
+      #   run: |
+      #     npm install
 
-    # - name: Build frontend
-    #   working-directory: frontend
-    #   run: |
-    #     npm run build
+      # - name: Build frontend
+      #   working-directory: frontend
+      #   run: |
+      #     npm run build
 
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: '11'
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
 
-    - name: Build and test backend with Maven
-      working-directory: backend
-      run: |
-        ./mvnw clean install
+      - name: Build and test backend with Maven
+        working-directory: backend
+        run: |
+          ./mvnw clean install
 
-    - name: Build and run Docker images
-      run: |
-        docker-compose build
-        docker-compose up -d
+      - name: Build and run Docker images
+        run: |
+          docker-compose build
+          docker-compose up -d
 
-    - name: Print Docker Compose logs
-      run: docker-compose logs
+      - name: Print Docker Compose logs
+        run: docker-compose logs
 
-    - name: Run tests against deployed application
-      run: |
-        HEALTH_CHECK_URL="http://localhost:your_application_port/health"
-        if curl -s --head "$HEALTH_CHECK_URL" | grep "200 OK" > /dev/null; then
-          echo "Application health check passed."
-        else
-          echo "Application health check failed."
-          exit 1
-        fi
+      - name: Run tests against deployed application
+        run: |
+          HEALTH_CHECK_URL="http://localhost:your_application_port/health"
+          if curl -s --head "$HEALTH_CHECK_URL" | grep "200 OK" > /dev/null; then
+            echo "Application health check passed."
+          else
+            echo "Application health check failed."
+            exit 1
+          fi
 
-    - name: Test Database Initialization
-      run: |
-        # Assuming your init.sql is in the database folder
-        docker run --rm \
-          -e MYSQL_ROOT_PASSWORD=mypass \
-          -e MYSQL_DATABASE=mydatabase \
-          -v $(pwd)/database:/docker-entrypoint-initdb.d \
-          mariadb:latest
+      - name: Test Database Initialization
+        run: |
+          # Assuming your init.sql is in the database folder
+          docker run --rm \
+            -e MYSQL_ROOT_PASSWORD=mypass \
+            -e MYSQL_DATABASE=mydatabase \
+            -v $(pwd)/database:/docker-entrypoint-initdb.d \
+            mariadb:latest
 
-    - name: Connect to MariaDB container
-      run: docker exec -it your_container_id sh
-        
+      - name: Connect to MariaDB container
+        run: docker exec -it database-container sh
+          
 
-    # - name: Database Tests (if applicable)
-    #   run: |
-    #     # Add commands to run additional database tests here
+      # - name: Database Tests (if applicable)
+      #   run: |
+      #     # Add commands to run additional database tests here
 
-    - name: Cleanup Docker Compose
-      run: |
-        docker-compose down
+      - name: Cleanup Docker Compose
+        run: |
+          docker-compose down
