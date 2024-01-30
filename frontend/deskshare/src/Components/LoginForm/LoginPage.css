@@ -33,7 +33,7 @@
     outline: none;
     border: 2px solid rgba(0, 0, 0, .2);
     border-radius: 40px;
-    color: #FFDD00;
+    color: black;
     font-weight: 600;
     padding: 20px 45px 20px 20px;
 
@@ -86,8 +86,8 @@
 }
 .flag-image {
     position: absolute;
-    top: -90px;
+    top: -20%; /* Adjust the percentage as needed */
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 130px; /* Adjust the size as per your requirement */
+    max-width: 25%; 
 }
