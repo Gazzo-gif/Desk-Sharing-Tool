@@ -5,7 +5,11 @@ import { FaLock } from "react-icons/fa";
 import flagImage from "../../images/flag.png"; // Adjusted import path
 
 const LoginPage = () => {
-  const [values, setValues] = useState({ email: "", password: "" });
+  const [values, setValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
   const [errors, setErrors] = useState({});
   const isEmail = (email) =>
     /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
@@ -35,9 +39,18 @@ const LoginPage = () => {
         <h1>Login</h1>
         <div className="input-box">
           <input
-            onChange={(e) => setValues({ ...values, email: e.target.value })}
+            onChange={(e) => setValues({ ...values, username: e.target.value })}
             type="text"
             placeholder="Username"
+            required
+          />
+          <FaUser className="icon" />
+        </div>
+        <div className="input-box">
+          <input
+            onChange={(e) => setValues({ ...values, email: e.target.value })}
+            type="text"
+            placeholder="Email"
             required
           />
           <FaUser className="icon" />
