@@ -13,7 +13,7 @@ public class Room {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "position", nullable = false)
+    @Column(name = "position", nullable = false, unique = true)
     private String position;
 
     public Room() {

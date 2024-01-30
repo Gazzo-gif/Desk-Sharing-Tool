@@ -1,6 +1,7 @@
 spring:
   datasource:
     url: jdbc:mariadb://database:3306/mydatabase
+    username: root
     password: mypass
   jpa:
     hibernate:
