@@ -12,7 +12,7 @@ import com.desk_sharing.dto.RegistrationRequest;
 import com.desk_sharing.services.UserService;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -28,10 +28,6 @@ public class UserController {
             return ResponseEntity.badRequest().body("Username is already taken.");
         }
     }
-
-    // public User registerUser(@RequestBody RegistrationRequest request) {
-    //     return userService.registerUser(request.getUsername(), request.getPassword(), request.getEmail());
-    // }
 
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginRequest request) {

@@ -18,7 +18,6 @@ CREATE TABLE IF NOT EXISTS rooms (
 CREATE TABLE IF NOT EXISTS desks (
     id INT NOT NULL PRIMARY KEY,
     equipment VARCHAR(500),
-    position VARCHAR(100) NOT NULL,
     room_id INT NOT NULL,
     CONSTRAINT `fk_room`
         FOREIGN KEY (room_id) REFERENCES rooms (id)
