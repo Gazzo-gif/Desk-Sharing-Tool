@@ -2,6 +2,7 @@ import React from "react";
 import "./Home.css";
 
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
+import HomeCalendar from "./HomeCalendar";
 
 export default function Home() {
   return (
@@ -19,7 +20,12 @@ export default function Home() {
         </Sidebar>
         ;
       </div>
-      <div className="home-content"></div>
+      <div className="home-content">
+        <div>Choose a date for a desk</div>
+        <div>
+          <HomeCalendar />
+        </div>
+      </div>
     </div>
   );
 }

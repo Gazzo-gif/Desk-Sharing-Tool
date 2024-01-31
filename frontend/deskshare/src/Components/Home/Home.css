@@ -7,11 +7,11 @@
 .home-content{
 width: 90%;
 height: 100vh;
-background-color: aliceblue;
+background-color: rgb(188, 219, 247);
 }
 
 .sidebar{
-    width: 10%;
+    /* width: 10%; */
     height: 100vh;
     /* background-color: #008444; */
 }
