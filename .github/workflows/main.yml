@@ -60,9 +60,9 @@ jobs:
           # Wait for the container to finish initializing (adjust sleep time if needed)
           sleep 10
 
-      - name: Connect to MariaDB container
-        working-directory: database
-        run: docker run --rm -i mariadb:latest mariadb -h database -u root -pmypass < database/init.sql
+      # - name: Connect to MariaDB container
+      #   working-directory: database
+      #   run: docker run --rm -i mariadb:latest mariadb -h database -u root -pmypass < init.sql
 
       - name: Cleanup Docker Compose
         run: |
