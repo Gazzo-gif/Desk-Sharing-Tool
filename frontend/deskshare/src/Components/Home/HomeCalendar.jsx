@@ -4,7 +4,11 @@ import "./HomeCalendar.scss";
 const localizer = momentLocalizer(moment);
 
 const HomeCalendar = (props) => (
-  <div>
+  <div className="home-content">
+    <div className="choose-date">
+      <h1>Choose a date for a desk</h1>
+    </div>
+    <hr className="gradient"></hr>
     <Calendar
       localizer={localizer}
       events={""}

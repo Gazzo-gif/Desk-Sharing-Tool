@@ -5,12 +5,13 @@
     display: flex;
 }
 .home-content{
-width: 90%;
+width: 100%;
 height: 100vh;
 /* display: flex; */
 justify-content: center;
 align-items: center;
-background-color: rgb(215, 235, 255);
+/* background-color: #ffdd00d8; */
+background-color: #ffffff;
 }
 
 .sidebar{
@@ -30,11 +31,18 @@ padding-bottom: 25px;
     margin-bottom: 5px;
     border: none;
     border-radius: 6px;
-    background: linear-gradient(
+    /* background: linear-gradient(
       90deg,
       rgba(13, 8, 96, 1) 0%,
       rgba(9, 9, 121, 1) 21%,
       rgba(6, 84, 170, 1) 51%,
       rgba(0, 255, 113, 1) 100%
+    ); */
+    background: linear-gradient(
+      90deg,
+      #008444 0%,
+      rgb(9, 121, 24) 21%,
+      #b89f01 81%,
+      #ffdd00 100%
     );
   }
