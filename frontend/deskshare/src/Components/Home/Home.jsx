@@ -18,10 +18,12 @@ export default function Home() {
             <MenuItem> Calendar </MenuItem>
           </Menu>
         </Sidebar>
-        ;
       </div>
       <div className="home-content">
-        <div>Choose a date for a desk</div>
+        <div className="choose-date">
+          <h1>Choose a date for a desk</h1>
+        </div>
+        <hr className="gradient"></hr>
         <div>
           <HomeCalendar />
         </div>

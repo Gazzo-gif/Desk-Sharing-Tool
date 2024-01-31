@@ -7,11 +7,34 @@
 .home-content{
 width: 90%;
 height: 100vh;
-background-color: rgb(188, 219, 247);
+/* display: flex; */
+justify-content: center;
+align-items: center;
+background-color: rgb(215, 235, 255);
 }
 
 .sidebar{
-    /* width: 10%; */
     height: 100vh;
     /* background-color: #008444; */
 }
+.choose-date{
+display: flex;
+align-items: center;
+justify-content: center;
+padding-top: 25px;
+padding-bottom: 25px;
+}
+.gradient {
+    height: 3px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(
+      90deg,
+      rgba(13, 8, 96, 1) 0%,
+      rgba(9, 9, 121, 1) 21%,
+      rgba(6, 84, 170, 1) 51%,
+      rgba(0, 255, 113, 1) 100%
+    );
+  }
