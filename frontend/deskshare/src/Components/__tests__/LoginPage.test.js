@@ -10,7 +10,7 @@ describe('LoginPage', () => {
     expect(screen.getByRole('heading', { name: 'Login' })).toBeInTheDocument();
 
     // Check if the Username input is rendered
-    expect(screen.getByPlaceholderText('Username')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
 
     // Check if the Password input is rendered
     expect(screen.getByPlaceholderText('Password')).toBeInTheDocument();
