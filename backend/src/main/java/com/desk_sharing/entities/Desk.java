@@ -5,9 +5,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "desks")
 public class Desk {
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "desk_id")
+    @Column(name = "desk_id", unique = true)
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)

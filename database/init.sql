@@ -10,13 +10,13 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS rooms (
-    id INT NOT NULL PRIMARY KEY,
+    id INT NOT NULL PRIMARY KEY UNIQUE,
     type VARCHAR(10) NOT NULL,
     position VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS desks (
-    id INT NOT NULL PRIMARY KEY,
+    id INT NOT NULL PRIMARY KEY UNIQUE,
     equipment VARCHAR(500),
     room_id INT NOT NULL,
     CONSTRAINT `fk_room`
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS desks (
 );
 
 CREATE TABLE IF NOT EXISTS bookings (
-    id INT NOT NULL PRIMARY KEY,
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     user_id INT NOT NULL,
     room_id INT NOT NULL,
     desk_id INT NOT NULL,
@@ -40,6 +40,6 @@ CREATE TABLE IF NOT EXISTS bookings (
         ON DELETE CASCADE,
     CONSTRAINT `fk_desk_book`
         FOREIGN KEY (desk_id) REFERENCES desks (id)
-        ON DELETE CASCADE,
+        ON DELETE CASCADE
 );
 

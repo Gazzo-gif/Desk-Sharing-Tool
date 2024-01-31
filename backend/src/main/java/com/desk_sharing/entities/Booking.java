@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "booking_id")
+    @Column(name = "booking_id", unique = true)
     private Long id;
 
     // @ManyToOne(cascade = CascadeType.ALL)
