@@ -52,11 +52,13 @@ jobs:
       - name: Test Database Initialization
         run: |
           # Assuming your init.sql is in the database folder
-          docker run --rm \
+          docker run \
             -e MYSQL_ROOT_PASSWORD=mypass \
             -e MYSQL_DATABASE=mydatabase \
             -v $(pwd)/database:/docker-entrypoint-initdb.d \
-            mariadb:latest
+            -d mariadb:latest
+          # Wait for the container to finish initializing (adjust sleep time if needed)
+          sleep 10
 
       - name: Connect to MariaDB container
         run: docker exec -it database-container sh
