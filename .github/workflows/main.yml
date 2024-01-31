@@ -62,7 +62,12 @@ jobs:
 
       - name: Connect to MariaDB container
         working-directory: database
-        run: docker exec desk-sharing-tool_database_1 mysql -u root -pmypass < init.sql
+        run: 
+          docker run \
+            --rm \
+            -i \
+            mariadb:latest \
+            mariadb -h desk-sharing-tool_database_1 -u root -pmypass < init.sql
 
       - name: Cleanup Docker Compose
         run: |
