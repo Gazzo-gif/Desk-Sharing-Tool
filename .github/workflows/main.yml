@@ -61,7 +61,7 @@ jobs:
           sleep 10
 
       - name: Connect to MariaDB container
-        working-directory: backend
+        working-directory: database
         run: docker exec desk-sharing-tool_database_1 mysql -u root -pmypass < init.sql
 
       - name: Cleanup Docker Compose
