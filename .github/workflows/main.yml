@@ -62,7 +62,7 @@ jobs:
 
       - name: Connect to MariaDB container
         working-directory: database
-        run: 
+        run: |
           docker run \
             --rm \
             -i \
