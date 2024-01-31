@@ -9,16 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # services:
-    #   mariadb:
-    #     image: mariadb:latest
-    #     env:
-    #       MYSQL_ROOT_PASSWORD: mypass
-    #       MYSQL_DATABASE: mydatabase
-    #     ports:
-    #       - 3306:3306
-    #     options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=30s --health-retries=3
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -58,7 +48,7 @@ jobs:
 
       - name: Run tests against deployed application
         run: |
-          HEALTH_CHECK_URL="http://localhost:your_application_port/health"
+          HEALTH_CHECK_URL="http://localhost:8080/health"
           if curl -s --head "$HEALTH_CHECK_URL" | grep "200 OK" > /dev/null; then
             echo "Application health check passed."
           else
@@ -77,11 +67,6 @@ jobs:
 
       - name: Connect to MariaDB container
         run: docker exec -it database-container sh
-          
-
-      # - name: Database Tests (if applicable)
-      #   run: |
-      #     # Add commands to run additional database tests here
 
       - name: Cleanup Docker Compose
         run: |
