@@ -62,7 +62,7 @@ jobs:
 
       - name: Connect to MariaDB container
         working-directory: database
-        run: docker run --rm -i mariadb:latest mariadb -h mydatabase -u root -pmypass < init.sql
+        run: docker run --rm -i mariadb:latest mariadb -h database -u root -pmypass < database/init.sql
 
       - name: Cleanup Docker Compose
         run: |
