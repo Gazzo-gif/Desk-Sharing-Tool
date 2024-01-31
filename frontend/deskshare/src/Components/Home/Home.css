@@ -1,0 +1,17 @@
+.home-page{
+    width: 100vw;
+    height: 100vh;
+    background-color: aliceblue;
+    display: flex;
+}
+.home-content{
+width: 90%;
+height: 100vh;
+background-color: aliceblue;
+}
+
+.sidebar{
+    width: 10%;
+    height: 100vh;
+    background-color: #008444;
+}

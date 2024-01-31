@@ -1,12 +1,12 @@
-import LoginPage from "./Components/LoginForm/LoginPage";
+import Home from "./Components/Home/Home";
+// import LoginPage from "./Components/LoginForm/LoginPage";
 
 function App() {
   return (
     <div>
-  
-      <LoginPage />
+      <Home />
+      {/* <LoginPage /> */}
     </div>
-    
   );
 }
 

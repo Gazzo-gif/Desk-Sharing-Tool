@@ -6,7 +6,6 @@ import flagImage from "../../images/flag.png"; // Adjusted import path
 
 const LoginPage = () => {
   const [values, setValues] = useState({
-    username: "",
     email: "",
     password: "",
   });
@@ -20,6 +19,7 @@ const LoginPage = () => {
       invalidFields.email = "Wrong email";
     }
     setErrors(invalidFields);
+    console.log(errors);
     if (!Object.keys(invalidFields).length) {
       alert(JSON.stringify(values));
     } else {
@@ -37,15 +37,6 @@ const LoginPage = () => {
       {/* Using the flag.png image */}
       <form action="">
         <h1>Login</h1>
-        <div className="input-box">
-          <input
-            onChange={(e) => setValues({ ...values, username: e.target.value })}
-            type="text"
-            placeholder="Username"
-            required
-          />
-          <FaUser className="icon" />
-        </div>
         <div className="input-box">
           <input
             onChange={(e) => setValues({ ...values, email: e.target.value })}
