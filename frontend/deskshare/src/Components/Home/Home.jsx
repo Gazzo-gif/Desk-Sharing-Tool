@@ -9,11 +9,13 @@ import HomeCalendar from "./HomeCalendar";
 
 export default function Home() {
   const [tab, setTab] = useState({ active: "calendar" });
+  const [collapsed, setCollapsed] = useState(false);
   // const notifications = 3;
   return (
     <div className="home-page">
       <div className="sidebar">
         <Sidebar
+          collapsed={collapsed}
           backgroundColor="#008444"
           style={{
             height: "100%",
@@ -66,8 +68,16 @@ export default function Home() {
             </MenuItem>
             <SubMenu icon={<CgDisplayFullwidth />} label="Display Bookings">
               <MenuItem> 12/12/24 </MenuItem>
-              <MenuItem> 12/12/24 </MenuItem>
+              <MenuItem> 13/12/24 </MenuItem>
             </SubMenu>
+            <div>
+              <button
+                className="collapse-button"
+                onClick={() => setCollapsed(!collapsed)}
+              >
+                Collapse
+              </button>
+            </div>
           </Menu>
         </Sidebar>
       </div>
