@@ -3,8 +3,13 @@ import "./LoginPage.css";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import flagImage from "../../images/flag.png"; // Adjusted import path
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/home", { replace: true });
+  };
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -21,10 +26,11 @@ const LoginPage = () => {
     setErrors(invalidFields);
     console.log(errors);
     if (!Object.keys(invalidFields).length) {
-      alert(JSON.stringify(values));
+      // alert(JSON.stringify(values));
+      handleClick();
     } else {
       alert(JSON.stringify(invalidFields.email));
-      console.log("invalid");
+      console.log("invalid email and password");
       // console.log("email: " + values.email);
       // console.log("password: " + values.password);
     }
