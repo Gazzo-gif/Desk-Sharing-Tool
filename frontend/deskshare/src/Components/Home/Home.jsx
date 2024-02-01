@@ -9,6 +9,7 @@ import HomeCalendar from "./HomeCalendar";
 
 export default function Home() {
   const [tab, setTab] = useState({ active: "calendar" });
+  // const notifications = 3;
   return (
     <div className="home-page">
       <div className="sidebar">
@@ -24,17 +25,18 @@ export default function Home() {
         >
           <Menu
             menuItemStyles={{
-              button: {
-                // the active class will be added automatically by react router
-                // so we can use it to style the active menu item
-                [`&.active`]: {
-                  backgroundColor: "#13395e",
-                  color: "#b6c8d9",
-                },
+              button: ({ level, active, disabled }) => {
+                // only apply styles on first level elements of the tree
+                if (level === 0)
+                  return {
+                    // color: disabled ? "#f5d9ff" : "#d359ff",
+                    backgroundColor: active ? "#ffdd00" : undefined,
+                  };
               },
             }}
           >
             <MenuItem
+              active={tab?.active === "profile" ? true : false}
               icon={<CgProfile />}
               onClick={() => setTab({ active: "profile" })}
             >
@@ -43,6 +45,7 @@ export default function Home() {
             </MenuItem>
             {true ? (
               <MenuItem
+                active={tab?.active === "admin-panel" ? true : false}
                 icon={<RiAdminFill />}
                 onClick={() => setTab({ active: "admin-panel" })}
               >
@@ -53,6 +56,8 @@ export default function Home() {
               ""
             )}
             <MenuItem
+              // suffix={notifications}
+              active={tab?.active === "calendar" ? true : false}
               icon={<IoCalendarNumberOutline />}
               onClick={() => setTab({ active: "calendar" })}
             >

@@ -9,13 +9,15 @@ const HomeCalendar = (props) => (
       <h1>Choose a date for a desk</h1>
     </div>
     <hr className="gradient"></hr>
-    <Calendar
-      localizer={localizer}
-      events={""}
-      startAccessor="start"
-      endAccessor="end"
-      style={{ height: 500 }}
-    />
+    <div>
+      <Calendar
+        localizer={localizer}
+        events={""}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 500 }}
+      />
+    </div>
   </div>
 );
 export default HomeCalendar;
