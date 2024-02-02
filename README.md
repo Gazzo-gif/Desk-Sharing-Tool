@@ -1,3 +1,13 @@
 # Desk-Sharing-Tool
 
-Frontend Login is done. 
+Instructions:
+
+1. Change working directory to ..../Desk-Sharing-Tool/frontend/deskshare/src
+
+2. Run comands
+
+>>>> npm i 
+
+>>>> npm start
+
+
