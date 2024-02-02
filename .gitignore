@@ -1,2 +1,1 @@
-# exclude files and directories that should not be tracked by Git
-backend/target
+/backend/target
