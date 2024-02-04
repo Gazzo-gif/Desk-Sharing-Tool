@@ -1,3 +1,4 @@
 # Desk-Sharing-Tool
 
-To initialize everything you can use `docker-compose up`
+User Interface Login is done. 
+npm install react-icons --save to see the icons
