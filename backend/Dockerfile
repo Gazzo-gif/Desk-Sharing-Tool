@@ -1,14 +1,14 @@
 # Use an official Maven image as the build environment
-FROM maven:3.8.4-openjdk-11-slim AS build
+# FROM maven:3.8.4-openjdk-11-slim AS build
 
 # Set the working directory inside the container
-WORKDIR /usr/src/app
+# WORKDIR /usr/src/app
 
-# Copy the Maven project files into the container
-COPY . .
+# # Copy the Maven project files into the container
+# COPY . .
 
-# Build the Maven project
-RUN mvn clean install
+# # Build the Maven project
+# RUN mvn clean install
 
 # Use a lightweight Java runtime image
 FROM openjdk:11-jre-slim
