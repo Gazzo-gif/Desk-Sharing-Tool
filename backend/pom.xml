@@ -9,10 +9,10 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <!-- Update Java version to 1.8 or higher -->
+    <!-- Update Java version to 11 or higher -->
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <spring.boot.version>2.6.1</spring.boot.version>
     </properties>
 
