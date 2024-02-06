@@ -27,7 +27,7 @@ public class User2 {
     @Column(name = "visibility", nullable = false)
     private boolean visibility;
 
-    @Column(name = "admin", nullable = false)
+    @Column(name = "isAdmin", nullable = false)
     private boolean admin;
 
     public Long getId() {

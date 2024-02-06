@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "DeskSharingToolApplication",
+            "request": "launch",
+            "mainClass": "com.desk_sharing.DeskSharingToolApplication",
+            "projectName": "backend"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "com.desk_sharing.App",
+            "projectName": "backend"
+        },
+        {
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",

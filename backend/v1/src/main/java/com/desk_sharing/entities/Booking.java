@@ -13,17 +13,17 @@ public class Booking {
     @Column(name = "booking_id", unique = true)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    // @ManyToOne(cascade = CascadeType.ALL)
+    // @JoinColumn(name = "user_id", nullable = false)
+    // private User user;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "room_id", nullable = false)
-    private Room room;
+    // @OneToOne(cascade = CascadeType.ALL)
+    // @JoinColumn(name = "room_id", nullable = false)
+    // private Room room;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "desk_id", nullable = false)
-    private Desk desk;
+    // @ManyToOne(cascade = CascadeType.ALL)
+    // @JoinColumn(name = "desk_id", nullable = false)
+    // private Desk desk;
     
     @Column(name = "day", nullable = false)
     private Date day;
@@ -45,29 +45,29 @@ public class Booking {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
+    // public User getUser() {
+    //     return user;
+    // }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    // public void setUser(User user) {
+    //     this.user = user;
+    // }
 
-    public Room getRoom() {
-        return room;
-    }
+    // public Room getRoom() {
+    //     return room;
+    // }
 
-    public void setRoom(Room room) {
-        this.room = room;
-    }
+    // public void setRoom(Room room) {
+    //     this.room = room;
+    // }
 
-    public Desk getDesk() {
-        return desk;
-    }
+    // public Desk getDesk() {
+    //     return desk;
+    // }
 
-    public void setDesk(Desk desk) {
-        this.desk = desk;
-    }
+    // public void setDesk(Desk desk) {
+    //     this.desk = desk;
+    // }
 
     public Date getDay() {
         return day;

@@ -17,9 +17,9 @@ FROM openjdk:11-jre-slim
 WORKDIR /usr/src/app
 
 # Copy the compiled JAR file from the build stage
-COPY --from=build /usr/src/app/target/backend-1.0-SNAPSHOT.jar backend-1.0-SNAPSHOT.jar
+COPY --from=build /usr/src/app/target/backend-0.0.1-SNAPSHOT.jar backend-0.0.1-SNAPSHOT.jar
 
 EXPOSE 8080
 
 # Specify the default command to run your application
-CMD ["java", "-jar", "backend-1.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "backend-0.0.1-SNAPSHOT.jar"]

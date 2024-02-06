@@ -1,5 +1,13 @@
 package com.desk_sharing.entities;
+import java.util.Collection;
+
 import javax.persistence.*;
+
+// import org.springframework.security.core.GrantedAuthority;
+// import org.springframework.security.core.authority.SimpleGrantedAuthority;
+// import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collections;
 
 @Entity
 @Table(name = "users")
@@ -18,17 +26,14 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    public User() {
+    }
 
-    @Column(name = "surname", nullable = false)
-    private String surname;
-
-    @Column(name = "visibility", nullable = false)
-    private boolean visibility;
-
-    @Column(name = "isAdmin", nullable = false)
-    private boolean admin;
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 
     public Long getId() {
         return id;
@@ -62,35 +67,28 @@ public class User {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
-    }
+    // @Override
+    // public Collection<? extends GrantedAuthority> getAuthorities() {
+    //     return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+    // }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    // @Override
+    // public boolean isAccountNonExpired() {
+    //     return true;
+    // }
 
-    public String getSurname() {
-        return surname;
-    }
+    // @Override
+    // public boolean isAccountNonLocked() {
+    //     return true;
+    // }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
+    // @Override
+    // public boolean isCredentialsNonExpired() {
+    //     return true;
+    // }
 
-    public boolean isVisibility() {
-        return visibility;
-    }
-
-    public void setVisibility(boolean visibility) {
-        this.visibility = visibility;
-    }
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
+    // @Override
+    // public boolean isEnabled() {
+    //     return true;
+    // }
 }

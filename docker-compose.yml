@@ -1,16 +1,16 @@
 version: '3'
 
 services:
-  frontend:
-    build: ./frontend/deskshare
-    ports:
-      - "8000:8000"
-    networks:
-      - mynetwork
-    depends_on:
-      - backend
-    environment:
-      - BACKEND_URL=http://backend:8080
+  # frontend:
+  #   build: ./frontend/deskshare
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - mynetwork
+  #   depends_on:
+  #     - backend
+  #   environment:
+  #     - BACKEND_URL=http://backend:8080
 
   backend:
     build: ./backend
@@ -33,6 +33,11 @@ services:
       - 3306:3306
     volumes:
       - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+      timeout: 10s
 
 networks:
   mynetwork:
