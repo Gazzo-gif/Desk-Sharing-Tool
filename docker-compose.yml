@@ -9,6 +9,7 @@ services:
   #     - mynetwork
   #   depends_on:
   #     - backend
+  #     - database
   #   environment:
   #     - BACKEND_URL=http://backend:8080
 

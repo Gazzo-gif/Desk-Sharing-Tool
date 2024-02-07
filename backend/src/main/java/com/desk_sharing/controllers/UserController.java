@@ -24,8 +24,13 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PostMapping("/add")
-    public User addUser(@RequestBody User user) {
-        return userService.addUser(user);
+    @PostMapping("/register")
+    public User registerUser(@RequestBody User user) {
+        return userService.registerUser(user);
+    }
+
+    @PostMapping("/login")
+    public boolean loginUser(@RequestBody User user) {
+        return userService.authenticate(user.getEmail(), user.getPassword());
     }
 }
