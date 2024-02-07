@@ -28,7 +28,7 @@ public class User {
     private boolean visibility;
 
     @Column(name = "isAdmin", nullable = false)
-    private boolean admin;
+    private boolean isAdmin;
 
     public Long getId() {
         return id;
@@ -87,10 +87,10 @@ public class User {
     }
 
     public boolean isAdmin() {
-        return admin;
+        return isAdmin;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 }
