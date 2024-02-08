@@ -11,18 +11,19 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState({});
+  // const [errors, setErrors] = useState({});
+  const [loginError, setLoginError] = useState("");
 
-  const isEmail = (email) =>
-    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
+  // const isEmail = (email) =>
+  //   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!isEmail(values.email)) {
-      setErrors({ email: "Invalid email" });
-      return;
-    }
+    // if (!isEmail(values.email)) {
+    //   setErrors({ email: "Invalid email" });
+    //   return;
+    // }
 
     try {
       const response = await fetch("http://localhost:8080/users/login", {
@@ -37,22 +38,29 @@ const LoginPage = () => {
         throw new Error("Login failed");
       }
 
-      // Assuming login is successful, navigate to the home page
-      navigate("/home", { replace: true });
+      const data = await response.json();
+      if (data === true) {
+        // Assuming login is successful, navigate to the home page
+        navigate("/home", { replace: true });
+      } else {
+        setLoginError("Invalid email or password");
+      }
     } catch (error) {
       console.error("Login error:", error);
       // Handle login error, show message to the user
+      setLoginError("Login failed. Please try again later.");
     }
   };
 
   return (
     <div className="wrapper">
-      <img src={flagImage} alt="Flag" className="flag-image" />{" "}
+      <img src={flagImage} alt="Flag" className="flag-image" />
       {/* Using the flag.png image */}
       <form>
         <h1>Login</h1>
         <div className="input-box">
           <input
+            id="email"
             onChange={(e) =>
               setValues({ ...values, email: e.target.value.trim() })
             }
@@ -62,9 +70,10 @@ const LoginPage = () => {
           />
           <FaUser className="icon" />
         </div>
-        {errors.email && <div className="error">{errors.email}</div>}
+        {/* {errors.email && <div className="error">{errors.email}</div>} */}
         <div className="input-box">
           <input
+            id="password"
             onChange={(e) =>
               setValues({ ...values, password: e.target.value.trim() })
             }
@@ -77,6 +86,7 @@ const LoginPage = () => {
         <div className="forgot-password">
           <a href="/">Forgot Password ?</a>
         </div>
+        {loginError && <div className="error">{loginError}</div>}
         <button type="submit" onClick={handleLogin}>
           Login
         </button>
