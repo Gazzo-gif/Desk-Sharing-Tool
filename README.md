@@ -1,7 +1,13 @@
 # Desk-Sharing-Tool
 
-To run the porject use `docker-compose up`
+Instructions:
 
-User Interface Login is done. 
+1. Change working directory to ..../Desk-Sharing-Tool/frontend/deskshare/src
 
-`npm install react-icons --save` to see the icons
+2. Run comands
+
+>>>> npm i 
+
+>>>> npm start
+
+
