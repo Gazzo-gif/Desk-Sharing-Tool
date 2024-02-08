@@ -1,0 +1,12 @@
+.image-wrapper {
+    max-width: 100%; /* Ensures the container fits its parent */
+    display: flex; /* Use flex to center the image if needed */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+  }
+  
+  .image-wrapper img {
+    max-width: 100%; /* Limit image width to not exceed its container */
+    max-height: 600px; /* Adjust based on your needs */
+    height: auto; /* Maintain aspect ratio */
+  }
