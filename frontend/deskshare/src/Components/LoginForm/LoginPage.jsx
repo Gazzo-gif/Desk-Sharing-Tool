@@ -25,31 +25,31 @@ const LoginPage = () => {
     //   return;
     // }
 
-    try {
-      const response = await fetch("http://localhost:8080/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+    // try {
+    //   const response = await fetch("http://localhost:8080/users/login", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(values),
+    //   });
 
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
+    //   if (!response.ok) {
+    //     throw new Error("Login failed");
+    //   }
 
-      const data = await response.json();
-      if (data === true) {
+    //   const data = await response.json();
+      // if (data === true) {
         // Assuming login is successful, navigate to the home page
         navigate("/home", { replace: true });
-      } else {
-        setLoginError("Invalid email or password");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      // Handle login error, show message to the user
-      setLoginError("Login failed. Please try again later.");
-    }
+      // } else {
+      //   setLoginError("Invalid email or password");
+      // }
+    // } catch (error) {
+    //   console.error("Login error:", error);
+    //   // Handle login error, show message to the user
+    //   setLoginError("Login failed. Please try again later.");
+    // }
   };
 
   return (
