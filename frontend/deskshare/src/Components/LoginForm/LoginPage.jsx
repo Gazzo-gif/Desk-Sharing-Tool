@@ -34,9 +34,9 @@ const LoginPage = () => {
         body: JSON.stringify(values),
       });
 
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
+    //   if (!response.ok) {
+    //     throw new Error("Login failed");
+    //   }
 
       const data = await response.json();
       if (data.userId) {
