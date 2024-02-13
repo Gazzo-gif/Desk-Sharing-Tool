@@ -18,10 +18,30 @@ public class UserService  {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Function to get all the users in the database
+     * 
+     * @return a list with all the users and their information
+     */
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    /**
+     * Function to get a user by its ID
+     * 
+     * @return all the inforamtion of the user we are looking for
+     */
+    public User getUser(Long id) {
+        return userRepository.getById(id);
+    }
+
+    /**
+     * Function to add a new user to the database, it will encrypt the given password
+     * 
+     * @param user user we want to register
+     * @return the saved entity
+     */
     public User registerUser(User user) {
         // Encrypt the password before saving
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -29,6 +49,13 @@ public class UserService  {
         return userRepository.save(user);
     }
 
+    /**
+     * Function to loging in the app
+     * 
+     * @param email users login wiht their email instead of the ID or username
+     * @param password password that should correspond with the user
+     * @return true if there wasn't any error, false if something went wrong
+     */
     public boolean loginUser(String email, String password) {
         User user = userRepository.findByEmail(email);
         if (user != null) {
@@ -42,21 +69,73 @@ public class UserService  {
         return userRepository.findByEmail(email);
     }
 
-    public boolean editVisibility(User user, boolean visibility) {
+    /**
+     * Function to edit the visibility of a user (true visible, false anonymous)
+     * 
+     * @param id user's ID
+     * @return true if there wasn't any error, false if something went wrong
+     */
+    public boolean changeVisibility(Long id) {
         try {
-            user.setVisibility(visibility);
+            User user = userRepository.getById(id);
+            if (user.getVisibility()) {
+                user.setVisibility(false);
+            } else user.setVisibility(true);
+
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    public boolean changePassword(User user, String password) {
+    /**
+     * Function to change a user's password. Assuming there was some type of verification for the password
+     * 
+     * @param id user's ID
+     * @param password password to what you want to change
+     * @return true if there wasn't any error, false if something went wrong
+     */
+    public boolean changePassword(Long id, String password) {
         try {
+            User user = userRepository.getById(id);
             user.setPassword(passwordEncoder.encode(password));
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    // This could be the verification we need for changing the password
+    public boolean checkPassword(User user, String password) {
+        if (user.getPassword() == password) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
+     * Function to delete an user
+     * @param id ID of the user we want to delete
+     * @return true if there wasn't any error, false if something went wrong
+     */
+    public boolean deleteUser(Long id) {
+        try {
+            userRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Function to get if an user is admin or not
+     * @param id ID of the user we want to get the information of
+     * @return true if it is an admin, false if it's not
+     */
+    public boolean isAdmin(Long id) {
+        User user = userRepository.getById(id);
+        return user.isAdmin();
     }
 }
