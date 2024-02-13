@@ -39,15 +39,15 @@ const LoginPage = () => {
       }
 
       const data = await response.json();
-      if (data === true) {
-        // Assuming login is successful, navigate to the home page
+      if (data.userId) {
+        // Save user ID in local storage
+        localStorage.setItem("userId", data.userId);
         navigate("/home", { replace: true });
       } else {
         setLoginError("Invalid email or password");
       }
     } catch (error) {
       console.error("Login error:", error);
-      // Handle login error, show message to the user
       setLoginError("Login failed. Please try again later.");
     }
   };
@@ -55,7 +55,6 @@ const LoginPage = () => {
   return (
     <div className="wrapper">
       <img src={flagImage} alt="Flag" className="flag-image" />
-      {/* Using the flag.png image */}
       <form>
         <h1>Login</h1>
         <div className="input-box">
@@ -70,7 +69,6 @@ const LoginPage = () => {
           />
           <FaUser className="icon" />
         </div>
-        {/* {errors.email && <div className="error">{errors.email}</div>} */}
         <div className="input-box">
           <input
             id="password"
