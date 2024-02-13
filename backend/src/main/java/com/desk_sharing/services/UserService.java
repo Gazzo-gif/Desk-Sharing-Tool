@@ -29,7 +29,7 @@ public class UserService  {
         return userRepository.save(user);
     }
 
-    public boolean authenticate(String email, String password) {
+    public boolean loginUser(String email, String password) {
         User user = userRepository.findByEmail(email);
         if (user != null) {
             // Compare the provided password with the encrypted password in the database
@@ -40,5 +40,23 @@ public class UserService  {
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public boolean editVisibility(User user, boolean visibility) {
+        try {
+            user.setVisibility(visibility);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean changePassword(User user, String password) {
+        try {
+            user.setPassword(passwordEncoder.encode(password));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
