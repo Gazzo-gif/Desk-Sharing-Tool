@@ -33,6 +33,6 @@ public class UserController {
 
     @PostMapping("/login")
     public boolean loginUser(@RequestBody User user) {
-        return userService.authenticate(user.getEmail(), user.getPassword());
+        return userService.loginUser(user.getEmail(), user.getPassword());
     }
 }
