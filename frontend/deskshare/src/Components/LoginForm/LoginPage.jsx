@@ -98,3 +98,6 @@ export default LoginPage;
 
 // Retrieve user ID from local storage
 // const userId = localStorage.getItem("userId");
+
+// Logging out: Clear user ID from localStorage
+// localStorage.removeItem("userId");
