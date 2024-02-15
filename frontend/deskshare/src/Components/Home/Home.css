@@ -49,6 +49,8 @@ padding-bottom: 25px;
 .collapse-button{
   width: 80px;
   height: 25px;
+  border-radius: 10px;
+  background-color: #ffdd00;
   font-family: 'Poppins', sans-serif;
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;

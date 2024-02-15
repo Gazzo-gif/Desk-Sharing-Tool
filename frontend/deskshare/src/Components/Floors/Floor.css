@@ -22,19 +22,11 @@
 }
 
 /* Add any additional styles for the sidebar if needed, for example */
-.sidebar {
-  min-width: 250px; /* Adjust based on your sidebar's collapsed width */
-  max-width: 250px; /* Adjust based on your sidebar's expanded width */
-  overflow-y: auto;
-  height: 100vh; /* This makes the sidebar full height */
-  display: flex;
-  flex-direction: column;
-}
+
 
 .sidebar .menu {
   flex: 1;
 }
-/* Existing styles... */
 
 .image-wrapper {
   position: relative;
@@ -44,7 +36,6 @@
   align-items: center;
 }
 
-/* Existing styles... */
 .clickable-area {
   position: absolute;
   width: 50px;

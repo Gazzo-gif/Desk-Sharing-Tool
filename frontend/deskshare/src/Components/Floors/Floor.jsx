@@ -44,13 +44,13 @@ const Floor = () => {
       <div className="sidebar">
         <Sidebar collapsed={collapsed} backgroundColor="#008444" style={{ height: "100%" }}>
           <Menu>
-            <MenuItem icon={<CgProfile />} onClick={() => setCollapsed(!collapsed)}>Profile</MenuItem>
-            <MenuItem icon={<RiAdminFill />} onClick={() => setCollapsed(!collapsed)}>Admin Panel</MenuItem>
-            <MenuItem icon={<IoCalendarNumberOutline />} onClick={() => setCollapsed(!collapsed)}>Calendar</MenuItem>
-            <SubMenu icon={<CgDisplayFullwidth />} label="Display Bookings">
-              <MenuItem onClick={() => setCollapsed(!collapsed)}>Booking 1</MenuItem>
-              <MenuItem onClick={() => setCollapsed(!collapsed)}>Booking 2</MenuItem>
-            </SubMenu>
+            <MenuItem icon={<CgProfile />}>Profile</MenuItem>
+            <MenuItem icon={<RiAdminFill />} >Admin Panel</MenuItem>
+            <MenuItem icon={<IoCalendarNumberOutline />} >Calendar</MenuItem>
+            <MenuItem icon={<CgDisplayFullwidth />} 
+            >Display Bookings
+              
+            </MenuItem>
             <div className="collapse-button-container">
               <button className="collapse-button" onClick={() => setCollapsed(!collapsed)}>Collapse</button>
             </div>
