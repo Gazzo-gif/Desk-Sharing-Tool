@@ -1,6 +1,7 @@
 package com.desk_sharing.services;
 
 import com.desk_sharing.entities.Booking;
+import com.desk_sharing.entities.Room;
 import com.desk_sharing.repositories.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,8 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
-    public List<Booking> findByUser(Long id) {
-        return bookingRepository.findByUser(id);
+    public List<Booking> findByUserId(Long user_id) {
+        return bookingRepository.findByUserId(user_id);
     }
 
     public Optional<Booking> getBookingById(Long id) {
@@ -36,5 +37,9 @@ public class BookingService {
 
     public void deleteBooking(Long id) {
         bookingRepository.deleteById(id);
+    }
+
+    public List<Booking> findByRoomId(Long room_id) {
+        return bookingRepository.findByRoomId(room_id);
     }
 }

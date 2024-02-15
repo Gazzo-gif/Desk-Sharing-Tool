@@ -50,8 +50,14 @@ public class BookingController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<List<Booking>> getUserBookings(@PathVariable("id") Long id) {
-        List<Booking> bookings = bookingService.findByUser(id);
+    public ResponseEntity<List<Booking>> getUserBookings(@PathVariable("id") Long user_id) {
+        List<Booking> bookings = bookingService.findByUserId(user_id);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<Booking>> getRoomBookings(@PathVariable("id") Long room_id) {
+        List<Booking> bookings = bookingService.findByRoomId(room_id);
         return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 }
