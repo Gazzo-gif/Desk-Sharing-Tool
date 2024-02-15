@@ -23,7 +23,7 @@ const Floor = () => {
     { id: 'room4', label: 'Room 048-Normal', position: { top: 510, left: 405 }, desks: ['Desk 1'] },
     { id: 'room5', label: 'Room 028-Normal', position: { top: 415, left: 640 }, desks: ['Desk 1'] },
     { id: 'room6', label: 'Room 028, 1/2-Normal', position: { top: 415, left: 740 }, desks: ['Desk 1'] },
-    { id: 'room7', label: 'Room 043-Normal', position: { top: 515, left: 905 }, desks: ['Desk 1', 'Desk 2', 'Desk 3', 'Desk 4'] },
+    { id: 'room7', label: 'Room 043-Silence', position: { top: 515, left: 905 }, desks: ['Desk 1', 'Desk 2', 'Desk 3', 'Desk 4'] },
 
 
 
