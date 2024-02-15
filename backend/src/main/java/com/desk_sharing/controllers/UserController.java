@@ -14,7 +14,7 @@ import com.desk_sharing.entities.User;
 import com.desk_sharing.services.UserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000") 
+@CrossOrigin(origins = "http://188.34.162.76:3000") 
 @RequestMapping("/users")
 public class UserController {
 
