@@ -2,7 +2,8 @@
 .floor-content {
   flex-grow: 1;
   overflow-y: auto; /* Ensures content is scrollable if it overflows */
-  padding: 20px;
+  border-radius: 10px;
+  padding: -10px;
   display: flex;
   flex-direction: column; /* Stack children vertically */
   align-items: center; /* Center children horizontally */
