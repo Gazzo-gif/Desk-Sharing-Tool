@@ -15,21 +15,13 @@ const Profile = () => {
       <div className="profile-description">
         <hr class="rounded"></hr>
         <img className="profiepicture" src={profilePicture} alt=""></img>
-        <h2>Jane Doe</h2>
+        {anonymous ? <h2>Jane Doe</h2> : <h2>Anonymous</h2>}
         <p>General Manager</p>
         <Toogle
           defaultChecked={false}
-          onChange={() => setAnonymous(!anonymous)}
+          onClick={() => setAnonymous(!anonymous)}
+          //   onChange={() => setAnonymous(!anonymous)}
         />
-        {anonymous ? (
-          <label style={{ margin: "10px" }} htmlFor="cheese-status">
-            Anonymous
-          </label>
-        ) : (
-          <label style={{ margin: "10px" }} htmlFor="cheese-status">
-            Not Anonymous
-          </label>
-        )}
       </div>
     );
   };
