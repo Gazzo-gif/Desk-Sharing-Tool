@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import profilePicture from "../../images/profilepicture.jpg";
 import onePicture from "../../images/one.png";
 import twoPicture from "../../images/two.png";
+import Toogle from "react-toggle";
 import "./Profile.css";
+import "react-toggle/style.css"; // for ES6 modules
+
 import { CgProfile } from "react-icons/cg";
 const Profile = () => {
   const [image, setImage] = useState(onePicture);
+  const [anonymous, setAnonymous] = useState(false);
   const ProfileDescription = () => {
     return (
       <div className="profile-description">
@@ -13,6 +17,19 @@ const Profile = () => {
         <img className="profiepicture" src={profilePicture} alt=""></img>
         <h2>Jane Doe</h2>
         <p>General Manager</p>
+        <Toogle
+          defaultChecked={false}
+          onChange={() => setAnonymous(!anonymous)}
+        />
+        {anonymous ? (
+          <label style={{ margin: "10px" }} htmlFor="cheese-status">
+            Anonymous
+          </label>
+        ) : (
+          <label style={{ margin: "10px" }} htmlFor="cheese-status">
+            Not Anonymous
+          </label>
+        )}
       </div>
     );
   };
