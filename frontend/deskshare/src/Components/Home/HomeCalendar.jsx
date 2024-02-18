@@ -12,8 +12,8 @@ const HomeCalendar = () => {
   const [events, setEvents] = useState(CalendarEvents); // Use your existing events here
   const navigate = useNavigate();
   const apiCall = () => {
-    axios.get("http://localhost:8080").then(() => {
-      console.log("done");
+    axios.get("http://localhost:8080/home").then((data) => {
+      console.log(data);
     });
     // axios
     //   .post("http://localhost:8080/home", {

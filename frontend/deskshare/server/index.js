@@ -12,9 +12,12 @@ const db = mysql.createPool({
 const app = express();
 
 app.use(cors());
-app.get("/home", () => {
+app.get("/home", (req, res) => {
+  // req.
+  res.send("rrr");
+
   db.query(
-    "INSERT INTO rooms (type, position) VALUES ('date', 'date')",
+    "INSERT INTO rooms (type, position) VALUES ('test', 'test')",
     (err, result) => {
       if (err) {
         console.log(err);
