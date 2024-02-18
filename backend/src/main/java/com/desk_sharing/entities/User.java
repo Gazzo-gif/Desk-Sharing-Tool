@@ -67,7 +67,7 @@ public class User {
         this.surname = surname;
     }
 
-    public boolean isVisibility() {
+    public boolean getVisibility() {
         return visibility;
     }
 

@@ -14,16 +14,16 @@ const LoginPage = () => {
   // const [errors, setErrors] = useState({});
   const [loginError, setLoginError] = useState("");
 
-  // const isEmail = (email) =>
-  //   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
+  const isEmail = (email) =>
+    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // if (!isEmail(values.email)) {
-    //   setErrors({ email: "Invalid email" });
-    //   return;
-    // }
+    if (!isEmail(values.email)) {
+      setLoginError("Invalid email" );
+      return;
+    }
 
     try {
       const response = await fetch("http://188.34.162.76:8080/users/login", {
@@ -39,15 +39,15 @@ const LoginPage = () => {
       }
 
       const data = await response.json();
-      if (data === true) {
-        // Assuming login is successful, navigate to the home page
+      if (data !== -1) {
+        // Save user ID in local storage
+        // localStorage.setItem("userId", data);
         navigate("/home", { replace: true });
       } else {
         setLoginError("Invalid email or password");
       }
     } catch (error) {
       console.error("Login error:", error);
-      // Handle login error, show message to the user
       setLoginError("Login failed. Please try again later.");
     }
   };
@@ -55,7 +55,6 @@ const LoginPage = () => {
   return (
     <div className="wrapper">
       <img src={flagImage} alt="Flag" className="flag-image" />
-      {/* Using the flag.png image */}
       <form>
         <h1>Login</h1>
         <div className="input-box">
@@ -70,7 +69,6 @@ const LoginPage = () => {
           />
           <FaUser className="icon" />
         </div>
-        {/* {errors.email && <div className="error">{errors.email}</div>} */}
         <div className="input-box">
           <input
             id="password"
@@ -96,3 +94,10 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+
+// Retrieve user ID from local storage
+// const userId = localStorage.getItem("userId");
+
+// Logging out: Clear user ID from localStorage
+// localStorage.removeItem("userId");
