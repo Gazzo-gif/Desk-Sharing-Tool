@@ -26,6 +26,10 @@ public class DeskService {
         return deskRepository.findById(id);
     }
 
+    public List<Desk> getDeskByRoomId(Long roomId) {
+        return deskRepository.findByRoomId(roomId);
+    }
+
     public Desk updateDesk(Long id, Desk desk) {
         desk.setId(id); // Ensure the correct ID is set
         return deskRepository.save(desk);
