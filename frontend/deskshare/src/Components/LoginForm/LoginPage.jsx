@@ -14,16 +14,16 @@ const LoginPage = () => {
   // const [errors, setErrors] = useState({});
   const [loginError, setLoginError] = useState("");
 
-  // const isEmail = (email) =>
-  //   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
+  const isEmail = (email) =>
+    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // if (!isEmail(values.email)) {
-    //   setErrors({ email: "Invalid email" });
-    //   return;
-    // }
+    if (!isEmail(values.email)) {
+      setLoginError("Invalid email" );
+      return;
+    }
 
     try {
       const response = await fetch("http://188.34.162.76:8080/users/login", {
@@ -39,9 +39,9 @@ const LoginPage = () => {
     //   }
 
       const data = await response.json();
-      if (data.userId) {
+      if (data !== -1) {
         // Save user ID in local storage
-        localStorage.setItem("userId", data.userId);
+        // localStorage.setItem("userId", data);
         navigate("/home", { replace: true });
       } else {
         setLoginError("Invalid email or password");

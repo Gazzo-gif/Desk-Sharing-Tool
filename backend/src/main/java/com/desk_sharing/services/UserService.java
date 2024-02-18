@@ -56,13 +56,17 @@ public class UserService  {
      * @param password password that should correspond with the user
      * @return true if there wasn't any error, false if something went wrong
      */
-    public boolean loginUser(String email, String password) {
+    public Long loginUser(String email, String password) {
         User user = userRepository.findByEmail(email);
         if (user != null) {
             // Compare the provided password with the encrypted password in the database
-            return passwordEncoder.matches(password, user.getPassword());
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                return user.getId();
+            }
+            // return passwordEncoder.matches(password, user.getPassword());
+            else return (long) -1;
         }
-        return false;
+        return (long) -1;
     }
 
     public User findByEmail(String email) {

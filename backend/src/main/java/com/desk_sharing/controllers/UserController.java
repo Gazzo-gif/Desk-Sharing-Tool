@@ -35,8 +35,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public boolean loginUser(@RequestBody String email, String password) {
-        return userService.loginUser(email, password);
+    public Long loginUser(@RequestBody User user) {
+        return userService.loginUser(user.getEmail(), user.getPassword());
     }
 
     @PutMapping("/visibility/{id}")

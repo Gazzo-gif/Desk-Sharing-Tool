@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/booking")
+@RequestMapping("/bookings")
 public class BookingController {
 
     @Autowired
@@ -55,7 +55,7 @@ public class BookingController {
         return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/room/{id}")
     public ResponseEntity<List<Booking>> getRoomBookings(@PathVariable("id") Long room_id) {
         List<Booking> bookings = bookingService.findByRoomId(room_id);
         return new ResponseEntity<>(bookings, HttpStatus.OK);
