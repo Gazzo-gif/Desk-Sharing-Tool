@@ -55,3 +55,15 @@ padding-bottom: 25px;
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
+.button-get{
+  background: #ffdd00;
+  width: 90px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  border-color: #008444;
+  border: 5px;
+}
+.button-get:hover{
+  cursor: pointer;
+}
