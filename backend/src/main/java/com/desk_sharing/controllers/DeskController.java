@@ -37,6 +37,12 @@ public class DeskController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/room/{id}")
+    public ResponseEntity<List<Desk>> getDeskByRoomId(@PathVariable("id") Long roomId) {
+        List<Desk> desks = deskService.getDeskByRoomId(roomId);
+        return new ResponseEntity<>(desks, HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Desk> updateDesk(@PathVariable("id") Long id, @RequestBody Desk desk) {
         Desk updatedDesk = deskService.updateDesk(id, desk);
