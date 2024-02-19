@@ -41,7 +41,12 @@ const LoginPage = () => {
       const data = await response.json();
       if (data !== -1) {
         // Save user ID in local storage
-        // localStorage.setItem("userId", data);
+        try {
+          localStorage.setItem("userId", String(data));
+        } catch (error) {
+          console.error("Error storing userId in localStorage:", error);
+          // Handle the error, such as displaying a message to the user or retrying later.
+        }        
         navigate("/home", { replace: true });
       } else {
         setLoginError("Invalid email or password");
