@@ -4,12 +4,14 @@ Web application that allows to book worspaces in an office.
 
 ## How to run the project
 
+If the application is not running yet in the server:
+
 The given commands are assuming you are running the project in the SSH server.
 
 To run the project use `docker-compose up`.
 
 If you want to build it use `docker-compose up --build`.
 
-To be able to use the web application in your local browser use `ssh -L 3000:localhost:3000 -L 8080:localhost:8080 username@188.34.162.76 -p 22`. Change user name for your username. This should be run in your command prompt in the local machine, NOT the SSH server.
+You will be able to access the website in `http://188.34.162.76:3000`,
 
-The databse will be in localhost:3306, the backend with the REST API will be in localhost:8080 and the React Application in localhost:3000.
+The databse will be in `http://188.34.162.76:3306` and the backend with the REST API will be in `http://188.34.162.76:8080`.
