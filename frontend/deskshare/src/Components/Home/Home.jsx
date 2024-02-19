@@ -7,6 +7,8 @@ import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { RiAdminFill } from "react-icons/ri";
 import HomeCalendar from "./HomeCalendar";
 import Profile from "../Profile/Profile";
+import Test from "./Test";
+import Example from "./Example";
 
 export default function Home() {
   const [tab, setTab] = useState({ active: "calendar" });
@@ -81,9 +83,10 @@ export default function Home() {
             </div>
           </Menu>
         </Sidebar>
-      </div>
+      </div>{" "}
+      {/*  <Test />:<HomeCalendar /> */}
       <div className="home-content">
-        {tab.active === "calendar" ? <HomeCalendar /> : ""}
+        {tab.active === "calendar" ? <Example /> : ""}
         {tab.active === "admin-panel" ? (
           <div
             style={{
