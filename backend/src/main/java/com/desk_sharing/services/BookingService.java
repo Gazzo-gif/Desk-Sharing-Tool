@@ -1,7 +1,6 @@
 package com.desk_sharing.services;
 
 import com.desk_sharing.entities.Booking;
-import com.desk_sharing.entities.Room;
 import com.desk_sharing.repositories.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

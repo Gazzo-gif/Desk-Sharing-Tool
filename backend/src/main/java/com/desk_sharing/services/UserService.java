@@ -43,10 +43,13 @@ public class UserService  {
      * @return the saved entity
      */
     public User registerUser(User user) {
-        // Encrypt the password before saving
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        return userRepository.save(user);
+        if (!userRepository.existsByEmail(user.getEmail())) {
+            // Encrypt the password before saving
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+    
+            return userRepository.save(user);
+        }
+        else return null;
     }
 
     /**
