@@ -3,6 +3,8 @@ package com.desk_sharing.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,13 +32,17 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public User registerUser(@RequestBody User user) {
-        return userService.registerUser(user);
+    public ResponseEntity<User> registerUser(@RequestBody User user) {
+        User newUser = userService.registerUser(user);
+        HttpStatus status = (newUser != null) ? HttpStatus.OK : HttpStatus.CONFLICT;
+        return ResponseEntity.status(status).body(newUser);
     }
 
     @PostMapping("/login")
-    public Long loginUser(@RequestBody User user) {
-        return userService.loginUser(user.getEmail(), user.getPassword());
+    public ResponseEntity<Long> loginUser(@RequestBody User user) {
+        Long id = userService.loginUser(user.getEmail(), user.getPassword());
+        HttpStatus status = (id != -1) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
+        return ResponseEntity.status(status).body(id);
     }
 
     @PutMapping("/visibility/{id}")
