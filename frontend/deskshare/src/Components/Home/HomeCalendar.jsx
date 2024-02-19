@@ -59,6 +59,7 @@ const HomeCalendar = () => {
           style={{ height: 500 }}
           onSelectSlot={handleSelectSlot}
           selectable={true}
+          onKeyPressEvent={(data) => console.log(data)}
         />
       </div>
     </div>
