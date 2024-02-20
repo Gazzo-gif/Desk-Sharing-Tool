@@ -36,12 +36,7 @@ const Floor = () => {
     { id: 'sroom4', label: 'Room 139-Normal', position: { top: 500, left: 375 }, desks: ['Desk A', 'Desk B'] },
     { id: 'sroom5', label: 'Room 134-Normal', position: { top: 500, left: 670 }, desks: ['Desk A', 'Desk B'] },
     { id: 'sroom6', label: 'Room 133-Normal', position: { top: 500, left: 740 }, desks: ['Desk A', 'Desk B'] },
-    { id: 'sroom7', label: 'Room 131-Normal', position: { top: 500, left: 860 }, desks: ['Desk A', 'Desk B'] },
-
-
-
-
-
+    { id: 'sroom7', label: 'Room 131-Normal', position: { top: 500, left: 860 }, desks: ['Desk A', 'Desk B'] }
   ];
 
   const handleRoomClick = (roomId) => {

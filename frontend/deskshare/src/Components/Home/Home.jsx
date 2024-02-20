@@ -86,7 +86,7 @@ export default function Home() {
       </div>{" "}
       {/*  <Test />:<HomeCalendar /> */}
       <div className="home-content">
-        {tab.active === "calendar" ? <Example /> : ""}
+        {tab.active === "calendar" ? <HomeCalendar /> : ""}
         {tab.active === "admin-panel" ? (
           <div
             style={{
