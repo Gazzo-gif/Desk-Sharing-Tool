@@ -7,8 +7,10 @@ import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { CgProfile, CgDisplayFullwidth } from "react-icons/cg";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { RiAdminFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const Floor = () => {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [selectedDesk, setSelectedDesk] = useState('');
@@ -90,7 +92,7 @@ const Floor = () => {
               key={room.id}
               className={`clickable-area ${selectedRoom === room.id ? 'selected' : ''}`}
               style={{ top: `${room.position.top}px`, left: `${room.position.left}px` }}
-              onClick={() => handleRoomClick(room.id)}
+              onClick={() => navigate("/desks", { replace: true })}
             ></div>
           ))}
         </div>
@@ -101,7 +103,7 @@ const Floor = () => {
               {rooms.find(room => room.id === selectedRoom)?.desks.map(desk => (
                 <li key={desk}
                     className={selectedDesk === desk ? 'selected-desk' : ''}
-                    onClick={(e) => handleDeskClick(desk, e)}>
+                    onClick={(e) => navigate("/desks", { replace: true })}>
                   {desk}
                 </li>
               ))}
