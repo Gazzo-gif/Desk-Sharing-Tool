@@ -12,15 +12,19 @@ public class Room {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "position", nullable = false, unique = true)
-    private String position;
+    @Column(name = "x", nullable = false, unique = true)
+    private int x;
+
+    @Column(name = "y", nullable = false, unique = true)
+    private int y;
 
     public Room() {
     }
 
-    public Room(String type, String position) {
+    public Room(String type, int x, int y) {
         this.type = type;
-        this.position = position;
+        this.x = x;
+        this.y = y;
     }
 
     public Long getId() {
@@ -39,11 +43,19 @@ public class Room {
         this.type = type;
     }
 
-    public String getPosition() {
-        return position;
+    public int getX() {
+        return x;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
