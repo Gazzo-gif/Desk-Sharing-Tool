@@ -10,7 +10,7 @@ public class Desk {
     @Column(name = "desk_id", unique = true)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
     
