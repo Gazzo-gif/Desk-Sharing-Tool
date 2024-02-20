@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
+import "moment/locale/de";
 import "./HomeCalendar.scss";
 import "./Example.css";
 import { confirmAlert } from "react-confirm-alert"; // Import
@@ -9,6 +10,7 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 // import CalendarEvents from "./CalendarEvents";
 // import axios from "axios";
 import CalendarEvents from "./CalendarEvents";
+moment.locale("de");
 const localizer = momentLocalizer(moment);
 
 const Example = () => {
@@ -51,6 +53,37 @@ const Example = () => {
     });
   };
 
+  const handleGetDesks = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://188.34.162.76:8080/desks/1", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error to fetch data");
+      }
+
+      const data = await response.json();
+      if (data !== -1) {
+        // Save user ID in local storage
+        try {
+          localStorage.setItem("userId", String(data));
+        } catch (error) {
+          console.error("Error storing userId in localStorage:", error);
+          // Handle the error, such as displaying a message to the user or retrying later.
+        }        
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    }
+  };
+
   return (
     <div className="desk-page">
       <div className="choose-date">
@@ -59,51 +92,31 @@ const Example = () => {
       <div className="info-container">
         <div className="desk-container">
           <div className="desk-component">
-            <div>08 Dec</div>
+            <div>013.</div>
             <div className="desk-description">
-              <p className="item-id">04 item</p>
-              <p className="item-name">Weekend list</p>
-              <p className="item-taken">Sarah H</p>
+              <p className="item-name">Has a computer</p>
+              <p className="item-taken">Booked</p>
             </div>
           </div>
           <div className="desk-component">
-            <div>09 Dec</div>
+            <div>0.14</div>
             <div className="desk-description">
-              <p className="item-id">05 item</p>
-              <p className="item-name">Weekend list</p>
-              <p className="item-taken">John T</p>
+              <p className="item-name">Has a computer</p>
+              <p className="item-taken">Some free slots</p>
             </div>
           </div>
           <div className="desk-component">
-            <div>09 Dec</div>
+            <div>015.</div>
             <div className="desk-description">
-              <p className="item-id">06 item</p>
-              <p className="item-name">Weekend list</p>
-              <p className="item-taken">Maggie</p>
+              <p className="item-name">Without equipment</p>
+              <p className="item-taken">Available</p>
             </div>
           </div>
           <div className="desk-component">
-            <div>09 Dec</div>
+            <div>016.</div>
             <div className="desk-description">
-              <p className="item-id">07 item</p>
-              <p className="item-name">Weekend list</p>
-              <p className="item-taken">Robnie</p>
-            </div>
-          </div>
-          <div className="desk-component">
-            <div>10 Dec</div>
-            <div className="desk-description">
-              <p className="item-id">08 item</p>
-              <p className="item-name">Weekend list</p>
-              <p className="item-taken">Thomas</p>
-            </div>
-          </div>
-          <div className="desk-component">
-            <div>11 Dec</div>
-            <div className="desk-description">
-              <p className="item-id">09 item</p>
-              <p className="item-name">Weekend list</p>
-              <p className="item-taken">Robert T</p>
+              <p className="item-name">Without equipment</p>
+              <p className="item-taken">Available</p>
             </div>
           </div>
         </div>
