@@ -6,9 +6,6 @@ import { CgDisplayFullwidth } from "react-icons/cg";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { RiAdminFill } from "react-icons/ri";
 import HomeCalendar from "./HomeCalendar";
-import Profile from "../Profile/Profile";
-import Test from "./Test";
-import Example from "./Example";
 
 export default function Home() {
   const [tab, setTab] = useState({ active: "calendar" });
@@ -83,8 +80,7 @@ export default function Home() {
             </div>
           </Menu>
         </Sidebar>
-      </div>{" "}
-      {/*  <Test />:<HomeCalendar /> */}
+      </div>
       <div className="home-content">
         {tab.active === "calendar" ? <HomeCalendar /> : ""}
         {tab.active === "admin-panel" ? (
@@ -117,7 +113,21 @@ export default function Home() {
         ) : (
           ""
         )}
-        {tab.active === "profile" ? <Profile></Profile> : ""}
+        {tab.active === "profile" ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+              width: "100%",
+            }}
+          >
+            Profile
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
