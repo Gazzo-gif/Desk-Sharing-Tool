@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import firstFloorImage from '../../images/firstfloor.png';
-import secondFloorImage from '../../images/secondfloor.png'; // Make sure this path is correct
-import './Floor.css'; // Ensure this path is correct
+import secondFloorImage from '../../images/secondfloor.png'; 
+import './Floor.css'; 
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { CgProfile, CgDisplayFullwidth } from "react-icons/cg";
 import { IoCalendarNumberOutline } from "react-icons/io5";
@@ -51,13 +51,11 @@ const Floor = () => {
     setSelectedDesk(deskId);
   };
 
-  // Function to switch floors
   const toggleFloor = () => {
     setCurrentFloor(currentFloor === 'first' ? 'second' : 'first');
     setSelectedRoom(null); // Reset selected room when changing floors
   };
 
-  // Determine which set of rooms and image to display based on the current floor
   const rooms = currentFloor === 'first' ? firstFloorRooms : secondFloorRooms;
   const floorImage = currentFloor === 'first' ? firstFloorImage : secondFloorImage;
 
