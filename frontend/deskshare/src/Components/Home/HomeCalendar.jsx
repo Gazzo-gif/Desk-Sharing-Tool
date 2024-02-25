@@ -4,26 +4,12 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "./HomeCalendar.scss";
 import CalendarEvents from "./CalendarEvents";
-import axios from "axios";
 
 const localizer = momentLocalizer(moment);
 
 const HomeCalendar = () => {
   const [events, setEvents] = useState(CalendarEvents); // Use your existing events here
   const navigate = useNavigate();
-  // const apiCall = () => {
-  //   axios.get("http://localhost:8080/home").then((data) => {
-  //     console.log(data);
-  //   });
-  //   // axios
-  //   //   .post("http://localhost:8080/home", {
-  //   //     email: "email",
-  //   //     password: "password",
-  //   //   })
-  //   //   .then((response) => {
-  //   //     console.log(response);
-  //   //   });
-  // };
   const handleSelectSlot = ({ start }) => {
     const selectedDateEvent = {
       start,
@@ -46,9 +32,6 @@ const HomeCalendar = () => {
       <div className="choose-date">
         <h1>Choose a date for a desk</h1>
       </div>
-      {/* <div className="button-get" onClick={() => apiCall()}>
-        Get data
-      </div> */}
       <hr className="gradient"></hr>
       <div>
         <Calendar
