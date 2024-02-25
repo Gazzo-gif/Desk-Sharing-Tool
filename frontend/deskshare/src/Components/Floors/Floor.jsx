@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import firstFloorImage from '../../images/firstfloor.png';
 import secondFloorImage from '../../images/secondfloor.png'; 
@@ -13,66 +13,47 @@ const Floor = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
-  const [selectedDesk, setSelectedDesk] = useState('');
-  const [currentFloor, setCurrentFloor] = useState('first');
+  const [currentFloor, setCurrentFloor] = useState('Ground');
+  const [rooms, setRooms] = useState([]);
   const location = useLocation();
   const { date } = location.state || {};
   const formattedDate = date ? new Date(date).toLocaleDateString() : '';
 
-  // Rooms for the first floor
-  const firstFloorRooms = [
-    { id: 'room1', label: 'Room 007-Silence', position: { top: 175, left: 90 }, desks: ['Desk 1', 'Desk 2', 'Desk 3'] },
-    { id: 'room2', label: 'Room 023-Silence', position: { top: 415, left: 400 }, desks: ['Desk A', 'Desk B', 'Desk C'] },
-    { id: 'room3', label: 'Room 027-Normal', position: { top: 415, left: 535 }, desks: ['Desk 1', 'Desk 2', 'Desk 3, Desk 4'] },
-    { id: 'room4', label: 'Room 048-Normal', position: { top: 510, left: 405 }, desks: ['Desk 1'] },
-    { id: 'room5', label: 'Room 028-Normal', position: { top: 415, left: 640 }, desks: ['Desk 1'] },
-    { id: 'room6', label: 'Room 028, 1/2-Normal', position: { top: 415, left: 740 }, desks: ['Desk 1'] },
-    { id: 'room7', label: 'Room 043-Silence', position: { top: 515, left: 905 }, desks: ['Desk 1', 'Desk 2', 'Desk 3', 'Desk 4'] }
-  ];
-
-  // Define rooms for the second floor
-  const secondFloorRooms = [
-    { id: 'sroom1', label: 'Room 119-Normal', position: { top: 400, left: 490 }, desks: ['Desk A', 'Desk B'] },
-    { id: 'sroom2', label: 'Room 120-Normal', position: { top: 400, left: 560 }, desks: ['Desk A', 'Desk B'] },
-    { id: 'sroom3', label: 'Room 124-Silence', position: { top: 400, left: 750 }, desks: ['Desk A', 'Desk B'] },
-    { id: 'sroom4', label: 'Room 139-Normal', position: { top: 500, left: 375 }, desks: ['Desk A', 'Desk B'] },
-    { id: 'sroom5', label: 'Room 134-Normal', position: { top: 500, left: 670 }, desks: ['Desk A', 'Desk B'] },
-    { id: 'sroom6', label: 'Room 133-Normal', position: { top: 500, left: 740 }, desks: ['Desk A', 'Desk B'] },
-    { id: 'sroom7', label: 'Room 131-Normal', position: { top: 500, left: 860 }, desks: ['Desk A', 'Desk B'] }
-  ];
+  useEffect(() => {
+    // Fetch room data from the backend
+    fetch('http://188.34.162.76:8080/rooms')
+      .then(response => response.json())
+      .then(data => {
+        // Filter rooms based on the current floor
+        const filteredRooms = data.filter(room => room.floor === currentFloor);
+        setRooms(filteredRooms);
+      })
+      .catch(error => {
+        console.error('Error fetching room data:', error);
+      });
+  }, [currentFloor]);
 
   const handleRoomClick = (roomId) => {
     setSelectedRoom(roomId === selectedRoom ? null : roomId);
-    setSelectedDesk('');
-  };
-
-  const handleDeskClick = (deskId, event) => {
-    event.stopPropagation();
-    setSelectedDesk(deskId);
+    navigate("/desks", { replace: true })
   };
 
   const toggleFloor = () => {
-    setCurrentFloor(currentFloor === 'first' ? 'second' : 'first');
+    setCurrentFloor(currentFloor === 'Ground' ? 'First' : 'Ground');
     setSelectedRoom(null); // Reset selected room when changing floors
   };
 
-  const rooms = currentFloor === 'first' ? firstFloorRooms : secondFloorRooms;
-  const floorImage = currentFloor === 'first' ? firstFloorImage : secondFloorImage;
-
+  const floorImage = currentFloor === 'Ground' ? firstFloorImage : secondFloorImage;
 
   return (
     <div style={{ display: 'flex', width: '100vw', height: '100vh' }}>
       <div className="sidebar">
         <Sidebar collapsed={collapsed} backgroundColor="#008444" style={{ height: "100%" }}>
           <Menu>
-            
             <MenuItem icon={<CgProfile />}>Profile</MenuItem>
             <MenuItem icon={<RiAdminFill />} >Admin Panel</MenuItem>
             <MenuItem icon={<IoCalendarNumberOutline />} >Calendar</MenuItem>
-            <MenuItem icon={<CgDisplayFullwidth />} 
-            >Display Bookings
-              
-            </MenuItem>
+            <MenuItem icon={<CgDisplayFullwidth />} >Display Bookings</MenuItem>
             <div className="collapse-button-container">
               <button className="collapse-button" onClick={() => setCollapsed(!collapsed)}>Collapse</button>
             </div>
@@ -80,34 +61,20 @@ const Floor = () => {
         </Sidebar>
       </div>
       <div className="floor-content">
-        <h1>Floor Page {currentFloor === 'first' ? '*Ground' : '*Second'}</h1>
+        <h1>Floor Page {currentFloor === 'Ground' ? '*Ground' : '*First'}</h1>
         {date && <p>Chosen Date: {formattedDate}</p>}
         <button onClick={toggleFloor}>Switch Floor</button> {/* Button to switch floors */}
         <div className="image-wrapper">
-          <img src={floorImage} alt={`${currentFloor === 'first' ? 'First' : 'Second'} Floor`} />
+          <img src={floorImage} alt={`${currentFloor === 'Ground' ? 'Ground' : 'First'} Floor`} />
           {rooms.map((room) => (
             <div
               key={room.id}
               className={`clickable-area ${selectedRoom === room.id ? 'selected' : ''}`}
-              style={{ top: `${room.position.top}px`, left: `${room.position.left}px` }}
-              onClick={() => navigate("/desks", { replace: true })}
+              style={{ top: `${room.x}px`, left: `${room.y}px` }}
+              onClick={() => handleRoomClick(room.id)}
             ></div>
           ))}
         </div>
-        {selectedRoom && (
-          <div className="desks-list">
-            <h3>{rooms.find(room => room.id === selectedRoom)?.label} Desks</h3>
-            <ul>
-              {rooms.find(room => room.id === selectedRoom)?.desks.map(desk => (
-                <li key={desk}
-                    className={selectedDesk === desk ? 'selected-desk' : ''}
-                    onClick={(e) => navigate("/desks", { replace: true })}>
-                  {desk}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </div>
     </div>
   );
