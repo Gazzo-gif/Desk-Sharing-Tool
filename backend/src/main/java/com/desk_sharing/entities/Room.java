@@ -12,11 +12,14 @@ public class Room {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "x", nullable = false, unique = true)
+    @Column(name = "x", nullable = false)
     private int x;
 
-    @Column(name = "y", nullable = false, unique = true)
+    @Column(name = "y", nullable = false)
     private int y;
+
+    @Column(name = "floor", nullable = false)
+    private String floor;
 
     public Room() {
     }
@@ -57,5 +60,13 @@ public class Room {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
     }
 }
