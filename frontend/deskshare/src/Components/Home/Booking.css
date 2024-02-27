@@ -57,11 +57,9 @@ p {
 .item-taken{
   margin: 10px
 }
-.submit-btn{
-  
+.container {
+  overflow-y: auto;
 }
-
-
 /* CSS */
 .submit-btn {
   margin: 10px;
