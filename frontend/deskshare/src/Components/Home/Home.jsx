@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./Home.css";
-import { CgProfile } from "react-icons/cg";
-import { IoCalendarNumberOutline } from "react-icons/io5";
-import { CgDisplayFullwidth } from "react-icons/cg";
-import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
-import { RiAdminFill } from "react-icons/ri";
+// import { CgProfile } from "react-icons/cg";
+// import { IoCalendarNumberOutline } from "react-icons/io5";
+// import { CgDisplayFullwidth } from "react-icons/cg";
+// import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
+// import { RiAdminFill } from "react-icons/ri";
 import HomeCalendar from "./HomeCalendar";
+import SidebarComponent from "./SidebarComponent"
 
 export default function Home() {
   const [tab, setTab] = useState({ active: "calendar" });
@@ -14,7 +15,8 @@ export default function Home() {
   return (
     <div className="home-page">
       <div className="sidebar">
-        <Sidebar
+        <SidebarComponent/>
+        {/* <Sidebar
           collapsed={collapsed}
           backgroundColor="#008444"
           style={{
@@ -79,7 +81,7 @@ export default function Home() {
               </button>
             </div>
           </Menu>
-        </Sidebar>
+        </Sidebar> */}
       </div>
       <div className="home-content">
         {tab.active === "calendar" ? <HomeCalendar /> : ""}
