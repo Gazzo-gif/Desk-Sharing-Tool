@@ -33,7 +33,6 @@ const Home = () => {
       <div className="sidebar">
         <SidebarComponent />
       </div>
-      <div className="home-content">
         <div className="home-content">
           <div className="choose-date">
             <h1>Choose a date for a desk</h1>
@@ -52,7 +51,6 @@ const Home = () => {
             />
           </div>
         </div>
-      </div>
     </div>
   );
 };

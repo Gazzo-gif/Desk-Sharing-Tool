@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { CgProfile } from "react-icons/cg";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { CgDisplayFullwidth } from "react-icons/cg";
+import { BsList } from "react-icons/bs"; 
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { RiAdminFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +16,10 @@ const SidebarComponent = () =>{
 
   const handleClick = (name) => {
     switch (name) {
+      case "collapse":
+        setCollapsed(!collapsed)
+        break;
+        
       case "calendar":
         setTab({ active: "calendar" })
         navigate("/home", { replace: true })
@@ -40,11 +45,13 @@ return(
     <Sidebar
       collapsed={collapsed}
       backgroundColor="#008444"
+      width={collapsed ? "80px" : "200px"} 
       style={{
         height: "100%",
         [`&.active`]: {
           backgroundColor: "#13395e",
           color: "#b6c8d9",
+          overflow: "auto",
         },
       }}
     >
@@ -61,6 +68,16 @@ return(
         }}
       >
         <MenuItem
+          // Collapse button
+          active={tab?.active === "collapse" ? true : false}
+          icon={<BsList />}
+          onClick={() => handleClick("collapse")}
+        >
+          {" "}
+          Collapse{" "}
+        </MenuItem>
+        <MenuItem
+          // Profile button
           active={tab?.active === "profile" ? true : false}
           icon={<CgProfile />}
           onClick={() => handleClick("profile")}
@@ -70,18 +87,19 @@ return(
         </MenuItem>
         {true ? (
           <MenuItem
+          // Admin panel
             active={tab?.active === "admin" ? true : false}
             icon={<RiAdminFill />}
             onClick={() => handleClick("admin")}
           >
             {" "}
-            Admin Panel
+            Admin
           </MenuItem>
         ) : (
           ""
         )}
         <MenuItem
-          // suffix={notifications}
+        // Calendar button
           active={tab?.active === "calendar" ? true : false}
           icon={<IoCalendarNumberOutline />}
           onClick={() => handleClick("calendar")}
@@ -89,18 +107,10 @@ return(
           {" "}
           Calendar{" "}
         </MenuItem>
-        <SubMenu icon={<CgDisplayFullwidth />} label="Display Bookings">
+        <SubMenu icon={<CgDisplayFullwidth />} label="Bookings">
           <MenuItem> 12/12/24 </MenuItem>
           <MenuItem> 13/12/24 </MenuItem>
         </SubMenu>
-        <div>
-          <button
-            className="collapse-button"
-            onClick={() => setCollapsed(!collapsed)}
-          >
-            Collapse
-          </button>
-        </div>
       </Menu>
     </Sidebar>
   </div>

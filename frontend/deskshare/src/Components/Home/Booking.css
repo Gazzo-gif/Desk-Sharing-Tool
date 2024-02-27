@@ -38,10 +38,12 @@ p {
   align-items: center;
 }
 .desk-page{
-  /* width: 70vw; */
-  /* height: 100vh; */
   display: flex;
-  width: 100vw
+  width: 100vw;
+  height: '100vh';
+}
+.sidebar {
+  flex: 1;
 }
 .rbc-calendar{
   width: 100%;
@@ -58,7 +60,16 @@ p {
   margin: 10px
 }
 .container {
-  overflow-y: auto;
+  flex-grow: 1;
+  overflow-y: auto; /* Ensures content is scrollable if it overflows */
+  border-radius: 10px;
+  padding: -10px;
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+}
+.sidebar {
+  flex: 1;
 }
 /* CSS */
 .submit-btn {
