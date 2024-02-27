@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-// import { CgProfile, CgDisplayFullwidth } from "react-icons/cg";
-// import { IoCalendarNumberOutline } from "react-icons/io5";
-// import { RiAdminFill } from "react-icons/ri";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-// import { useLocation } from "react-router-dom";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/de";
@@ -89,7 +84,9 @@ const Booking = () => {
 
   return (
     <div className="desk-page">
-      <SidebarComponent/>
+      <div className="sidebar">
+        <SidebarComponent/>
+      </div>
       <div className="container">
         <div className="choose-date">
           <h1>Available Desks</h1>
