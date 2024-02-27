@@ -3,11 +3,12 @@ import { useLocation } from 'react-router-dom';
 import firstFloorImage from '../../images/firstfloor.png';
 import secondFloorImage from '../../images/secondfloor.png'; 
 import './Floor.css'; 
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { CgProfile, CgDisplayFullwidth } from "react-icons/cg";
-import { IoCalendarNumberOutline } from "react-icons/io5";
-import { RiAdminFill } from "react-icons/ri";
+// import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+// import { CgProfile, CgDisplayFullwidth } from "react-icons/cg";
+// import { IoCalendarNumberOutline } from "react-icons/io5";
+// import { RiAdminFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import SidebarComponent from "../Home/SidebarComponent"
 
 const Floor = () => {
   const navigate = useNavigate();
@@ -49,17 +50,7 @@ const Floor = () => {
   return (
     <div style={{ display: 'flex', width: '100vw', height: '100vh' }}>
       <div className="sidebar">
-        <Sidebar collapsed={collapsed} backgroundColor="#008444" style={{ height: "100%" }}>
-          <Menu>
-            <MenuItem icon={<CgProfile />}>Profile</MenuItem>
-            <MenuItem icon={<RiAdminFill />} >Admin Panel</MenuItem>
-            <MenuItem icon={<IoCalendarNumberOutline />} >Calendar</MenuItem>
-            <MenuItem icon={<CgDisplayFullwidth />} >Display Bookings</MenuItem>
-            <div className="collapse-button-container">
-              <button className="collapse-button" onClick={() => setCollapsed(!collapsed)}>Collapse</button>
-            </div>
-          </Menu>
-        </Sidebar>
+        <SidebarComponent/>
       </div>
       <div className="floor-content">
         <h1>Floor Page {currentFloor === 'Ground' ? '*Ground' : '*First'}</h1>

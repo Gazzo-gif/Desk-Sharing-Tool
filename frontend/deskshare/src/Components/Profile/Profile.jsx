@@ -5,6 +5,7 @@ import twoPicture from "../../images/two.png";
 import Toogle from "react-toggle";
 import "./Profile.css";
 import "react-toggle/style.css"; // for ES6 modules
+import SidebarComponent from "../Home/SidebarComponent"
 
 import { CgProfile } from "react-icons/cg";
 const Profile = () => {

@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { CgProfile, CgDisplayFullwidth } from "react-icons/cg";
-import { IoCalendarNumberOutline } from "react-icons/io5";
-import { RiAdminFill } from "react-icons/ri";
+// import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+// import { CgProfile, CgDisplayFullwidth } from "react-icons/cg";
+// import { IoCalendarNumberOutline } from "react-icons/io5";
+// import { RiAdminFill } from "react-icons/ri";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/de";
 import "./HomeCalendar.scss";
 import "./Booking.css";
+import SidebarComponent from "./SidebarComponent"
 
 moment.locale("de");
 const localizer = momentLocalizer(moment);
 
 const Booking = () => {
   const roomId = localStorage.getItem("roomId");
-  const [collapsed, setCollapsed] = useState(false);
+  // const [collapsed, setCollapsed] = useState(false);
   const [desks, setDesks] = useState([]);
-  const [eventList, setEventList] = useState([]);
+  // const [eventList, setEventList] = useState([]);
   const [init, setInit] = useState(2);
   const [events, setEvents] = useState([]);
   const [event, setEvent] = useState({
@@ -88,50 +89,44 @@ const Booking = () => {
 
   return (
     <div className="desk-page">
-      {/* <Sidebar collapsed={collapsed} backgroundColor="#008444" style={{ height: "100%" }}>
-        <Menu>
-          <MenuItem icon={<CgProfile />}>Profile</MenuItem>
-          <MenuItem icon={<RiAdminFill />} >Admin Panel</MenuItem>
-          <MenuItem icon={<IoCalendarNumberOutline />} >Calendar</MenuItem>
-          <MenuItem icon={<CgDisplayFullwidth />} >Display Bookings</MenuItem>
-          <div className="collapse-button-container">
-            <button className="collapse-button" onClick={() => setCollapsed(!collapsed)}>Collapse</button>
-          </div>
-        </Menu>
-      </Sidebar> */}
-      <div className="choose-date">
-        <h1>Available Desks</h1>
+      <div className="sidebar">
+        <SidebarComponent/>
       </div>
-      <div className="info-container">
-        <div className="desk-container">
-          {desks.map((desk, index) => (
-            <div className="desk-component" key={index}>
-              <div>{desk.id}.</div>
-              <div className="desk-description">
-                <p className="item-name">{desk.equipment}</p>
-                <p className="item-taken">Some free slots</p>
-              </div>
-            </div>
-          ))}
+      <div>
+        <div className="choose-date">
+          <h1>Available Desks</h1>
         </div>
-        <div className="calendar-containe">
-          <div className="calendar-container">
-            <Calendar
-              localizer={localizer}
-              events={tempArray}
-              startAccessor="start"
-              endAccessor="end"
-              defaultView="day"
-              style={{ height: 500 }}
-              onSelectSlot={(data) => {
-                gg(data);
-              }}
-              selectable={true}
-            />
+        <div className="info-container">
+          <div className="desk-container">
+            {desks.map((desk, index) => (
+              <div className="desk-component" key={index}>
+                <div>{desk.id}.</div>
+                <div className="desk-description">
+                  <p className="item-name">{desk.equipment}</p>
+                  <p className="item-taken">Some free slots</p>
+                </div>
+              </div>
+            ))}
           </div>
-          <button className="submit-btn" onClick={() => submit()}>
-            [Add a title to event]
-          </button>
+          <div className="calendar-containe">
+            <div className="calendar-container">
+              <Calendar
+                localizer={localizer}
+                events={tempArray}
+                startAccessor="start"
+                endAccessor="end"
+                defaultView="day"
+                style={{ height: 500 }}
+                onSelectSlot={(data) => {
+                  gg(data);
+                }}
+                selectable={true}
+              />
+            </div>
+            <button className="submit-btn" onClick={() => submit()}>
+              [Add a title to event]
+            </button>
+          </div>
         </div>
       </div>
     </div>
