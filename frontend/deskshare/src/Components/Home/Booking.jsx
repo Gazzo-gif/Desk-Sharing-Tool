@@ -89,9 +89,7 @@ const Booking = () => {
 
   return (
     <div className="desk-page">
-      <div className="sidebar">
-        <SidebarComponent/>
-      </div>
+      <SidebarComponent/>
       <div>
         <div className="choose-date">
           <h1>Available Desks</h1>
