@@ -13,7 +13,6 @@ const localizer = momentLocalizer(moment);
 
 const Booking = () => {
   const roomId = localStorage.getItem("roomId");
-  // const [collapsed, setCollapsed] = useState(false);
   const [desks, setDesks] = useState([]);
   // const [eventList, setEventList] = useState([]);
   const [init, setInit] = useState(2);

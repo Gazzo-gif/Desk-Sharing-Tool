@@ -60,4 +60,10 @@ public class BookingController {
         List<Booking> bookings = bookingService.findByRoomId(room_id);
         return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
+
+    @GetMapping("/room/{id}")
+    public ResponseEntity<List<Booking>> geDeskBookings(@PathVariable("id") Long desk_id) {
+        List<Booking> bookings = bookingService.findByDeskId(desk_id);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
+    }
 }
