@@ -27,10 +27,10 @@ public class Booking {
     private Desk desk;
     
     @Column(name = "day", nullable = false)
-    private Date day;
+    private Date day; // yyyy-mm-dd
     
     @Column(name = "begin", nullable = false)
-    private Time begin;
+    private Time begin; // hh:mm:ss
     
     @Column(name = "end", nullable = false)
     private Time end;

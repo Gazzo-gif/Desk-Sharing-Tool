@@ -41,4 +41,8 @@ public class BookingService {
     public List<Booking> findByRoomId(Long room_id) {
         return bookingRepository.findByRoomId(room_id);
     }
+
+    public List<Booking> findByDeskId(Long desk_id) {
+        return bookingRepository.findByDeskId(desk_id);
+    }
 }
