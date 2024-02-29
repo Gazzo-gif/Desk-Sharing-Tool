@@ -61,7 +61,7 @@ public class BookingController {
         return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 
-    @GetMapping("/room/{id}")
+    @GetMapping("/desk/{id}")
     public ResponseEntity<List<Booking>> geDeskBookings(@PathVariable("id") Long desk_id) {
         List<Booking> bookings = bookingService.findByDeskId(desk_id);
         return new ResponseEntity<>(bookings, HttpStatus.OK);
