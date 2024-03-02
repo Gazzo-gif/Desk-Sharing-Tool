@@ -4,14 +4,15 @@ import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import flagImage from "../../images/flag.png"; // Adjusted import path
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // Import useTranslation hook
 
 const LoginPage = () => {
+  const { t } = useTranslation(); // Initialize translation hook
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
-  // const [errors, setErrors] = useState({});
   const [loginError, setLoginError] = useState("");
 
   const isEmail = (email) =>
@@ -21,7 +22,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     if (!isEmail(values.email)) {
-      setLoginError("Invalid email" );
+      setLoginError(t("invalidEmail"));
       return;
     }
 
@@ -40,20 +41,18 @@ const LoginPage = () => {
 
       const data = await response.json();
       if (data !== -1) {
-        // Save user ID in local storage
         try {
           localStorage.setItem("userId", String(data));
         } catch (error) {
           console.error("Error storing userId in localStorage:", error);
-          // Handle the error, such as displaying a message to the user or retrying later.
         }        
         navigate("/home", { replace: true });
       } else {
-        setLoginError("Invalid email or password");
+        setLoginError(t("invalidCredentials"));
       }
     } catch (error) {
       console.error("Login error:", error);
-      setLoginError("Login failed. Please try again later.");
+      setLoginError(t("loginFailed"));
     }
   };
 
@@ -61,7 +60,7 @@ const LoginPage = () => {
     <div className="wrapper">
       <img src={flagImage} alt="Flag" className="flag-image" />
       <form>
-        <h1>Login</h1>
+        <h1>{t("login")}</h1>
         <div className="input-box">
           <input
             id="email"
@@ -69,7 +68,7 @@ const LoginPage = () => {
               setValues({ ...values, email: e.target.value.trim() })
             }
             type="text"
-            placeholder="Email"
+            placeholder={t("email")}
             required
           />
           <FaUser className="icon" />
@@ -81,17 +80,17 @@ const LoginPage = () => {
               setValues({ ...values, password: e.target.value.trim() })
             }
             type="password"
-            placeholder="Password"
+            placeholder={t("password")}
             required
           />
           <FaLock className="icon" />
         </div>
         <div className="forgot-password">
-          <a href="/">Forgot Password ?</a>
+          <a href="/">{t("forgotPassword")}?</a>
         </div>
         {loginError && <div className="error">{loginError}</div>}
         <button type="submit" onClick={handleLogin}>
-          Login
+          {t("login")}
         </button>
       </form>
     </div>
@@ -99,10 +98,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-
-// Retrieve user ID from local storage
-// const userId = localStorage.getItem("userId");
-
-// Logging out: Clear user ID from localStorage
-// localStorage.removeItem("userId");
