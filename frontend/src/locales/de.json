@@ -1,0 +1,9 @@
+{
+    "login": "Anmeldung",
+    "forgotPassword": "Passwort Vergessen",
+    "invalidEmail": "Ungültige E-Mail Adresse",
+    "invalidCredentials": "E-Mail Adresse oder Kennwort ungültig",
+    "loginFailed": "Anmeldung fehlgeschlagen. Versuche es später erneut.",
+    "email": "Email",
+    "password": "Kennwort"
+}
