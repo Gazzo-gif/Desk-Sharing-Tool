@@ -5,5 +5,11 @@
     "invalidCredentials": "Invalid email or password",
     "loginFailed": "Login failed. Please try again later.",
     "email": "Email",
-    "password": "Password"
+    "password": "Password",
+
+    "collapse": "Collapse",
+    "profile": "Profile",
+    "admin": "Admin",
+    "calendar": "Calendar",
+    "bookings": "Bookings"
 }
