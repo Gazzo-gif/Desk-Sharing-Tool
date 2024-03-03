@@ -69,7 +69,6 @@ const SidebarComponent = () => {
             icon={<BsList />}
             onClick={() => handleClick("collapse")}
           >
-            {t("collapse")}
           </MenuItem>
           <MenuItem
             active={tab?.active === "profile" ? true : false}

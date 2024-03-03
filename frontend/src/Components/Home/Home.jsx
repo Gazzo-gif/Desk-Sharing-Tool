@@ -6,10 +6,12 @@ import "./Home.css";
 import "./HomeCalendar.scss";
 import SidebarComponent from "./SidebarComponent";
 import CalendarEvents from "./CalendarEvents";
+import { useTranslation } from "react-i18next"; // Import useTranslation hook
 
 const localizer = momentLocalizer(moment);
 
 const Home = () => {
+  const { t } = useTranslation(); // Initialize translation hook
   const [events, setEvents] = useState(CalendarEvents);
   const navigate = useNavigate();
 
@@ -17,7 +19,7 @@ const Home = () => {
     const selectedDateEvent = {
       start,
       end: start,
-      title: "Selected Date",
+      title: t("selectedDate"), // Use translation for title
       allDay: true,
     };
 
@@ -33,24 +35,24 @@ const Home = () => {
       <div className="sidebar">
         <SidebarComponent />
       </div>
-        <div className="home-content">
-          <div className="choose-date">
-            <h1>Choose a date for a desk</h1>
-          </div>
-          <hr className="gradient"></hr>
-          <div>
-            <Calendar
-              localizer={localizer}
-              events={events}
-              startAccessor="start"
-              endAccessor="end"
-              style={{ height: 500 }}
-              onSelectSlot={handleSelectSlot}
-              selectable={true}
-              onKeyPressEvent={(data) => console.log(data)}
-            />
-          </div>
+      <div className="home-content">
+        <div className="choose-date">
+          <h1>{t("chooseDate")}</h1> {/* Use translation for title */}
         </div>
+        <hr className="gradient"></hr>
+        <div>
+          <Calendar
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: 500 }}
+            onSelectSlot={handleSelectSlot}
+            selectable={true}
+            onKeyPressEvent={(data) => console.log(data)}
+          />
+        </div>
+      </div>
     </div>
   );
 };

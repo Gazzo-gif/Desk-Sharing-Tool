@@ -1,15 +1,17 @@
 {
     "login": "Anmeldung",
-    "forgotPassword": "Passwort Vergessen",
+    "forgotPassword": "Kennwort Vergessen",
     "invalidEmail": "Ungültige E-Mail Adresse",
     "invalidCredentials": "E-Mail Adresse oder Kennwort ungültig",
     "loginFailed": "Anmeldung fehlgeschlagen. Versuche es später erneut.",
     "email": "Email",
     "password": "Kennwort",
 
-    "collapse": "Kollaps",
     "profile": "Profil",
     "admin": "Admin",
     "calendar": "Kalender",
-    "bookings": "Buchungen"
+    "bookings": "Buchungen",
+
+    "selectedDate": "Datum Auswählen",
+    "chooseDate": "Datum für eine Tischreservierung aussuchen"
 }
