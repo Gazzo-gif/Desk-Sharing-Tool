@@ -7,9 +7,11 @@
     "email": "Email",
     "password": "Password",
 
-    "collapse": "Collapse",
     "profile": "Profile",
     "admin": "Admin",
     "calendar": "Calendar",
-    "bookings": "Bookings"
+    "bookings": "Bookings",
+
+    "selectedDate": "Selected Date",
+    "chooseDate": "Choose a date for a desk"
 }
