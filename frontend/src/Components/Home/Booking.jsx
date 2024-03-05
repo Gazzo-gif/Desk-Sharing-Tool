@@ -147,6 +147,7 @@ const Booking = () => {
                 events={tempArray}
                 startAccessor="start"
                 endAccessor="end"
+                views={['day', 'week']}
                 defaultView="day"
                 style={{ height: 500 }}
                 onSelectSlot={(data) => {
