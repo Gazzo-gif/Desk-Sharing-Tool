@@ -40,7 +40,7 @@ p {
 .desk-page{
   display: flex;
   width: 100vw;
-  height: '100vh';
+  height: 100vh;
   background-color: #ffffff;
 }
 .sidebar {
