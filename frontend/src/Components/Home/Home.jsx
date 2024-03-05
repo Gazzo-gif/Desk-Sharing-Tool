@@ -1,23 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import "moment/locale/de";
 import "./Home.css";
 import "./HomeCalendar.scss";
 import SidebarComponent from "./SidebarComponent";
 import CalendarEvents from "./CalendarEvents";
-import { useTranslation } from "react-i18next"; // Import useTranslation hook
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
-  const { t } = useTranslation(); // Initialize translation hook
+  const { t, i18n } = useTranslation();
   const [events, setEvents] = useState(CalendarEvents);
   const navigate = useNavigate();
 
-  const browserLocale = navigator.language || navigator.userLanguage;
-  moment.locale(browserLocale);
-  const localizer = momentLocalizer(moment);
-  
   const handleSelectSlot = ({ start }) => {
     const selectedDateEvent = {
       start,
@@ -33,6 +28,15 @@ const Home = () => {
     }, 500);
   };
 
+  const localizer = momentLocalizer(moment);
+
+  useEffect(() => {
+    // Change moment locale whenever language changes
+    moment.locale(i18n.language);
+    // Force re-render
+    setEvents([...events]);
+  }, [i18n.language]);
+
   return (
     <div className="home-page">
       <div className="sidebar">
@@ -40,9 +44,9 @@ const Home = () => {
       </div>
       <div className="home-content">
         <div className="choose-date">
-          <h1>{t("chooseDate")}</h1> {/* Use translation for title */}
+          <h1>{t("chooseDate")}</h1>
         </div>
-        <hr className="gradient"></hr>
+        <hr className="gradient" />
         <div>
           <Calendar
             localizer={localizer}
