@@ -50,7 +50,7 @@ const Floor = () => {
         <SidebarComponent/>
       </div>
       <div className="floor-content">
-        <h1>{t("floorPlan")} {currentFloor === 'Ground' ? t("ground") : t("first")}</h1>
+        <h1>{currentFloor === 'Ground' ? t("groundFloor") : t("firstFloor")}</h1>
         {date && <p>{t("chosenDate")}: {formattedDate}</p>}
         <button onClick={toggleFloor}>{t("switchFloor")}</button> {/* Button to switch floors */}
         <div className="image-wrapper">

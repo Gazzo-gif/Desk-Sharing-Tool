@@ -16,10 +16,13 @@
     "chooseDate": "Choose a date for a desk",
 
     "chosenDate": "Chosen Date",
-    "floorPlan": "Floor Plan",
-    "ground": "*Ground",
-    "first": "*First",
+    "groundFloor": "Floor Plan Ground",
+    "firstFloor": "Floor Plan First",
     "switchFloor": "Switch Floor",
 
-    "availableDesks": "Available Desks"
+    "availableDesks": "Available Desks",
+
+    "available": "Available",
+    "full": "Fully booked",
+    "some": "Some free slots"
 }
