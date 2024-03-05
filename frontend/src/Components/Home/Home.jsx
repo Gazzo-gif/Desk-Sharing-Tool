@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
+import "moment/locale/de"
 import "./Home.css";
 import "./HomeCalendar.scss";
 import SidebarComponent from "./SidebarComponent";
