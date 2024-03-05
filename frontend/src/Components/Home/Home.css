@@ -28,49 +28,37 @@
 }
 /* -------------------------------------- */
 
-
-.home-page{
+.home-page {
   width: 100vw;
   height: 100vh;
   background-color: aliceblue;
   display: flex;
 }
-.home-content{
-  width: 100%;
+
+.home-content {
+  width: 100vw;
   height: 100vh;
-  /* display: flex; */
-  justify-content: center;
-  align-items: center;
-  /* background-color: #ffdd00d8; */
   background-color: #ffffff;
-  /* margin: 5px */
 }
 
-.sidebar{
-  display: "flex";
-  height: 100vh;
-  /* background-color: #008444; */
+.sidebar {
+  height: 100%;
 }
-.choose-date{
-display: flex;
-align-items: center;
-justify-content: center;
-padding-top: 25px;
-padding-bottom: 25px;
+
+.choose-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
+
 .gradient {
   height: 3px;
   margin-top: 5px;
   margin-bottom: 5px;
   border: none;
   border-radius: 6px;
-  /* background: linear-gradient(
-    90deg,
-    rgba(13, 8, 96, 1) 0%,
-    rgba(9, 9, 121, 1) 21%,
-    rgba(6, 84, 170, 1) 51%,
-    rgba(0, 255, 113, 1) 100%
-  ); */
   background: linear-gradient(
     90deg,
     #008444 0%,
@@ -78,26 +66,4 @@ padding-bottom: 25px;
     #b89f01 81%,
     #ffdd00 100%
   );
-}
-.collapse-button{
-  width: 80px;
-  height: 25px;
-  border-radius: 10px;
-  background-color: #ffdd00;
-  font-family: 'Poppins', sans-serif;
--webkit-font-smoothing: antialiased;
--moz-osx-font-smoothing: grayscale;
-  margin: 10px
-}
-.button-get{
-  background: #ffdd00;
-  width: 90px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  border-color: #008444;
-  border: 5px;
-}
-.button-get:hover{
-  cursor: pointer;
 }
