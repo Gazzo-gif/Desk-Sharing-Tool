@@ -7,22 +7,21 @@ import "moment/locale/de";
 import "./HomeCalendar.scss";
 import "./Booking.css";
 import SidebarComponent from "./SidebarComponent"
+import { useNavigate } from 'react-router-dom';
+
 
 moment.locale("de");
 const localizer = momentLocalizer(moment);
 
 const Booking = () => {
+
+  const navigate = useNavigate();
   const roomId = localStorage.getItem("roomId");
   const [desks, setDesks] = useState([]);
   // const [eventList, setEventList] = useState([]);
   const [init, setInit] = useState(2);
   const [events, setEvents] = useState([]);
-  const [event, setEvent] = useState({
-    start: "",
-    end: "",
-    title: "",
-    id: init,
-  });
+  const [event, setEvent] = useState(localStorage.getItem('event'));
   let tempArray = events;
 
   useEffect(() => {
@@ -52,6 +51,7 @@ const Booking = () => {
   }, [roomId]);
 
   const gg = (data) => {
+   
     setEvent({
       ...event,
       start: data.start,
@@ -59,6 +59,7 @@ const Booking = () => {
       title: "Insert Title",
       id: init,
     });
+    localStorage.setItem('event', event);
     setInit(init + 1);
     tempArray.push(event);
     console.log(tempArray);
@@ -81,15 +82,23 @@ const Booking = () => {
     });
   };
 
+  function back() {
+    navigate(-1);
+  }
+
   return (
     <div className="desk-page">
       <div className="sidebar">
-        <SidebarComponent/>
+        <SidebarComponent />
+      </div>
+      <div className="backButtonDiv">
+        <button className="backButton" onClick={back}>Back</button>
       </div>
       <div className="container">
         <div className="choose-date">
           <h1>Available Desks</h1>
         </div>
+
         <div className="info-container">
           <div className="desk-container">
             {desks.map((desk, index) => (
