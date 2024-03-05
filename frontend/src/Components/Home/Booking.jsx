@@ -9,7 +9,8 @@ import "./Booking.css";
 import SidebarComponent from "./SidebarComponent"
 import { useTranslation } from "react-i18next";
 
-moment.locale("de");
+const browserLocale = navigator.language || navigator.userLanguage;
+moment.locale(browserLocale);
 const localizer = momentLocalizer(moment);
 
 const Booking = () => {

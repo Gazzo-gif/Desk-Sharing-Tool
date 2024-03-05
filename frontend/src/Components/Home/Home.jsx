@@ -2,24 +2,27 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
+import "moment/locale/de";
 import "./Home.css";
 import "./HomeCalendar.scss";
 import SidebarComponent from "./SidebarComponent";
 import CalendarEvents from "./CalendarEvents";
 import { useTranslation } from "react-i18next"; // Import useTranslation hook
 
-const localizer = momentLocalizer(moment);
-
 const Home = () => {
   const { t } = useTranslation(); // Initialize translation hook
   const [events, setEvents] = useState(CalendarEvents);
   const navigate = useNavigate();
 
+  const browserLocale = navigator.language || navigator.userLanguage;
+  moment.locale(browserLocale);
+  const localizer = momentLocalizer(moment);
+  
   const handleSelectSlot = ({ start }) => {
     const selectedDateEvent = {
       start,
       end: start,
-      title: t("selectedDate"), // Use translation for title
+      title: t("selectedDate"),
       allDay: true,
     };
 
