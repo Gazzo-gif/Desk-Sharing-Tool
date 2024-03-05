@@ -13,5 +13,13 @@
     "bookings": "Buchungen",
 
     "selectedDate": "Datum Auswählen",
-    "chooseDate": "Datum für eine Tischreservierung wählen"
+    "chooseDate": "Datum für eine Tischreservierung wählen",
+
+    "chosenDate": "Chosen Date",
+    "floorPlan": "Floor Plan",
+    "ground": "*Ground",
+    "first": "*First",
+    "switchFloor": "Switch Floor",
+
+    "availableDesks": "Available Desks"
 }

@@ -3,16 +3,13 @@ import { useLocation } from 'react-router-dom';
 import firstFloorImage from '../../images/firstfloor.png';
 import secondFloorImage from '../../images/secondfloor.png'; 
 import './Floor.css'; 
-// import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-// import { CgProfile, CgDisplayFullwidth } from "react-icons/cg";
-// import { IoCalendarNumberOutline } from "react-icons/io5";
-// import { RiAdminFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import SidebarComponent from "../Home/SidebarComponent"
+import { useTranslation } from "react-i18next";
 
 const Floor = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [currentFloor, setCurrentFloor] = useState('Ground');
   const [rooms, setRooms] = useState([]);
@@ -53,9 +50,9 @@ const Floor = () => {
         <SidebarComponent/>
       </div>
       <div className="floor-content">
-        <h1>Floor Page {currentFloor === 'Ground' ? '*Ground' : '*First'}</h1>
-        {date && <p>Chosen Date: {formattedDate}</p>}
-        <button onClick={toggleFloor}>Switch Floor</button> {/* Button to switch floors */}
+        <h1>{t("floorPlan")} {currentFloor === 'Ground' ? t("ground") : t("first")}</h1>
+        {date && <p>{t("chosenDate")}: {formattedDate}</p>}
+        <button onClick={toggleFloor}>{t("switchFloor")}</button> {/* Button to switch floors */}
         <div className="image-wrapper">
           <img src={floorImage} alt={`${currentFloor === 'Ground' ? 'Ground' : 'First'} Floor`} />
           {rooms.map((room) => (

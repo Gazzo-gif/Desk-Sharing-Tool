@@ -7,14 +7,15 @@ import "moment/locale/de";
 import "./HomeCalendar.scss";
 import "./Booking.css";
 import SidebarComponent from "./SidebarComponent"
+import { useTranslation } from "react-i18next";
 
 moment.locale("de");
 const localizer = momentLocalizer(moment);
 
 const Booking = () => {
+  const { t } = useTranslation();
   const roomId = localStorage.getItem("roomId");
   const [desks, setDesks] = useState([]);
-  // const [eventList, setEventList] = useState([]);
   const [init, setInit] = useState(2);
   const [events, setEvents] = useState([]);
   const [event, setEvent] = useState({
@@ -88,7 +89,7 @@ const Booking = () => {
       </div>
       <div className="container">
         <div className="choose-date">
-          <h1>Available Desks</h1>
+          <h1>{t("availableDesks")}</h1>
         </div>
         <div className="info-container">
           <div className="desk-container">
