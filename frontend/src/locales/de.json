@@ -15,11 +15,14 @@
     "selectedDate": "Datum Auswählen",
     "chooseDate": "Datum für eine Tischreservierung wählen",
 
-    "chosenDate": "Chosen Date",
-    "floorPlan": "Floor Plan",
-    "ground": "*Ground",
-    "first": "*First",
-    "switchFloor": "Switch Floor",
+    "chosenDate": "Datum",
+    "groundFloor": "Erdgeschoss",
+    "firstFloor": "Obergeschoss",
+    "switchFloor": "Etage wechseln",
 
-    "availableDesks": "Available Desks"
+    "availableDesks": "Verfügbare Arbeitsplätze",
+
+    "available": "Verfügbar",
+    "full": "Ausgebucht",
+    "some": "Geringe Verfügbarkeit"
 }
