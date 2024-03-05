@@ -78,6 +78,39 @@ const Booking = () => {
     });
   };
 
+  const handleDeskClick = async (desk) => {
+    try {
+      const response = await fetch(
+        `http://188.34.162.76:8080/bookings/desk/${desk.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error("Error fetching desk booking data");
+      }
+  
+      const bookingData = await response.json();
+      console.log("Booking data for desk:", bookingData);
+  
+      // Parse the booking data and add events to tempArray
+      const bookingEvents = bookingData.map((booking) => ({
+        start: new Date(booking.day + 'T' + booking.begin),
+        end: new Date(booking.day + 'T' + booking.end),
+        title: booking.user.name,
+        id: init,
+      }));
+      
+      setEvents(bookingEvents);
+    } catch (error) {
+      console.error("Error fetching desk booking data:", error);
+    }
+  };
+  
   // Use momentLocalizer with custom locale
   const localizer = momentLocalizer(moment);
 
@@ -98,7 +131,7 @@ const Booking = () => {
         <div className="info-container">
           <div className="desk-container">
             {desks.map((desk, index) => (
-              <div className="desk-component" key={index}>
+              <div className="desk-component" key={index} onClick={() => handleDeskClick(desk)}>
                 <div>{desk.id}.</div>
                 <div className="desk-description">
                   <p className="item-name">{desk.equipment}</p>
