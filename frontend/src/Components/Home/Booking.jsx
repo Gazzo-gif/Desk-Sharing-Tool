@@ -3,18 +3,13 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import "moment/locale/de";
 import "./HomeCalendar.scss";
 import "./Booking.css";
 import SidebarComponent from "./SidebarComponent"
 import { useTranslation } from "react-i18next";
 
-const browserLocale = navigator.language || navigator.userLanguage;
-moment.locale(browserLocale);
-const localizer = momentLocalizer(moment);
-
 const Booking = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const roomId = localStorage.getItem("roomId");
   const [desks, setDesks] = useState([]);
   const [init, setInit] = useState(2);
@@ -82,6 +77,14 @@ const Booking = () => {
       ],
     });
   };
+
+  // Use momentLocalizer with custom locale
+  const localizer = momentLocalizer(moment);
+
+  useEffect(() => {
+    moment.locale(i18n.language);
+    setEvents([...events]);
+  }, [i18n.language]);
 
   return (
     <div className="desk-page">
