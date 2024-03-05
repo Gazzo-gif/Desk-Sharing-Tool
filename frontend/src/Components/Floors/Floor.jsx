@@ -52,7 +52,7 @@ const Floor = () => {
       <div className="floor-content">
         <h1>{currentFloor === 'Ground' ? t("groundFloor") : t("firstFloor")}</h1>
         {date && <p>{t("chosenDate")}: {formattedDate}</p>}
-        <button onClick={toggleFloor}>{t("switchFloor")}</button> {/* Button to switch floors */}
+        <button onClick={toggleFloor}>{t("switchFloor")}</button>
         <div className="image-wrapper">
           <img src={floorImage} alt={`${currentFloor === 'Ground' ? 'Ground' : 'First'} Floor`} />
           {rooms.map((room) => (
