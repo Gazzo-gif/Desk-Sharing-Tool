@@ -6,21 +6,22 @@ import moment from "moment";
 import "./HomeCalendar.scss";
 import "./Booking.css";
 import SidebarComponent from "./SidebarComponent"
-import { useTranslation } from "react-i18next";
+import { useNavigate } from 'react-router-dom';
+
+
+moment.locale("de");
+const localizer = momentLocalizer(moment);
 
 const Booking = () => {
-  const { t, i18n } = useTranslation();
+
+  const navigate = useNavigate();
   const roomId = localStorage.getItem("roomId");
   const [desks, setDesks] = useState([]);
   const [init, setInit] = useState(2);
   const [deskEvents, setDeskEvents] = useState([]);
   const [events, setEvents] = useState([]);
-  const [event, setEvent] = useState({
-    start: "",
-    end: "",
-    title: "",
-    id: init,
-  });
+  const [event, setEvent] = useState(localStorage.getItem('event'));
+  let tempArray = events;
 
   useEffect(() => {
     const fetchDesks = async () => {
@@ -49,48 +50,16 @@ const Booking = () => {
   }, [roomId]);
 
   const gg = (data) => {
-    const startTime = new Date(data.start);
-    const endTime = new Date(data.end);
-  
-    // Calculate the duration in milliseconds
-    const duration = endTime - startTime;
-  
-    // Check if the duration is within the allowed range
-    if (duration < 2 * 60 * 60 * 1000) {
-      alert("Minimum booking duration is 2 hours.");
-      return;
-    }
-  
-    if (duration > 9 * 60 * 60 * 1000) {
-      alert("Maximum booking duration is 9 hours.");
-      return;
-    }
-  
-    // Remove the existing event being created if any
-    const updatedEvents = events.filter(existingEvent => existingEvent.id !== event.id);
-  
-    // Check for overlapping events for the specific desk
-    const isOverlap = updatedEvents.some((existingEvent) =>
-      (existingEvent.start <= startTime && startTime < existingEvent.end) ||
-      (existingEvent.start < endTime && endTime <= existingEvent.end) ||
-      (startTime <= existingEvent.start && existingEvent.end <= endTime)
-    );
-  
-    if (isOverlap) {
-      alert("This slot overlaps with another booking for this desk. Please choose a different slot.");
-      return;
-    }
-  
-    const newEvent = {
+
+   
+    setEvent({
       ...event,
       start: data.start,
       end: data.end,
       id: init,
-    };
-  
-    // Update events state with existing events and the new event
-    setEvents([...deskEvents, newEvent]);
-    setEvent(newEvent);
+
+    });
+    localStorage.setItem('event', event);
     setInit(init + 1);
   };
 
@@ -111,57 +80,23 @@ const Booking = () => {
     });
   };
 
-  const handleDeskClick = async (desk) => {
-    try {
-      const response = await fetch(
-        `http://188.34.162.76:8080/bookings/desk/${desk.id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-  
-      if (!response.ok) {
-        throw new Error("Error fetching desk booking data");
-      }
-  
-      const bookingData = await response.json();
-      console.log("Booking data for desk:", bookingData);
-  
-      // Parse the booking data and add events to tempArray
-      const bookingEvents = bookingData.map((booking) => ({
-        start: new Date(booking.day + 'T' + booking.begin),
-        end: new Date(booking.day + 'T' + booking.end),
-        title: booking.user.name,
-        id: init,
-      }));
-      
-      setDeskEvents(bookingEvents);
-      setEvents(bookingEvents);
-    } catch (error) {
-      console.error("Error fetching desk booking data:", error);
-    }
-  };
-  
-  // Use momentLocalizer with custom locale
-  const localizer = momentLocalizer(moment);
-
-  useEffect(() => {
-    moment.locale(i18n.language);
-    setEvents([...events]);
-  }, [i18n.language]);
+  function back() {
+    navigate(-1);
+  }
 
   return (
     <div className="desk-page">
       <div className="sidebar">
-        <SidebarComponent/>
+        <SidebarComponent />
+      </div>
+      <div className="backButtonDiv">
+        <button className="backButton" onClick={back}>Back</button>
       </div>
       <div className="container">
         <div className="choose-date">
           <h1>{t("availableDesks")}</h1>
         </div>
+
         <div className="info-container">
           <div className="desk-container">
             {desks.map((desk, index) => (

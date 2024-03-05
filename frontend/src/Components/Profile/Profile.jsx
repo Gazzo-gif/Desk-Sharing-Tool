@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import profilePicture from "../../images/profilepicture.jpg";
 import onePicture from "../../images/one.png";
 import twoPicture from "../../images/two.png";
@@ -9,8 +10,16 @@ import SidebarComponent from "../Home/SidebarComponent"
 
 import { CgProfile } from "react-icons/cg";
 const Profile = () => {
+
+  
+  const navigate = useNavigate();
   const [image, setImage] = useState(onePicture);
   const [anonymous, setAnonymous] = useState(false);
+
+  function back(){
+    navigate(-1);
+  }
+
   const ProfileDescription = () => {
     return (
       <div className="profile-description">
@@ -21,7 +30,7 @@ const Profile = () => {
         <Toogle
           defaultChecked={false}
           onClick={() => setAnonymous(!anonymous)}
-          //   onChange={() => setAnonymous(!anonymous)}
+        //   onChange={() => setAnonymous(!anonymous)}
         />
       </div>
     );
@@ -118,7 +127,9 @@ const Profile = () => {
     );
   };
   return (
-    <div
+    <><div  className="backButtonDiv">
+      <button className="backButton" onClick={back}>Back</button>
+    </div><div
       style={{
         display: "flex",
         // justifyContent: "center",
@@ -129,15 +140,16 @@ const Profile = () => {
         // background: "#aaa",
       }}
     >
-      <div className="description-container">
-        <ProfileDescription></ProfileDescription>
-      </div>
 
-      <div className="info-container">
-        <About></About>
-        <History></History>
-      </div>
-    </div>
+        <div className="description-container">
+          <ProfileDescription></ProfileDescription>
+        </div>
+
+        <div className="info-container">
+          <About></About>
+          <History></History>
+        </div>
+      </div></>
   );
 };
 
