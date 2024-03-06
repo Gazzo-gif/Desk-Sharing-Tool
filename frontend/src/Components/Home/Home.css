@@ -37,3 +37,7 @@
     #ffdd00 100%
   );
 }
+
+.admin-content {
+  padding: 20px; /* Add padding to the content */
+}
