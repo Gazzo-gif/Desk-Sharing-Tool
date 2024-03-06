@@ -40,7 +40,7 @@ const Floor = () => {
   const handleRoomClick = (roomId) => {
     setSelectedRoom(roomId === selectedRoom ? null : roomId);
     localStorage.setItem("roomId", String(roomId));
-    navigate("/desks", { replace: true })
+    navigate("/desks", { state: { date }, replace: true });
   };
 
   const toggleFloor = () => {

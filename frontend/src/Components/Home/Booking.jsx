@@ -6,7 +6,8 @@ import moment from "moment";
 import "./HomeCalendar.scss";
 import "./Booking.css";
 import SidebarComponent from "./SidebarComponent"
-import { useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
+import { useNavigate, useLocation  } from 'react-router-dom';
 
 
 moment.locale("de");
@@ -15,6 +16,8 @@ const localizer = momentLocalizer(moment);
 const Booking = () => {
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const { date } = location.state || {};
   const roomId = localStorage.getItem("roomId");
   const [desks, setDesks] = useState([]);
   const [init, setInit] = useState(2);
@@ -118,6 +121,7 @@ const Booking = () => {
                 endAccessor="end"
                 views={['day', 'week']}
                 defaultView="day"
+                defaultDate={date}
                 onSelectSlot={(data) => {
                   gg(data);
                 }}
