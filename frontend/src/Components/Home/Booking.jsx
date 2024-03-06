@@ -7,12 +7,14 @@ import "./HomeCalendar.scss";
 import "./Booking.css";
 import SidebarComponent from "./SidebarComponent"
 import { useTranslation } from "react-i18next";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation  } from 'react-router-dom';
 
 const Booking = () => {
   const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const { date } = location.state || {};
   const roomId = localStorage.getItem("roomId");
   const [desks, setDesks] = useState([]);
   const [init, setInit] = useState(2);
@@ -194,6 +196,7 @@ const Booking = () => {
                 endAccessor="end"
                 views={['day', 'week']}
                 defaultView="day"
+                defaultDate={date}
                 onSelectSlot={(data) => {
                   gg(data);
                 }}
