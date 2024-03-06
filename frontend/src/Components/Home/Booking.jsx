@@ -139,6 +139,7 @@ const Booking = () => {
       }));
       
       setDeskEvents(bookingEvents);
+      setEvents(bookingEvents);
     } catch (error) {
       console.error("Error fetching desk booking data:", error);
     }
@@ -188,6 +189,13 @@ const Booking = () => {
                 selectable={true}
                 min={new Date(0, 0, 0, 6, 0, 0)} // 6 am
                 max={new Date(0, 0, 0, 22, 0, 0)} // 10 pm
+                eventPropGetter={(event) => ({
+                  style: {
+                    backgroundColor: deskEvents.some((deskEvent) => deskEvent.id === event.id)
+                      ? "grey" // Color for events from deskEvents
+                      : "green", // Color for new events
+                  },
+                })}
               />
             </div>
             <button className="submit-btn" onClick={() => submit()}>
