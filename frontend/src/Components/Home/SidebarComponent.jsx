@@ -13,6 +13,7 @@ const SidebarComponent = () => {
   const [tab, setTab] = useState({ active: "calendar" });
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
+  const isAdmin = true; // Set to true/false based on user's admin status
 
   const handleClick = (name) => {
     switch (name) {
@@ -32,6 +33,7 @@ const SidebarComponent = () => {
 
       case "admin":
         setTab({ active: "admin" });
+        navigate("/admin", { replace: true }); // Navigate to admin panel
         break;
 
       default:
@@ -46,12 +48,7 @@ const SidebarComponent = () => {
         backgroundColor="#008444"
         width={collapsed ? "80px" : "200px"}
         style={{
-          height: "100%",
-          [`&.active`]: {
-            backgroundColor: "#13395e",
-            color: "#b6c8d9",
-            overflow: "auto",
-          },
+          height: "100%", // Ensure the sidebar takes up the full height
         }}
       >
         <Menu
@@ -68,8 +65,7 @@ const SidebarComponent = () => {
             active={tab?.active === "collapse" ? true : false}
             icon={<BsList />}
             onClick={() => handleClick("collapse")}
-          >
-          </MenuItem>
+          />
           <MenuItem
             active={tab?.active === "profile" ? true : false}
             icon={<CgProfile />}
@@ -77,7 +73,7 @@ const SidebarComponent = () => {
           >
             {t("profile")}
           </MenuItem>
-          {true ? (
+          {isAdmin && (
             <MenuItem
               active={tab?.active === "admin" ? true : false}
               icon={<RiAdminFill />}
@@ -85,8 +81,6 @@ const SidebarComponent = () => {
             >
               {t("admin")}
             </MenuItem>
-          ) : (
-            ""
           )}
           <MenuItem
             active={tab?.active === "calendar" ? true : false}
@@ -96,8 +90,8 @@ const SidebarComponent = () => {
             {t("calendar")}
           </MenuItem>
           <SubMenu icon={<CgDisplayFullwidth />} label={t("bookings")}>
-            <MenuItem> 12/12/24 </MenuItem>
-            <MenuItem> 13/12/24 </MenuItem>
+            <MenuItem>12/12/24</MenuItem>
+            <MenuItem>13/12/24</MenuItem>
           </SubMenu>
         </Menu>
       </Sidebar>

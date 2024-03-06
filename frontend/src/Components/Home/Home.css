@@ -101,3 +101,6 @@ padding-bottom: 25px;
 .button-get:hover{
   cursor: pointer;
 }
+.admin-content {
+  padding: 20px; /* Add padding to the content */
+}
