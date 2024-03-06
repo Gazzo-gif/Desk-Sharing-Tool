@@ -7,9 +7,12 @@ import "./HomeCalendar.scss";
 import "./Booking.css";
 import SidebarComponent from "./SidebarComponent"
 import { useTranslation } from "react-i18next";
+import { useNavigate } from 'react-router-dom';
 
 const Booking = () => {
   const { t, i18n } = useTranslation();
+
+  const navigate = useNavigate();
   const roomId = localStorage.getItem("roomId");
   const [desks, setDesks] = useState([]);
   const [init, setInit] = useState(2);
@@ -153,15 +156,23 @@ const Booking = () => {
     setEvents([...events]);
   }, [i18n.language]);
 
+  function back() {
+    navigate(-1);
+  }
+
   return (
     <div className="desk-page">
       <div className="sidebar">
-        <SidebarComponent/>
+        <SidebarComponent />
+      </div>
+      <div className="backButtonDiv">
+        <button className="backButton" onClick={back}>Back</button>
       </div>
       <div className="container">
         <div className="choose-date">
           <h1>{t("availableDesks")}</h1>
         </div>
+
         <div className="info-container">
           <div className="desk-container">
             {desks.map((desk, index) => (

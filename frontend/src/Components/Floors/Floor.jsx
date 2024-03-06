@@ -18,6 +18,7 @@ const Floor = () => {
   const formattedDate = date ? new Date(date).toLocaleDateString() : '';
 
   useEffect(() => {
+    console.log(localStorage.getItem('currentFloor'));
     // Fetch room data from the backend
     fetch('http://188.34.162.76:8080/rooms')
       .then(response => response.json())
@@ -38,17 +39,24 @@ const Floor = () => {
   };
 
   const toggleFloor = () => {
+    localStorage.setItem('currentFloor', currentFloor === 'Ground' ? 'First' : 'Ground');
     setCurrentFloor(currentFloor === 'Ground' ? 'First' : 'Ground');
     setSelectedRoom(null); // Reset selected room when changing floors
   };
+
+  function back() {
+    navigate(-1);
+  }
+
 
   const floorImage = currentFloor === 'Ground' ? firstFloorImage : secondFloorImage;
 
   return (
     <div style={{ display: 'flex', width: '100vw', height: '100vh' }}>
       <div className="sidebar">
-        <SidebarComponent/>
+        <SidebarComponent />
       </div>
+
       <div className="floor-content">
         <h1>{currentFloor === 'Ground' ? t("groundFloor") : t("firstFloor")}</h1>
         {date && <p>{t("chosenDate")}: {formattedDate}</p>}
@@ -64,7 +72,11 @@ const Floor = () => {
             ></div>
           ))}
         </div>
+        <div className="backButtonDiv">
+          <button className="backButton" onClick={back}>Back</button>
+        </div>
       </div>
+
     </div>
   );
 };
