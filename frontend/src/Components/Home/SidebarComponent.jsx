@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import { CgProfile } from "react-icons/cg";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { CgDisplayFullwidth } from "react-icons/cg";
@@ -7,19 +7,20 @@ import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { RiAdminFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { FaLanguage } from "react-icons/fa";
 
 const SidebarComponent = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [tab, setTab] = useState({ active: "calendar" });
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(
+    localStorage.getItem("sidebarCollapsed") === "true" ? true : false
+  );
   const navigate = useNavigate();
-  const isAdmin = true; // Set to true/false based on user's admin status
 
   const handleClick = (name) => {
     switch (name) {
       case "collapse":
         setCollapsed(!collapsed);
+        localStorage.setItem("sidebarCollapsed", !collapsed);
         break;
 
       case "calendar":
@@ -34,19 +35,22 @@ const SidebarComponent = () => {
 
       case "admin":
         setTab({ active: "admin" });
-        navigate("/admin", { replace: true }); // Navigate to admin panel
-        break;
-
-      case "language":
-        const currentLanguage = i18n.language;
-        const newLanguage = currentLanguage === "en" ? "de" : "en";
-        i18n.changeLanguage(newLanguage);
+        navigate("/admin", { replace: true });
         break;
 
       default:
         break;
     }
   };
+
+  useEffect(() => {
+    // Ensure the sidebar stays collapsed or expanded based on previous state
+    if (collapsed) {
+      localStorage.setItem("sidebarCollapsed", "true");
+    } else {
+      localStorage.setItem("sidebarCollapsed", "false");
+    }
+  }, [collapsed]);
 
   return (
     <div className="sidebar">
@@ -55,7 +59,12 @@ const SidebarComponent = () => {
         backgroundColor="#008444"
         width={collapsed ? "80px" : "200px"}
         style={{
-          height: "100%", // Ensure the sidebar takes up the full height
+          height: "100%",
+          [`&.active`]: {
+            backgroundColor: "#13395e",
+            color: "#b6c8d9",
+            overflow: "auto",
+          },
         }}
       >
         <Menu
@@ -72,23 +81,22 @@ const SidebarComponent = () => {
             active={tab?.active === "collapse" ? true : false}
             icon={<BsList />}
             onClick={() => handleClick("collapse")}
-          />
-          <MenuItem
+          >
+          </MenuItem>
+          {/* <MenuItem
             active={tab?.active === "profile" ? true : false}
             icon={<CgProfile />}
             onClick={() => handleClick("profile")}
           >
             {t("profile")}
+          </MenuItem> */}
+          <MenuItem
+            active={tab?.active === "admin" ? true : false}
+            icon={<RiAdminFill />}
+            onClick={() => handleClick("admin")}
+          >
+            {t("admin")}
           </MenuItem>
-          {isAdmin && (
-            <MenuItem
-              active={tab?.active === "admin" ? true : false}
-              icon={<RiAdminFill />}
-              onClick={() => handleClick("admin")}
-            >
-              {t("admin")}
-            </MenuItem>
-          )}
           <MenuItem
             active={tab?.active === "calendar" ? true : false}
             icon={<IoCalendarNumberOutline />}
@@ -96,16 +104,10 @@ const SidebarComponent = () => {
           >
             {t("calendar")}
           </MenuItem>
-          <SubMenu icon={<CgDisplayFullwidth />} label={t("bookings")}>
-            <MenuItem>12/12/24</MenuItem>
-            <MenuItem>13/12/24</MenuItem>
-          </SubMenu>
-          <MenuItem
-            icon={<FaLanguage />}
-            onClick={() => handleClick("language")}
-          >
-            {i18n.language === "en" ? "Deutsch" : "English"}
-          </MenuItem>
+          {/* <SubMenu icon={<CgDisplayFullwidth />} label={t("bookings")}>
+            <MenuItem> 12/12/24 </MenuItem>
+            <MenuItem> 13/12/24 </MenuItem>
+          </SubMenu> */}
         </Menu>
       </Sidebar>
     </div>
