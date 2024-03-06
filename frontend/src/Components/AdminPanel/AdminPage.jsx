@@ -26,7 +26,7 @@ const AdminPage = ({ collapsed, onCollapse }) => {
 
   return (
     <div className="adminhome-page">
-      <SidebarComponent collapsed={collapsed} onCollapse={onCollapse} />
+      <SidebarComponent />
       <div className="adminpage-content">
         <div className="admin-content">
           <h1>Admin Page Content</h1>
