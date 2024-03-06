@@ -163,7 +163,7 @@ const Booking = () => {
   }
 
   return (
-    <div className="desk-page">
+    <div>
       <div className="sidebar">
         <SidebarComponent />
       </div>

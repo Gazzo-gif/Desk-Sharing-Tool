@@ -5,16 +5,33 @@ import { CgDisplayFullwidth } from "react-icons/cg";
 import { BsList } from "react-icons/bs";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { RiAdminFill } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const SidebarComponent = () => {
   const { t } = useTranslation();
   const [tab, setTab] = useState({ active: "calendar" });
   const [collapsed, setCollapsed] = useState(
-    localStorage.getItem("sidebarCollapsed") === "true" ? true : false
+    localStorage.getItem("sidebarCollapsed") === "true"
   );
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // Ensure correct active state based on URL path
+    const currentPath = location.pathname;
+    if (currentPath === "/home") {
+      setActiveTab("calendar");
+    // } else if (currentPath === "/profile") {
+    //   setActiveTab("profile");
+    } else if (currentPath === "/admin") {
+      setActiveTab("admin");
+    }
+  }, [location.pathname]);
+
+  const setActiveTab = (tabName) => {
+    localStorage.setItem("activeTab", tabName);
+  };
 
   const handleClick = (name) => {
     switch (name) {
@@ -28,13 +45,14 @@ const SidebarComponent = () => {
         navigate("/home", { replace: true });
         break;
 
-      case "profile":
-        setTab({ active: "profile" });
-        navigate("/profile", { replace: true });
-        break;
+      // case "profile":
+      //   setTab({ active: "profile" });
+      //   navigate("/profile", { replace: true });
+      //   break;
 
       case "admin":
         setTab({ active: "admin" });
+        localStorage.setItem("activeTab", "admin");
         navigate("/admin", { replace: true });
         break;
 
@@ -42,15 +60,6 @@ const SidebarComponent = () => {
         break;
     }
   };
-
-  useEffect(() => {
-    // Ensure the sidebar stays collapsed or expanded based on previous state
-    if (collapsed) {
-      localStorage.setItem("sidebarCollapsed", "true");
-    } else {
-      localStorage.setItem("sidebarCollapsed", "false");
-    }
-  }, [collapsed]);
 
   return (
     <div className="sidebar">
@@ -91,14 +100,14 @@ const SidebarComponent = () => {
             {t("profile")}
           </MenuItem> */}
           <MenuItem
-            active={tab?.active === "admin" ? true : false}
+            active={localStorage.getItem("activeTab") === "admin"}
             icon={<RiAdminFill />}
             onClick={() => handleClick("admin")}
           >
             {t("admin")}
           </MenuItem>
           <MenuItem
-            active={tab?.active === "calendar" ? true : false}
+            active={localStorage.getItem("activeTab") === "calendar"}
             icon={<IoCalendarNumberOutline />}
             onClick={() => handleClick("calendar")}
           >
