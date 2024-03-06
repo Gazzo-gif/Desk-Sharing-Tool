@@ -13,6 +13,7 @@ const Booking = () => {
   const roomId = localStorage.getItem("roomId");
   const [desks, setDesks] = useState([]);
   const [init, setInit] = useState(2);
+  const [deskEvents, setDeskEvents] = useState([]);
   const [events, setEvents] = useState([]);
   const [event, setEvent] = useState({
     start: "",
@@ -20,7 +21,6 @@ const Booking = () => {
     title: "",
     id: init,
   });
-  let tempArray = events;
 
   useEffect(() => {
     const fetchDesks = async () => {
@@ -49,16 +49,49 @@ const Booking = () => {
   }, [roomId]);
 
   const gg = (data) => {
-    setEvent({
+    const startTime = new Date(data.start);
+    const endTime = new Date(data.end);
+  
+    // Calculate the duration in milliseconds
+    const duration = endTime - startTime;
+  
+    // Check if the duration is within the allowed range
+    if (duration < 2 * 60 * 60 * 1000) {
+      alert("Minimum booking duration is 2 hours.");
+      return;
+    }
+  
+    if (duration > 9 * 60 * 60 * 1000) {
+      alert("Maximum booking duration is 9 hours.");
+      return;
+    }
+  
+    // Remove the existing event being created if any
+    const updatedEvents = events.filter(existingEvent => existingEvent.id !== event.id);
+  
+    // Check for overlapping events for the specific desk
+    const isOverlap = updatedEvents.some((existingEvent) =>
+      (existingEvent.start <= startTime && startTime < existingEvent.end) ||
+      (existingEvent.start < endTime && endTime <= existingEvent.end) ||
+      (startTime <= existingEvent.start && existingEvent.end <= endTime)
+    );
+  
+    if (isOverlap) {
+      alert("This slot overlaps with another booking for this desk. Please choose a different slot.");
+      return;
+    }
+  
+    const newEvent = {
       ...event,
       start: data.start,
       end: data.end,
-      title: "Insert Title",
       id: init,
-    });
+    };
+  
+    // Update events state with existing events and the new event
+    setEvents([...deskEvents, newEvent]);
+    setEvent(newEvent);
     setInit(init + 1);
-    tempArray.push(event);
-    console.log(tempArray);
   };
 
   const submit = () => {
@@ -105,7 +138,7 @@ const Booking = () => {
         id: init,
       }));
       
-      setEvents(bookingEvents);
+      setDeskEvents(bookingEvents);
     } catch (error) {
       console.error("Error fetching desk booking data:", error);
     }
@@ -144,16 +177,17 @@ const Booking = () => {
             <div className="calendar-container">
               <Calendar
                 localizer={localizer}
-                events={tempArray}
+                events={events}
                 startAccessor="start"
                 endAccessor="end"
                 views={['day', 'week']}
                 defaultView="day"
-                style={{ height: 500 }}
                 onSelectSlot={(data) => {
                   gg(data);
                 }}
                 selectable={true}
+                min={new Date(0, 0, 0, 6, 0, 0)} // 6 am
+                max={new Date(0, 0, 0, 22, 0, 0)} // 10 pm
               />
             </div>
             <button className="submit-btn" onClick={() => submit()}>
