@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import { CgProfile } from "react-icons/cg";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { CgDisplayFullwidth } from "react-icons/cg";
@@ -11,13 +11,16 @@ import { useTranslation } from "react-i18next";
 const SidebarComponent = () => {
   const { t } = useTranslation();
   const [tab, setTab] = useState({ active: "calendar" });
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(
+    localStorage.getItem("sidebarCollapsed") === "true" ? true : false
+  );
   const navigate = useNavigate();
 
   const handleClick = (name) => {
     switch (name) {
       case "collapse":
         setCollapsed(!collapsed);
+        localStorage.setItem("sidebarCollapsed", !collapsed);
         break;
 
       case "calendar":
@@ -39,6 +42,15 @@ const SidebarComponent = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    // Ensure the sidebar stays collapsed or expanded based on previous state
+    if (collapsed) {
+      localStorage.setItem("sidebarCollapsed", "true");
+    } else {
+      localStorage.setItem("sidebarCollapsed", "false");
+    }
+  }, [collapsed]);
 
   return (
     <div className="sidebar">
@@ -71,13 +83,13 @@ const SidebarComponent = () => {
             onClick={() => handleClick("collapse")}
           >
           </MenuItem>
-          <MenuItem
+          {/* <MenuItem
             active={tab?.active === "profile" ? true : false}
             icon={<CgProfile />}
             onClick={() => handleClick("profile")}
           >
             {t("profile")}
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem
             active={tab?.active === "admin" ? true : false}
             icon={<RiAdminFill />}
@@ -92,10 +104,10 @@ const SidebarComponent = () => {
           >
             {t("calendar")}
           </MenuItem>
-          <SubMenu icon={<CgDisplayFullwidth />} label={t("bookings")}>
+          {/* <SubMenu icon={<CgDisplayFullwidth />} label={t("bookings")}>
             <MenuItem> 12/12/24 </MenuItem>
             <MenuItem> 13/12/24 </MenuItem>
-          </SubMenu>
+          </SubMenu> */}
         </Menu>
       </Sidebar>
     </div>
