@@ -193,13 +193,13 @@ const Booking = () => {
                   style: {
                     backgroundColor: deskEvents.some((deskEvent) => deskEvent.id === event.id)
                       ? "grey" // Color for events from deskEvents
-                      : "green", // Color for new events
+                      : "#008444", // Color for new events
                   },
                 })}
               />
             </div>
             <button className="submit-btn" onClick={() => submit()}>
-              [Add a title to event]
+              Book
             </button>
           </div>
         </div>
