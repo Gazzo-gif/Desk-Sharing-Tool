@@ -11,9 +11,9 @@ import { useNavigate, useLocation  } from 'react-router-dom';
 
 const Booking = () => {
   const { t, i18n } = useTranslation();
-
   const navigate = useNavigate();
   const location = useLocation();
+  const localizer = momentLocalizer(moment);
   const { date } = location.state || {};
   const roomId = localStorage.getItem("roomId");
   const [desks, setDesks] = useState([]);
@@ -151,9 +151,6 @@ const Booking = () => {
       console.error("Error fetching desk booking data:", error);
     }
   };
-  
-  // Use momentLocalizer with custom locale
-  const localizer = momentLocalizer(moment);
 
   useEffect(() => {
     moment.locale(i18n.language);
@@ -202,7 +199,9 @@ const Booking = () => {
                 defaultView="day"
                 defaultDate={date}
                 onSelectSlot={(data) => {
-                  gg(data);
+                  if (clickedDeskId !== null) {
+                    gg(data);
+                  }
                 }}
                 selectable={true}
                 min={new Date(0, 0, 0, 6, 0, 0)} // 6 am
