@@ -37,3 +37,28 @@
     #ffdd00 100%
   );
 }
+.collapse-button{
+  width: 80px;
+  height: 25px;
+  border-radius: 10px;
+  background-color: #ffdd00;
+  font-family: 'Poppins', sans-serif;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+  margin: 10px
+}
+.button-get{
+  background: #ffdd00;
+  width: 90px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  border-color: #008444;
+  border: 5px;
+}
+.button-get:hover{
+  cursor: pointer;
+}
+.admin-content {
+  padding: 20px; /* Add padding to the content */
+}
