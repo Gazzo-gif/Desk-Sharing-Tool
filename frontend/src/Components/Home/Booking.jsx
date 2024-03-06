@@ -176,7 +176,7 @@ const Booking = () => {
         </div>
 
         <div className="info-container">
-          <div className="desk-container">
+          <div>
             {desks.map((desk, index) => (
               <div className="desk-component" key={index} onClick={() => handleDeskClick(desk)}>
                 <div>{desk.id}.</div>
@@ -187,7 +187,7 @@ const Booking = () => {
               </div>
             ))}
           </div>
-          <div className="calendar-containe">
+          <div>
             <div className="calendar-container">
               <Calendar
                 localizer={localizer}
