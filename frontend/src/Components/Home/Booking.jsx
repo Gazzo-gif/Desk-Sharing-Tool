@@ -26,6 +26,7 @@ const Booking = () => {
     title: "",
     id: init,
   });
+  const [clickedDeskId, setClickedDeskId] = useState(null); // New state to track clicked desk ID
 
   useEffect(() => {
     const fetchDesks = async () => {
@@ -145,6 +146,7 @@ const Booking = () => {
       
       setDeskEvents(bookingEvents);
       setEvents(bookingEvents);
+      setClickedDeskId(desk.id); // Set the clicked desk ID
     } catch (error) {
       console.error("Error fetching desk booking data:", error);
     }
@@ -163,7 +165,7 @@ const Booking = () => {
   }
 
   return (
-    <div>
+    <div className="desk-page">
       <div className="sidebar">
         <SidebarComponent />
       </div>
@@ -178,9 +180,11 @@ const Booking = () => {
         <div className="info-container">
           <div>
             {desks.map((desk, index) => (
-              <div className="desk-component" key={index} onClick={() => handleDeskClick(desk)}>
+              <div className="desk-component" key={index}>
                 <div>{desk.id}.</div>
-                <div className="desk-description">
+                <div className={`desk-description ${desk.id === clickedDeskId ? 'clicked' : ''}`} 
+                  onClick={() => handleDeskClick(desk)}
+                >
                   <p className="item-name">{desk.equipment}</p>
                   <p className="item-taken">Some free slots</p>
                 </div>
