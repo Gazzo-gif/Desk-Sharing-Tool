@@ -4,16 +4,27 @@
   justify-content: space-between;
   width: 210px;
 }
-.desk-description{
+
+.desk-description {
   background-color: yellowgreen;
   height: 125px;
-  width:140px;
+  width: 140px;
   border-radius: 7px;
   padding: 5px;
-  /* display: flex; */
-  /* justify-content: center;
-  align-items: center; */
+  cursor: pointer;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s;
 }
+
+.desk-description:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+
+.desk-description.clicked {
+  background-color: #ffdd00;
+  transition: 0.25s;
+}
+
 p {
   /* Center horizontally*/
   text-align: center;

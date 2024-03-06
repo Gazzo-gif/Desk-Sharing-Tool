@@ -23,8 +23,14 @@ const Booking = () => {
   const [init, setInit] = useState(2);
   const [deskEvents, setDeskEvents] = useState([]);
   const [events, setEvents] = useState([]);
-  const [event, setEvent] = useState(localStorage.getItem('event'));
-  let tempArray = events;
+
+  const [event, setEvent] = useState({
+    start: "",
+    end: "",
+    title: "",
+    id: init,
+  });
+  const [clickedDeskId, setClickedDeskId] = useState(null); // New state to track clicked desk ID
 
   useEffect(() => {
     const fetchDesks = async () => {
@@ -83,12 +89,56 @@ const Booking = () => {
     });
   };
 
+
+  const handleDeskClick = async (desk) => {
+    try {
+      const response = await fetch(
+        `http://188.34.162.76:8080/bookings/desk/${desk.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error("Error fetching desk booking data");
+      }
+  
+      const bookingData = await response.json();
+      console.log("Booking data for desk:", bookingData);
+  
+      // Parse the booking data and add events to tempArray
+      const bookingEvents = bookingData.map((booking) => ({
+        start: new Date(booking.day + 'T' + booking.begin),
+        end: new Date(booking.day + 'T' + booking.end),
+        title: booking.user.name,
+        id: init,
+      }));
+      
+      setDeskEvents(bookingEvents);
+      setEvents(bookingEvents);
+      setClickedDeskId(desk.id); // Set the clicked desk ID
+    } catch (error) {
+      console.error("Error fetching desk booking data:", error);
+    }
+  };
+  
+  // Use momentLocalizer with custom locale
+  const localizer = momentLocalizer(moment);
+
+  useEffect(() => {
+    moment.locale(i18n.language);
+    setEvents([...events]);
+  }, [i18n.language]);
+
   function back() {
     navigate(-1);
   }
 
   return (
-    <div>
+    <div className="desk-page">
       <div className="sidebar">
         <SidebarComponent />
       </div>
@@ -103,9 +153,11 @@ const Booking = () => {
         <div className="info-container">
           <div>
             {desks.map((desk, index) => (
-              <div className="desk-component" key={index} onClick={() => handleDeskClick(desk)}>
+              <div className="desk-component" key={index}>
                 <div>{desk.id}.</div>
-                <div className="desk-description">
+                <div className={`desk-description ${desk.id === clickedDeskId ? 'clicked' : ''}`} 
+                  onClick={() => handleDeskClick(desk)}
+                >
                   <p className="item-name">{desk.equipment}</p>
                   <p className="item-taken">Some free slots</p>
                 </div>
