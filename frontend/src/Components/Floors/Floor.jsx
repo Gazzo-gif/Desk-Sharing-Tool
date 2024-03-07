@@ -25,7 +25,7 @@ const Floor = () => {
   useEffect(() => {
     console.log(localStorage.getItem('currentFloor'));
     // Fetch room data from the backend
-    fetch('http://188.34.162.76:8080/rooms')
+    fetch('/rooms')
       .then(response => response.json())
       .then(data => {
         // Filter rooms based on the current floor

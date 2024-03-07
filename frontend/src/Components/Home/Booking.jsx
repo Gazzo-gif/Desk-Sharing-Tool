@@ -37,7 +37,7 @@ const Booking = () => {
   useEffect(() => {
     const fetchDesks = async () => {
       try {
-        const response = await fetch(`http://188.34.162.76:8080/desks/room/${roomId}`, {
+        const response = await fetch(`/desks/room/${roomId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -125,7 +125,7 @@ const Booking = () => {
   const handleDeskClick = async (desk) => {
     try {
       const response = await fetch(
-        `http://188.34.162.76:8080/bookings/desk/${desk.id}`,
+        `/bookings/desk/${desk.id}`,
         {
           method: "GET",
           headers: {

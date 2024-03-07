@@ -1,7 +1,7 @@
 const CalendarEvents = [];
 
 async function fetchBookings(userId) {
-  const response = await fetch(`http://188.34.162.76:8080/bookings/user/${userId}`);
+  const response = await fetch(`/bookings/user/${userId}`);
   if (!response.ok) {
     throw new Error('Failed to fetch bookings');
   }
