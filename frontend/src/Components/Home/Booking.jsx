@@ -25,12 +25,14 @@ const Booking = () => {
   const [deskEvents, setDeskEvents] = useState([]);
   const [events, setEvents] = useState([]);
 
+
   const [event, setEvent] = useState({
     start: "",
     end: "",
     title: "",
     id: init,
   });
+  const [event, setEvent] = useState({});
   const [clickedDeskId, setClickedDeskId] = useState(null); // New state to track clicked desk ID
 
   useEffect(() => {
@@ -60,16 +62,47 @@ const Booking = () => {
   }, [roomId]);
 
   const gg = (data) => {
-
-   
-    setEvent({
-      ...event,
+    const startTime = new Date(data.start);
+    const endTime = new Date(data.end);
+  
+    // Calculate the duration in milliseconds
+    const duration = endTime - startTime;
+  
+    // Check if the duration is within the allowed range
+    if (duration < 2 * 60 * 60 * 1000) {
+      alert("Minimum booking duration is 2 hours.");
+      return;
+    }
+  
+    if (duration > 9 * 60 * 60 * 1000) {
+      alert("Maximum booking duration is 9 hours.");
+      return;
+    }
+  
+    // Remove the existing event being created if any
+    const updatedEvents = events.filter(existingEvent => existingEvent.id !== event.id);
+  
+    // Check for overlapping events for the specific desk
+    const isOverlap = updatedEvents.some((existingEvent) =>
+      (existingEvent.start <= startTime && startTime < existingEvent.end) ||
+      (existingEvent.start < endTime && endTime <= existingEvent.end) ||
+      (startTime <= existingEvent.start && existingEvent.end <= endTime)
+    );
+  
+    if (isOverlap) {
+      alert("This slot overlaps with another booking for this desk. Please choose a different slot.");
+      return;
+    }
+  
+    const newEvent = {
       start: data.start,
       end: data.end,
-      id: init,
-
-    });
-    localStorage.setItem('event', event);
+      id: deskEvents.length,
+    };
+  
+    // Update events state with existing events and the new event
+    setEvents([...deskEvents, newEvent]);
+    setEvent(newEvent);
     setInit(init + 1);
   };
 
