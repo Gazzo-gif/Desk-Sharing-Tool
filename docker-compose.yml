@@ -21,6 +21,8 @@ services:
       - mynetwork
     depends_on:
       - database
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
 
   database:
     image: mariadb:latest
