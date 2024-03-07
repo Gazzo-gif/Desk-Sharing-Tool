@@ -20,12 +20,7 @@ const Booking = () => {
   const [init, setInit] = useState(2);
   const [deskEvents, setDeskEvents] = useState([]);
   const [events, setEvents] = useState([]);
-  const [event, setEvent] = useState({
-    start: "",
-    end: "",
-    title: "",
-    id: init,
-  });
+  const [event, setEvent] = useState({});
   const [clickedDeskId, setClickedDeskId] = useState(null); // New state to track clicked desk ID
 
   useEffect(() => {
@@ -88,10 +83,9 @@ const Booking = () => {
     }
   
     const newEvent = {
-      ...event,
       start: data.start,
       end: data.end,
-      id: init,
+      id: deskEvents.length,
     };
   
     // Update events state with existing events and the new event
