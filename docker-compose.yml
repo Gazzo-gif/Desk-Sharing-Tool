@@ -22,7 +22,7 @@ services:
     depends_on:
       - database
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_PROFILES_ACTIVE=database
 
   database:
     image: mariadb:latest
