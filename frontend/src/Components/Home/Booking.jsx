@@ -124,8 +124,7 @@ const Booking = () => {
 
   const handleDeskClick = async (desk) => {
     try {
-      const response = await fetch(
-        `/bookings/desk/${desk.id}`,
+      const response = await fetch(`/bookings/desk/${desk.id}`,
         {
           method: "GET",
           headers: {
