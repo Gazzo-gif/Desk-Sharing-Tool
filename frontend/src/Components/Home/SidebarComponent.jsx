@@ -7,9 +7,10 @@ import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { RiAdminFill } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { FaLanguage } from "react-icons/fa";
 
 const SidebarComponent = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [tab, setTab] = useState({ active: "calendar" });
   const [collapsed, setCollapsed] = useState(
     localStorage.getItem("sidebarCollapsed") === "true"
@@ -54,6 +55,12 @@ const SidebarComponent = () => {
         setTab({ active: "admin" });
         localStorage.setItem("activeTab", "admin");
         navigate("/admin", { replace: true });
+        break;
+
+      case "language":
+        const currentLanguage = i18n.language;
+        const newLanguage = currentLanguage === "en" ? "de" : "en";
+        i18n.changeLanguage(newLanguage);
         break;
 
       default:
@@ -117,6 +124,12 @@ const SidebarComponent = () => {
             <MenuItem> 12/12/24 </MenuItem>
             <MenuItem> 13/12/24 </MenuItem>
           </SubMenu> */}
+          <MenuItem
+            icon={<FaLanguage />}
+            onClick={() => handleClick("language")}
+          >
+            {i18n.language === "en" ? "Deutsch" : "English"}
+          </MenuItem>
         </Menu>
       </Sidebar>
     </div>
