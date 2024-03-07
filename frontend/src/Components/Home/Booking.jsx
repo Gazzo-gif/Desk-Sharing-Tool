@@ -33,7 +33,7 @@ const Booking = () => {
     id: init,
   });
   const [event, setEvent] = useState({});
-  const [clickedDeskId, setClickedDeskId] = useState(null); // New state to track clicked desk ID
+  const [clickedDeskId, setClickedDeskId] = useState(null);
 
   useEffect(() => {
     const fetchDesks = async () => {
@@ -153,7 +153,7 @@ const Booking = () => {
       
       setDeskEvents(bookingEvents);
       setEvents(bookingEvents);
-      setClickedDeskId(desk.id); // Set the clicked desk ID
+      setClickedDeskId(desk.id);
     } catch (error) {
       console.error("Error fetching desk booking data:", error);
     }
