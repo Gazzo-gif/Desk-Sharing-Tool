@@ -21,7 +21,7 @@ const Booking = () => {
   const { date } = location.state || {};
   const roomId = localStorage.getItem("roomId");
   const [desks, setDesks] = useState([]);
-  const [init, setInit] = useState(2);
+  const [init, setInit] = useState(0);
   const [deskEvents, setDeskEvents] = useState([]);
   const [events, setEvents] = useState([]);
 
