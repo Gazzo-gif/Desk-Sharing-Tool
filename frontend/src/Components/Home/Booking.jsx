@@ -17,7 +17,6 @@ const Booking = () => {
   const { date } = location.state || {};
   const roomId = localStorage.getItem("roomId");
   const [desks, setDesks] = useState([]);
-  const [init, setInit] = useState(0);
   const [deskEvents, setDeskEvents] = useState([]);
   const [events, setEvents] = useState([]);
   const [event, setEvent] = useState({});
@@ -85,13 +84,12 @@ const Booking = () => {
     const newEvent = {
       start: data.start,
       end: data.end,
-      id: deskEvents.length,
+      id: 1,
     };
   
     // Update events state with existing events and the new event
     setEvents([...deskEvents, newEvent]);
     setEvent(newEvent);
-    setInit(init + 1);
   };
 
   const submit = () => {
@@ -135,7 +133,7 @@ const Booking = () => {
         start: new Date(booking.day + 'T' + booking.begin),
         end: new Date(booking.day + 'T' + booking.end),
         title: booking.user.name,
-        id: init,
+        id: 0,
       }));
       
       setDeskEvents(bookingEvents);
