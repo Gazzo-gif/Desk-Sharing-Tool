@@ -20,11 +20,6 @@ public class Desk {
     public Desk() {
     }
 
-    public Desk(Room room, String equipment) {
-        this.room = room;
-        this.equipment = equipment;
-    }
-
     public Long getId() {
         return id;
     }

@@ -1,7 +1,15 @@
 package com.desk_sharing.controllers;
 
+import com.desk_sharing.dtos.BookingDTO;
 import com.desk_sharing.entities.Booking;
+import com.desk_sharing.entities.Desk;
+import com.desk_sharing.entities.Room;
+import com.desk_sharing.entities.User;
 import com.desk_sharing.services.BookingService;
+import com.desk_sharing.services.DeskService;
+import com.desk_sharing.services.RoomService;
+import com.desk_sharing.services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +17,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
+
+import java.sql.Date;
+import java.sql.Time;
 
 @RestController
 @CrossOrigin(origins = {"http://188.34.162.76:3000", "http://localhost:3000"})
@@ -18,10 +30,48 @@ public class BookingController {
     @Autowired
     BookingService bookingService;
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    RoomService roomService;
+
+    @Autowired
+    DeskService deskService;
+
+    private BookingDTO convertToDTO(Booking booking) {
+        BookingDTO dto = new BookingDTO();
+        dto.setId(booking.getId());
+        dto.setUserId(booking.getUser().getId());
+        dto.setRoomId(booking.getRoom().getId());
+        dto.setDeskId(booking.getDesk().getId());
+        dto.setDay(booking.getDay());
+        dto.setBegin(booking.getBegin());
+        dto.setEnd(booking.getEnd());
+        return dto;
+    }
+
     @PostMapping
-    public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
-        Booking savedBooking = bookingService.addBooking(booking);
-        return new ResponseEntity<>(savedBooking, HttpStatus.CREATED);
+    public ResponseEntity<BookingDTO> addBooking(@RequestBody Map<String, Object> bookingData) {
+
+        Long user_id = Long.parseLong(bookingData.get("user_id").toString());
+        Long room_id = Long.parseLong(bookingData.get("room_id").toString());
+        Long desk_id = Long.parseLong(bookingData.get("desk_id").toString());
+        Date day = Date.valueOf(bookingData.get("day").toString());
+        Time begin = Time.valueOf(bookingData.get("begin").toString());
+        Time end = Time.valueOf(bookingData.get("end").toString());
+
+        User user = userService.getUser(user_id);
+        Room room = roomService.getRoom(room_id);
+        Desk desk = deskService.getDesk(desk_id);
+
+    
+        Booking newBooking = new Booking(user, room, desk, day, begin, end);
+        Booking savedBooking = bookingService.addBooking(newBooking);
+    
+        BookingDTO bookingDTO = convertToDTO(savedBooking);
+    
+        return new ResponseEntity<>(bookingDTO, HttpStatus.CREATED);
     }
 
     @GetMapping

@@ -18,7 +18,6 @@ const Floor = () => {
   const formattedDate = date ? new Date(date).toLocaleDateString() : '';
 
   useEffect(() => {
-    console.log(localStorage.getItem('currentFloor'));
     // Fetch room data from the backend
     fetch('/rooms')
       .then(response => response.json())
@@ -35,7 +34,7 @@ const Floor = () => {
   const handleRoomClick = (roomId) => {
     setSelectedRoom(roomId === selectedRoom ? null : roomId);
     localStorage.setItem("roomId", String(roomId));
-    navigate("/desks", { state: { date }, replace: true });
+    navigate("/desks", { state: { date } });
   };
 
   const toggleFloor = () => {

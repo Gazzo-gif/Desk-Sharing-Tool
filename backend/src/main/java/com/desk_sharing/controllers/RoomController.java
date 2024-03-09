@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = {"http://188.34.162.76:3000", "http://localhost:3000"})
@@ -32,9 +31,8 @@ public class RoomController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Room> getRoomById(@PathVariable("id") Long id) {
-        Optional<Room> room = roomService.getRoomById(id);
-        return room.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Room room = roomService.getRoom(id);
+        return new ResponseEntity<>(room, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

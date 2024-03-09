@@ -22,7 +22,7 @@ public class Booking {
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "desk_id", nullable = false)
     private Desk desk;
     
@@ -35,7 +35,15 @@ public class Booking {
     @Column(name = "end", nullable = false)
     private Time end;
 
-    public Booking() {
+    public Booking() {}
+    
+    public Booking(User user, Room room, Desk desk, Date day, Time begin, Time end) {
+        this.user = user;
+        this.room = room;
+        this.desk = desk;
+        this.day = day;
+        this.begin = begin;
+        this.end = end;
     }
 
     public Long getId() {

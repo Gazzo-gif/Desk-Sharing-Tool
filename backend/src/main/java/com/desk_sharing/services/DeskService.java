@@ -22,8 +22,8 @@ public class DeskService {
         return deskRepository.findAll();
     }
 
-    public Optional<Desk> getDeskById(Long id) {
-        return deskRepository.findById(id);
+    public Desk getDesk(Long id) {
+        return deskRepository.getById(id);
     }
 
     public List<Desk> getDeskByRoomId(Long roomId) {

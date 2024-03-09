@@ -48,6 +48,54 @@ const Booking = () => {
     }
   }, [roomId]);
 
+  useEffect(() => {
+    moment.locale(i18n.language);
+    setEvents([...events]);
+  }, [i18n.language]);
+
+  useEffect(() => {
+    const handleDeskClick = async (desk) => {
+      try {
+        const response = await fetch(
+          `/bookings/desk/${desk.id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+    
+        if (!response.ok) {
+          throw new Error("Error fetching desk booking data");
+        }
+    
+        const bookingData = await response.json();
+        console.log("Booking data for desk:", bookingData);
+    
+        // Parse the booking data and add events to tempArray
+        const bookingEvents = bookingData.map((booking) => ({
+          start: new Date(booking.day + 'T' + booking.begin),
+          end: new Date(booking.day + 'T' + booking.end),
+          title: booking.user.name,
+          id: 0,
+        }));
+        
+        setDeskEvents(bookingEvents);
+        setEvents(bookingEvents);
+        setClickedDeskId(desk.id);
+      } catch (error) {
+        console.error("Error fetching desk booking data:", error);
+      }
+    };
+
+    desks.forEach(desk => {
+      if (desk.id === clickedDeskId) {
+        handleDeskClick(desk);
+      }
+    });
+  }, [desks, clickedDeskId]);
+
   const gg = (data) => {
     const startTime = new Date(data.start);
     const endTime = new Date(data.end);
@@ -92,61 +140,66 @@ const Booking = () => {
     setEvent(newEvent);
   };
 
-  const submit = () => {
+  const booking = async () => {
+
+    const userId = localStorage.getItem("userId");
+    const room_Id = roomId;
+    const deskId = clickedDeskId;
+    const day = moment(event.start).format("YYYY-MM-DD");
+    const start = moment(event.start).format("HH:mm:ss");
+    const ending = moment(event.end).format("HH:mm:ss");
+
     confirmAlert({
-      title: "Enter event title",
-      message: "Are you sure",
+      title: "Book Desk " + clickedDeskId,
+      message: "For day " + day + "\nFrom " + start + " to " + ending,
       buttons: [
         {
           label: "Yes",
-          onClick: () => alert("Click Yes"),
+          onClick: async () => {
+            const bookingData = {
+              user_id: userId,
+              room_id: room_Id,
+              desk_id: deskId,
+              day: day,
+              begin: start,
+              end: ending
+            };
+
+            try {
+              const response = await fetch("/bookings", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(bookingData)
+              })
+
+              if (!response.ok) {
+                throw new Error("Error fetching desk booking data");
+              }
+          
+              const data = await response.json();
+              console.log("Booking saved successfully:", data);
+
+              const booking = {
+                id: data.id,
+                title: `Desk ${data.deskId}`,
+                start: new Date(`${data.day}T${data.begin}`),
+                end: new Date(`${data.day}T${data.end}`)
+              }
+
+              navigate("/home", { state: { booking }, replace: true });
+            } catch (error) {
+              console.error("Error saving booking:", error);
+            }
+          },
         },
         {
           label: "No",
-          onClick: () => alert("Click No"),
         },
       ],
     });
   };
-
-  const handleDeskClick = async (desk) => {
-    try {
-      const response = await fetch(`/bookings/desk/${desk.id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-  
-      if (!response.ok) {
-        throw new Error("Error fetching desk booking data");
-      }
-  
-      const bookingData = await response.json();
-      console.log("Booking data for desk:", bookingData);
-  
-      // Parse the booking data and add events to tempArray
-      const bookingEvents = bookingData.map((booking) => ({
-        start: new Date(booking.day + 'T' + booking.begin),
-        end: new Date(booking.day + 'T' + booking.end),
-        title: booking.user.name,
-        id: 0,
-      }));
-      
-      setDeskEvents(bookingEvents);
-      setEvents(bookingEvents);
-      setClickedDeskId(desk.id);
-    } catch (error) {
-      console.error("Error fetching desk booking data:", error);
-    }
-  };
-
-  useEffect(() => {
-    moment.locale(i18n.language);
-    setEvents([...events]);
-  }, [i18n.language]);
 
   function back() {
     navigate(-1);
@@ -171,7 +224,7 @@ const Booking = () => {
               <div className="desk-component" key={index}>
                 <div>{desk.id}.</div>
                 <div className={`desk-description ${desk.id === clickedDeskId ? 'clicked' : ''}`} 
-                  onClick={() => handleDeskClick(desk)}
+                  onClick={() => setClickedDeskId(desk.id)}
                 >
                   <p className="item-name">{desk.equipment}</p>
                   <p className="item-taken">Some free slots</p>
@@ -206,7 +259,7 @@ const Booking = () => {
                 })}
               />
             </div>
-            <button className="submit-btn" onClick={() => submit()}>
+            <button className="submit-btn" onClick={() => booking()}>
               Book
             </button>
           </div>

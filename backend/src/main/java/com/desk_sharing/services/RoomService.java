@@ -22,8 +22,8 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
-    public Optional<Room> getRoomById(Long id) {
-        return roomRepository.findById(id);
+    public Room getRoom(Long id) {
+        return roomRepository.getById(id);
     }
 
     public Room updateRoom(Long id, Room room) {
