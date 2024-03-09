@@ -8,12 +8,24 @@ import "./HomeCalendar.scss";
 import SidebarComponent from "./SidebarComponent";
 import CalendarEvents from "./CalendarEvents";
 import { useTranslation } from "react-i18next";
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
   const [events, setEvents] = useState(CalendarEvents);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (location.state && location.state.booking) {
+      const { booking } = location.state;
+      const isBookingExist = events.some(event => event.id === booking.id);
+      if (!isBookingExist) {
+        setEvents(prevEvents => [...prevEvents, booking]);
+      }
+    }
+  }, [location.state, events]); // Include events dependency here
+  
   const handleSelectSlot = ({ start }) => {
     const selectedDateEvent = {
       start,
@@ -21,14 +33,14 @@ const Home = () => {
       title: t("selectedDate"),
       allDay: true,
     };
-
+  
     setEvents([...events, selectedDateEvent]);
-
+  
     setTimeout(() => {
       navigate("/floor", { state: { date: start } });
     }, 500);
   };
-
+  
   const localizer = momentLocalizer(moment);
 
   useEffect(() => {

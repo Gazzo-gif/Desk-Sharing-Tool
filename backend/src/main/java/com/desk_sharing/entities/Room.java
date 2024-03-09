@@ -24,12 +24,6 @@ public class Room {
     public Room() {
     }
 
-    public Room(String type, int x, int y) {
-        this.type = type;
-        this.x = x;
-        this.y = y;
-    }
-
     public Long getId() {
         return id;
     }

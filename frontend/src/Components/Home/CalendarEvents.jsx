@@ -16,7 +16,7 @@ async function populateCalendarEvents(userId) {
       const start = new Date(booking.day + 'T' + booking.begin);
       const end = new Date(booking.day + 'T' + booking.end);
       CalendarEvents.push({
-        id: booking.desk.id, // Assuming desk id is appropriate as event id
+        id: booking.id, // Assuming desk id is appropriate as event id
         title: `Desk ${booking.desk.id}`, // You can customize title as needed
         start,
         end
