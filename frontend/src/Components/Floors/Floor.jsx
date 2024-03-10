@@ -33,12 +33,10 @@ const Floor = () => {
 
   const handleRoomClick = (roomId) => {
     setSelectedRoom(roomId === selectedRoom ? null : roomId);
-    localStorage.setItem("roomId", String(roomId));
-    navigate("/desks", { state: { date } });
+    navigate("/desks", { state: { roomId, date } });
   };
 
   const toggleFloor = () => {
-    localStorage.setItem('currentFloor', currentFloor === 'Ground' ? 'First' : 'Ground');
     setCurrentFloor(currentFloor === 'Ground' ? 'First' : 'Ground');
     setSelectedRoom(null); // Reset selected room when changing floors
   };
@@ -46,7 +44,6 @@ const Floor = () => {
   function back() {
     navigate(-1);
   }
-
 
   const floorImage = currentFloor === 'Ground' ? firstFloorImage : secondFloorImage;
 

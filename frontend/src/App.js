@@ -17,14 +17,13 @@ function App() {
   return (
     <>
       <Router>
-    
         <Routes>
           <Route exact path="/" element={<LoginPage />}></Route>
           <Route path="/home" element={<Home />}></Route>
-          <Route path="/floor" element={<Floor />}></Route> {/* Add the route for Floor */}
+          <Route path="/floor" element={<Floor />}></Route>
           <Route path="/desks" element={<Booking />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
-          <Route path="/admin" element={<AdminPage />}></Route> {/* Add route for AdminPanel */}
+          <Route path="/admin" element={<AdminPage />}></Route>
 
           <Route path="*" element={<Navigate to="/home" />} />
         </Routes>

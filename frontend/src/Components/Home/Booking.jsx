@@ -14,8 +14,7 @@ const Booking = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const localizer = momentLocalizer(moment);
-  const { date } = location.state || {};
-  const roomId = localStorage.getItem("roomId");
+  const { roomId, date } = location.state;
   const [desks, setDesks] = useState([]);
   const [deskEvents, setDeskEvents] = useState([]);
   const [events, setEvents] = useState([]);
