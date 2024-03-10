@@ -12,7 +12,7 @@ import { useLocation } from "react-router-dom";
 const Home = () => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
-  const navigate = useNavigate();S
+  const navigate = useNavigate();
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Home = () => {
         const bookings = await fetchBookings(userId);
         const calendarEvents = bookings.map((booking) => ({
           id: booking.id,
-          title: `Desk ${booking.desk.id}`,
+          title: `${t('desk')} ${booking.desk.id}`,
           start: new Date(booking.day + "T" + booking.begin),
           end: new Date(booking.day + "T" + booking.end),
         }));
