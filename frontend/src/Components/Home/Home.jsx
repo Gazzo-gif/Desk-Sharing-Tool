@@ -2,30 +2,49 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import "moment/locale/de"
+import "moment/locale/de";
 import "./Home.css";
 import "./HomeCalendar.scss";
 import SidebarComponent from "./SidebarComponent";
-import CalendarEvents from "./CalendarEvents";
 import { useTranslation } from "react-i18next";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 const Home = () => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
-  const [events, setEvents] = useState(CalendarEvents);
-  const navigate = useNavigate();
+  const navigate = useNavigate();S
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    if (location.state && location.state.booking) {
-      const { booking } = location.state;
-      const isBookingExist = events.some(event => event.id === booking.id);
-      if (!isBookingExist) {
-        setEvents(prevEvents => [...prevEvents, booking]);
+    const userId = localStorage.getItem("userId");
+
+    async function fetchBookings(userId) {
+      const response = await fetch(`/bookings/user/${userId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch bookings");
+      }
+      const bookings = await response.json();
+      return bookings;
+    }
+
+    async function populateCalendarEvents(userId) {
+      try {
+        const bookings = await fetchBookings(userId);
+        const calendarEvents = bookings.map((booking) => ({
+          id: booking.id,
+          title: `Desk ${booking.desk.id}`,
+          start: new Date(booking.day + "T" + booking.begin),
+          end: new Date(booking.day + "T" + booking.end),
+        }));
+        setEvents(calendarEvents);
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
       }
     }
-  }, [location.state, events]); // Include events dependency here
-  
+
+    populateCalendarEvents(userId);
+  }, []);
+
   const handleSelectSlot = ({ start }) => {
     const selectedDateEvent = {
       start,
@@ -33,14 +52,14 @@ const Home = () => {
       title: t("selectedDate"),
       allDay: true,
     };
-  
+
     setEvents([...events, selectedDateEvent]);
-  
+
     setTimeout(() => {
       navigate("/floor", { state: { date: start } });
     }, 500);
   };
-  
+
   const localizer = momentLocalizer(moment);
 
   useEffect(() => {
@@ -66,7 +85,7 @@ const Home = () => {
             events={events}
             startAccessor="start"
             endAccessor="end"
-            views={['month', "agenda"]}
+            views={["month", "agenda"]}
             defaultView="month"
             style={{ height: 500 }}
             onSelectSlot={handleSelectSlot}
