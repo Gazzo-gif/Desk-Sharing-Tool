@@ -63,9 +63,11 @@ const Floor = () => {
         <h1>{currentFloor === 'Ground' ? t("groundFloor") : t("firstFloor")}</h1>
         {date && <p>{t("chosenDate")}: {formattedDate}</p>}
         <div>
-          <button onClick={() => setFilterType(null)}>{t("allRooms")}</button>
-          <button onClick={() => setFilterType('Normal')}>{t("normalRooms")}</button>
-          <button onClick={() => setFilterType('Silence')}>{t("silenceRooms")}</button>
+          <select id="filterType" value={filterType} onChange={(e) => setFilterType(e.target.value)}>
+            <option value="">{t("all")}</option>
+            <option value="Normal">{t("normal")}</option>
+            <option value="Silence">{t("silence")}</option>
+          </select>
         </div>
         <button onClick={toggleFloor}>{t("switchFloor")}</button>
         <div className="image-wrapper">

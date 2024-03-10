@@ -20,6 +20,9 @@
     "groundFloor": "Floor Plan Ground",
     "firstFloor": "Floor Plan First",
     "switchFloor": "Switch Floor",
+    "all": "All",
+    "normal": "Normal",
+    "silence": "Silence",
 
     "availableDesks": "Available Desks",
 

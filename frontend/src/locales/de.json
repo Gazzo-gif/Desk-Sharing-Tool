@@ -20,6 +20,9 @@
     "groundFloor": "Erdgeschoss",
     "firstFloor": "Obergeschoss",
     "switchFloor": "Etage wechseln",
+    "all": "Alle",
+    "normal": "Normal",
+    "silence": "Schweigen",
 
     "availableDesks": "Verfügbare Arbeitsplätze",
 
