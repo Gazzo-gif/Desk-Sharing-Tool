@@ -43,7 +43,7 @@ const Home = () => {
     }
 
     populateCalendarEvents(userId);
-  }, []);
+  }, [t]);
 
   const handleSelectSlot = ({ start }) => {
     const selectedDateEvent = {
@@ -65,8 +65,6 @@ const Home = () => {
   useEffect(() => {
     // Change moment locale whenever language changes
     moment.locale(i18n.language);
-    // Force re-render
-    setEvents([...events]);
   }, [i18n.language]);
 
   return (
