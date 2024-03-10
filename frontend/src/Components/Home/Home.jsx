@@ -7,11 +7,9 @@ import "./Home.css";
 import "./HomeCalendar.scss";
 import SidebarComponent from "./SidebarComponent";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
 
 const Home = () => {
   const { t, i18n } = useTranslation();
-  const location = useLocation();
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
 
