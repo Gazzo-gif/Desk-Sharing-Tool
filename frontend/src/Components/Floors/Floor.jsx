@@ -1,50 +1,49 @@
+
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import firstFloorImage from '../../images/firstfloor.png';
-import secondFloorImage from '../../images/secondfloor.png';
-import './Floor.css';
-// import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-// import { CgProfile, CgDisplayFullwidth } from "react-icons/cg";
-// import { IoCalendarNumberOutline } from "react-icons/io5";
-// import { RiAdminFill } from "react-icons/ri";
-
+import secondFloorImage from '../../images/secondfloor.png'; 
+import './Floor.css'; 
 import { useNavigate } from "react-router-dom";
 import SidebarComponent from "../Home/SidebarComponent"
 import { useTranslation } from "react-i18next";
 
 const Floor = () => {
-  const localStorageFloor = localStorage.getItem('currentFloor');
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [selectedRoom, setSelectedRoom] = useState(null);
-  const [currentFloor, setCurrentFloor] = useState(localStorageFloor);
+  const [currentFloor, setCurrentFloor] = useState('Ground');
   const [rooms, setRooms] = useState([]);
   const location = useLocation();
   const { date } = location.state || {};
   const formattedDate = date ? new Date(date).toLocaleDateString() : '';
+  const [filterType, setFilterType] = useState(null);
 
   useEffect(() => {
-    console.log(localStorage.getItem('currentFloor'));
     // Fetch room data from the backend
     fetch('/rooms')
       .then(response => response.json())
       .then(data => {
-        // Filter rooms based on the current floor
-        const filteredRooms = data.filter(room => room.floor === currentFloor);
+        // Apply filter if selected
+        let filteredRooms = data.filter(room => room.floor === currentFloor);
+        if (filterType === 'Silence') {
+          filteredRooms = filteredRooms.filter(room => room.type === 'Silence');
+        } else if (filterType === 'Normal') {
+          filteredRooms = filteredRooms.filter(room => room.type === 'Normal');
+        }
         setRooms(filteredRooms);
       })
       .catch(error => {
         console.error('Error fetching room data:', error);
       });
-  }, [currentFloor]);
+  }, [currentFloor, filterType]);
 
   const handleRoomClick = (roomId) => {
     setSelectedRoom(roomId === selectedRoom ? null : roomId);
-    localStorage.setItem("roomId", String(roomId));
-    navigate("/desks", { state: { date }, replace: true });
+    navigate("/desks", { state: { roomId, date } });
   };
 
   const toggleFloor = () => {
-    localStorage.setItem('currentFloor', currentFloor === 'Ground' ? 'First' : 'Ground');
     setCurrentFloor(currentFloor === 'Ground' ? 'First' : 'Ground');
     setSelectedRoom(null); // Reset selected room when changing floors
   };
@@ -52,7 +51,6 @@ const Floor = () => {
   function back() {
     navigate(-1);
   }
-
 
   const floorImage = currentFloor === 'Ground' ? firstFloorImage : secondFloorImage;
 
@@ -65,6 +63,11 @@ const Floor = () => {
       <div className="floor-content">
         <h1>{currentFloor === 'Ground' ? t("groundFloor") : t("firstFloor")}</h1>
         {date && <p>{t("chosenDate")}: {formattedDate}</p>}
+        <div>
+          <button onClick={() => setFilterType(null)}>{t("allRooms")}</button>
+          <button onClick={() => setFilterType('Normal')}>{t("normalRooms")}</button>
+          <button onClick={() => setFilterType('Silence')}>{t("silenceRooms")}</button>
+        </div>
         <button onClick={toggleFloor}>{t("switchFloor")}</button>
         <div className="image-wrapper">
           <img src={floorImage} alt={`${currentFloor === 'Ground' ? 'Ground' : 'First'} Floor`} />
