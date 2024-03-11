@@ -1,10 +1,12 @@
-const { createProxyMiddleware } = require("http-proxy-middleware");
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
-module.exports = function (app) {
+module.exports = function(app) {
+  const backendUrl = process.env.BACKEND_URL || 'http://localhost:8080';
+  
   app.use(
     "/users",
     createProxyMiddleware({
-      target: "http://localhost:8080",
+      target: backendUrl,
       changeOrigin: true,
     })
   );
@@ -12,7 +14,7 @@ module.exports = function (app) {
   app.use(
     "/rooms",
     createProxyMiddleware({
-      target: "http://localhost:8080",
+      target: backendUrl,
       changeOrigin: true,
     })
   );
@@ -20,7 +22,7 @@ module.exports = function (app) {
   app.use(
     "/desks",
     createProxyMiddleware({
-      target: "http://localhost:8080",
+      target: backendUrl,
       changeOrigin: true,
     })
   );
@@ -28,7 +30,7 @@ module.exports = function (app) {
   app.use(
     "/bookings",
     createProxyMiddleware({
-      target: "http://localhost:8080",
+      target: backendUrl,
       changeOrigin: true,
     })
   );
