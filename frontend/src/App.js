@@ -1,11 +1,11 @@
 import React from 'react';
 import Home from "./Components/Home/Home";
 import LoginPage from "./Components/LoginForm/LoginPage";
-import Floor from "./Components/Floors/Floor"; // Import the Floor component
+import Floor from "./Components/Floors/Floor";
 import Booking from "./Components/Home/Booking";
 import Profile from "./Components/Profile/Profile";
 import AdminPage from "./Components/AdminPanel/AdminPage"
-import SidebarComponent from './Components/Home/SidebarComponent';
+import MyBookings from "./Components/Home/MyBookings";
 import {
   BrowserRouter as Router,
   Routes,
@@ -24,6 +24,7 @@ function App() {
           <Route path="/desks" element={<Booking />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/admin" element={<AdminPage />}></Route>
+          <Route path="/mybookings" element={<MyBookings />}></Route>
 
           <Route path="*" element={<Navigate to="/home" />} />
         </Routes>
