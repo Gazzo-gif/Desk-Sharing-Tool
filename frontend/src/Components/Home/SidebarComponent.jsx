@@ -6,7 +6,7 @@ import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { RiAdminFill } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { FaLanguage } from "react-icons/fa";
+import { FaLanguage, FaLock, FaEyeSlash, FaCog } from "react-icons/fa";
 
 const SidebarComponent = () => {
   const { t, i18n } = useTranslation();
@@ -123,9 +123,9 @@ const SidebarComponent = () => {
           </MenuItem>
         </Menu>
         <Menu>
-          <SubMenu icon={<CgDisplayFullwidth />} label={t("settings")}>
-            <MenuItem> {t("visibility")} </MenuItem>
-            <MenuItem> {t("password")} </MenuItem>
+          <SubMenu icon={<FaCog />} label={t("settings")}>
+            <MenuItem icon={<FaEyeSlash />}>{t("visibility")}</MenuItem>
+            <MenuItem icon={<FaLock />} >{t("password")}</MenuItem>
           </SubMenu>
         </Menu>
       </Sidebar>
