@@ -3,7 +3,6 @@ import Home from "./Components/Home/Home";
 import LoginPage from "./Components/LoginForm/LoginPage";
 import Floor from "./Components/Floors/Floor";
 import Booking from "./Components/Home/Booking";
-import Profile from "./Components/Profile/Profile";
 import AdminPage from "./Components/AdminPanel/AdminPage"
 import MyBookings from "./Components/Home/MyBookings";
 import {
