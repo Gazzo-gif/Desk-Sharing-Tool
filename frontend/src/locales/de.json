@@ -11,6 +11,8 @@
     "admin": "Admin",
     "calendar": "Kalender",
     "bookings": "Buchungen",
+    "settings": "Einstellungen",
+    "visibility": "Sichtweite",
 
     "selectedDate": "Datum Auswählen",
     "chooseDate": "Datum für eine Tischreservierung wählen",
@@ -28,5 +30,7 @@
 
     "available": "Verfügbar",
     "full": "Ausgebucht",
-    "some": "Geringe Verfügbarkeit"
+    "some": "Geringe Verfügbarkeit",
+
+    "myBookings": "Meine Buchungen"
 }

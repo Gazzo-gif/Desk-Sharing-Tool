@@ -11,6 +11,8 @@
     "admin": "Admin",
     "calendar": "Calendar",
     "bookings": "Bookings",
+    "settings": "Settings",
+    "visibility": "Visibility",
 
     "selectedDate": "Selected Date",
     "chooseDate": "Choose a date for a desk",
@@ -28,5 +30,7 @@
 
     "available": "Available",
     "full": "Fully booked",
-    "some": "Some free slots"
+    "some": "Some free slots",
+
+    "myBookings": "My Bookings"
 }

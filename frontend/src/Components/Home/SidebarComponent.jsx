@@ -1,5 +1,4 @@
-import React, { useState, useEffect  } from "react";
-import { CgProfile } from "react-icons/cg";
+import React, { useState, useEffect } from "react";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { CgDisplayFullwidth } from "react-icons/cg";
 import { BsList } from "react-icons/bs";
@@ -11,28 +10,25 @@ import { FaLanguage } from "react-icons/fa";
 
 const SidebarComponent = () => {
   const { t, i18n } = useTranslation();
-  const [tab, setTab] = useState({ active: "calendar" });
   const [collapsed, setCollapsed] = useState(
     localStorage.getItem("sidebarCollapsed") === "true"
   );
-  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("calendar");
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Ensure correct active state based on URL path
-    const currentPath = location.pathname;
-    if (currentPath === "/home") {
-      setActiveTab("calendar");
-    // } else if (currentPath === "/profile") {
-    //   setActiveTab("profile");
-    } else if (currentPath === "/admin") {
+    // Extract the current pathname from the location
+    const path = location.pathname;
+    // Determine the active tab based on the current pathname
+    if (path.startsWith("/admin")) {
       setActiveTab("admin");
+    } else if (path.startsWith("/mybookings")) {
+      setActiveTab("bookings");
+    } else {
+      setActiveTab("calendar");
     }
   }, [location.pathname]);
-
-  const setActiveTab = (tabName) => {
-    localStorage.setItem("activeTab", tabName);
-  };
 
   const handleClick = (name) => {
     switch (name) {
@@ -42,19 +38,18 @@ const SidebarComponent = () => {
         break;
 
       case "calendar":
-        setTab({ active: "calendar" });
+        setActiveTab("calendar");
         navigate("/home", { replace: true });
         break;
 
-      // case "profile":
-      //   setTab({ active: "profile" });
-      //   navigate("/profile", { replace: true });
-      //   break;
-
       case "admin":
-        setTab({ active: "admin" });
-        localStorage.setItem("activeTab", "admin");
+        setActiveTab("admin");
         navigate("/admin", { replace: true });
+        break;
+
+      case "bookings":
+        setActiveTab("bookings");
+        navigate("/mybookings", { replace: true });
         break;
 
       case "language":
@@ -75,7 +70,7 @@ const SidebarComponent = () => {
         backgroundColor="#008444"
         width={collapsed ? "80px" : "200px"}
         style={{
-          height: "100%",
+          height: "100vh",
           [`&.active`]: {
             backgroundColor: "#13395e",
             color: "#b6c8d9",
@@ -94,42 +89,44 @@ const SidebarComponent = () => {
           }}
         >
           <MenuItem
-            active={tab?.active === "collapse" ? true : false}
+            active={activeTab === "collapse"}
             icon={<BsList />}
             onClick={() => handleClick("collapse")}
           >
           </MenuItem>
-          {/* <MenuItem
-            active={tab?.active === "profile" ? true : false}
-            icon={<CgProfile />}
-            onClick={() => handleClick("profile")}
-          >
-            {t("profile")}
-          </MenuItem> */}
           <MenuItem
-            active={localStorage.getItem("activeTab") === "admin"}
+            active={activeTab === "admin"}
             icon={<RiAdminFill />}
             onClick={() => handleClick("admin")}
           >
             {t("admin")}
           </MenuItem>
           <MenuItem
-            active={localStorage.getItem("activeTab") === "calendar"}
+            active={activeTab === "calendar"}
             icon={<IoCalendarNumberOutline />}
             onClick={() => handleClick("calendar")}
           >
             {t("calendar")}
           </MenuItem>
-          {/* <SubMenu icon={<CgDisplayFullwidth />} label={t("bookings")}>
-            <MenuItem> 12/12/24 </MenuItem>
-            <MenuItem> 13/12/24 </MenuItem>
-          </SubMenu> */}
+          <MenuItem
+            active={activeTab === "bookings"}
+            icon={<CgDisplayFullwidth />}
+            onClick={() => handleClick("bookings")}
+          >
+            {t("bookings")}
+          </MenuItem>
           <MenuItem
             icon={<FaLanguage />}
             onClick={() => handleClick("language")}
           >
             {i18n.language === "en" ? "Deutsch" : "English"}
           </MenuItem>
+        </Menu>
+        <Menu>
+          <SubMenu icon={<CgDisplayFullwidth />} label={t("settings")}>
+            <MenuItem> {t("visibility")} </MenuItem>
+            <MenuItem> {t("password")} </MenuItem>
+          </SubMenu>
         </Menu>
       </Sidebar>
     </div>
