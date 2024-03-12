@@ -210,7 +210,7 @@ const Booking = () => {
 
   return (
     <div className="desk-page">
-      <div className="sidebar">
+      <div>
         <SidebarComponent />
       </div>
       <div>
@@ -263,7 +263,7 @@ const Booking = () => {
               />
             </div>
             <button className="submit-btn" onClick={() => booking()}>
-              Book
+              {t("book")}
             </button>
           </div>
         </div>
