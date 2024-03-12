@@ -1,0 +1,62 @@
+/* Rounded border */
+hr.rounded {
+    border-top: 5px solid #008444;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+.about-title{
+    margin: 10px;
+    display: flex;
+    height: 50px;
+}
+.description-container{
+    width: 20vw;
+    background: "#aaa";
+}
+.profiepicture{
+    width: 100%;
+}
+.info-container{
+    margin: 15px;
+    width: 80vw;
+}
+
+.history-container{
+    margin: 15px;
+    height: 40%;
+}
+.history{
+    overflow-y: scroll;
+    height: 250px;
+}
+.about-container{
+    margin: 15px;
+}
+.history-description{
+    width: 100%;
+    /* display: flex; */
+    /* justify-content: center; */
+    align-items: center;
+}
+.floor-image{
+    width: 25%;
+    height: 100%;
+    margin: 5px;
+}
+.desk-display{
+    width: 50%;
+    background: #008444;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.history-item{
+    margin: 10px;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+}
