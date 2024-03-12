@@ -33,5 +33,14 @@
     "full": "Ausgebucht",
     "some": "Geringe Verfügbarkeit",
 
-    "myBookings": "Meine Buchungen"
+    "myBookings": "Meine Buchungen",
+    "edit": "Bearbeiten",
+    "delete": "Entfernen",
+    "day": "Tag",
+    "start": "Beginn",
+    "end": "Ende",
+    "room": "Zimmer",
+    "floor": "Etage",
+    "type": "Art",
+    "equipment": "Austattung"
 }

@@ -1,66 +1,131 @@
 import React, { useState, useEffect } from "react";
-import "react-confirm-alert/src/react-confirm-alert.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import "./HomeCalendar.scss";
 import "./MyBookings.css";
-import SidebarComponent from "./SidebarComponent"
-import { useTranslation } from "react-i18next";
+import SidebarComponent from "./SidebarComponent";
 
 const MyBookings = () => {
   const { t, i18n } = useTranslation();
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
-
-  useEffect(() => {
-    moment.locale(i18n.language);
-    setEvents([...events]);
-  }, [i18n.language]);
+  const [theEvent, setTheEvent] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   const localizer = momentLocalizer(moment);
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
+    moment.locale(i18n.language);
 
-    async function fetchBookings(userId) {
+    const storedUserId = localStorage.getItem("userId");
+    setUserId(storedUserId);
+
+    fetchBookings(storedUserId);
+  }, [i18n.language]);
+
+  useEffect(() => {
+    if (selectedEvent) {
+      const updatedTitle = `${t('desk')} ${selectedEvent.desk.id}`;
+      setSelectedEvent(prevEvent => ({ ...prevEvent, title: updatedTitle }));
+    }
+  }, [t, selectedEvent]);
+
+  const fetchBookings = async (userId) => {
+    try {
       const response = await fetch(`/bookings/user/${userId}`);
       if (!response.ok) {
         throw new Error("Failed to fetch bookings");
       }
       const bookings = await response.json();
-      return bookings;
+      const calendarEvents = bookings.map((booking) => ({
+        id: booking.id,
+        title: `${t('desk')} ${booking.desk.id}`,
+        start: new Date(booking.day + "T" + booking.begin),
+        end: new Date(booking.day + "T" + booking.end),
+        desk: booking.desk // Store desk info for later use
+      }));
+      setEvents(calendarEvents);
+    } catch (error) {
+      console.error("Error fetching bookings:", error);
     }
+  };
 
-    async function populateCalendarEvents(userId) {
-      try {
-        const bookings = await fetchBookings(userId);
-        const calendarEvents = bookings.map((booking) => ({
-          id: booking.id,
-          title: `${t('desk')} ${booking.desk.id}`,
-          start: new Date(booking.day + "T" + booking.begin),
-          end: new Date(booking.day + "T" + booking.end),
-        }));
-        setEvents(calendarEvents);
-      } catch (error) {
-        console.error("Error fetching bookings:", error);
-      }
-    }
-
-    populateCalendarEvents(userId);
-  }, [t]);
-
-  const handleEventSelect = (event) => {
+  const handleEventSelect = async (event) => {
     setSelectedEvent(event);
+
+    try {
+      const response = await fetch(`/bookings/${event.id}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch booking details");
+      }
+
+      const bookingDetails = await response.json();
+      setTheEvent(bookingDetails);
+
+    } catch (error) {
+      console.error("Error fetching booking details:", error);
+    }
   };
 
   const handleEditEvent = () => {
-    // Add your logic for editing the selected event
-    console.log("Edit event:", selectedEvent);
+    confirmAlert({
+      title: "Edit Booking for " + selectedEvent.title,
+      buttons: [
+        {
+          label: "Yes",
+          onClick: async () => {
+            console.log("Edit event:", selectedEvent);
+          },
+        },
+        {
+          label: "No",
+        },
+      ],
+    });
   };
 
   const handleDeleteEvent = () => {
-    // Add your logic for deleting the selected event
-    console.log("Delete event:", selectedEvent);
+    const day = moment(selectedEvent.start).format("YYYY-MM-DD");
+    const start = moment(selectedEvent.start).format("HH:mm:ss");
+    const ending = moment(selectedEvent.end).format("HH:mm:ss");
+    confirmAlert({
+      title: "Delete Booking for " + selectedEvent.title,
+      message: "For day " + day + "\nFrom " + start + " to " + ending,
+      buttons: [
+        {
+          label: "Yes",
+          onClick: async () => {
+            console.log("Delete event:", selectedEvent);
+          },
+        },
+        {
+          label: "No",
+        },
+      ],
+    });
+  };
+
+  const renderRoomInfo = (event) => {
+    if (event && event.room) {
+      return (
+        <div>
+          <p>{t("room")}: {event.room.id}</p>
+          <p>{t("floor")}: {event.room.floor}</p>
+          <p>{t("type")}: {event.room.type}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+  
+  const renderDeskInfo = (event) => {
+    if (event && event.desk) {
+      return <p>{t("equipment")}: {event.desk.equipment}</p>;
+    }
+    return null;
   };
 
   return (
@@ -89,19 +154,28 @@ const MyBookings = () => {
               min={new Date(0, 0, 0, 6, 0, 0)} // 6 am
               max={new Date(0, 0, 0, 22, 0, 0)} // 10 pm
               popup={true}
-              onSelectEvent={handleEventSelect} // Handle event selection
+              onSelectEvent={handleEventSelect}
             />
           </div>
           <div className="mb-info-column">
             {selectedEvent && (
               <div>
                 <h2>{selectedEvent.title}</h2>
-                <div style={{margin: "20px"}}>
-                  <p>Start: {moment(selectedEvent.start).format("HH:mm")}</p>
-                  <p>End: {moment(selectedEvent.end).format("HH:mm")}</p>
-                  <p>Equipment: {}</p>
-                  <button className="mb-submit-btn" onClick={handleEditEvent}>Edit</button>
-                  <button className="mb-submit-btn" onClick={handleDeleteEvent}>Delete</button>
+                <div style={{ margin: "20px" }}>
+                  <p>{t("day")}: {moment(selectedEvent.start).format("DD.MM.YYYY")}</p>
+                  <p>{t("start")}: {moment(selectedEvent.start).format("HH:mm")}</p>
+                  <p>{t("end")}: {moment(selectedEvent.end).format("HH:mm")}</p>
+                  {renderRoomInfo(theEvent)}
+                  {renderDeskInfo(theEvent)}
+
+                  <div className="mb-buttons">
+                    <button className="mb-submit-btn" onClick={handleEditEvent}>
+                      {t("edit")}
+                    </button>
+                    <button className="mb-submit-btn" onClick={handleDeleteEvent}>
+                      {t("delete")}
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
