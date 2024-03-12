@@ -13,25 +13,18 @@ const MyBookings = () => {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [theEvent, setTheEvent] = useState(null);
-  const [userId, setUserId] = useState(null);
+  const userId = localStorage.getItem("userId");
 
   const localizer = momentLocalizer(moment);
 
   useEffect(() => {
     moment.locale(i18n.language);
-
-    const storedUserId = localStorage.getItem("userId");
-    setUserId(storedUserId);
-
-    fetchBookings(storedUserId);
+    fetchBookings(userId);
+      if (selectedEvent) {
+        const updatedTitle = `${t('desk')} ${selectedEvent.desk.id}`;
+        setSelectedEvent(prevEvent => ({ ...prevEvent, title: updatedTitle }));
+      }
   }, [i18n.language]);
-
-  useEffect(() => {
-    if (selectedEvent) {
-      const updatedTitle = `${t('desk')} ${selectedEvent.desk.id}`;
-      setSelectedEvent(prevEvent => ({ ...prevEvent, title: updatedTitle }));
-    }
-  }, [t, selectedEvent]);
 
   const fetchBookings = async (userId) => {
     try {
@@ -45,7 +38,7 @@ const MyBookings = () => {
         title: `${t('desk')} ${booking.desk.id}`,
         start: new Date(booking.day + "T" + booking.begin),
         end: new Date(booking.day + "T" + booking.end),
-        desk: booking.desk // Store desk info for later use
+        desk: booking.desk
       }));
       setEvents(calendarEvents);
     } catch (error) {
@@ -54,22 +47,24 @@ const MyBookings = () => {
   };
 
   const handleEventSelect = async (event) => {
-    setSelectedEvent(event);
-
-    try {
-      const response = await fetch(`/bookings/${event.id}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch booking details");
+    if (event.id !== selectedEvent?.id) {
+      setSelectedEvent(event);
+  
+      try {
+        const response = await fetch(`/bookings/${event.id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch booking details");
+        }
+  
+        const bookingDetails = await response.json();
+        setTheEvent(bookingDetails);
+  
+      } catch (error) {
+        console.error("Error fetching booking details:", error);
       }
-
-      const bookingDetails = await response.json();
-      setTheEvent(bookingDetails);
-
-    } catch (error) {
-      console.error("Error fetching booking details:", error);
     }
   };
-
+  
   const handleEditEvent = () => {
     confirmAlert({
       title: "Edit Booking for " + selectedEvent.title,
@@ -87,27 +82,44 @@ const MyBookings = () => {
     });
   };
 
+  const deleteBooking = async () => {
+    try {
+      const response = await fetch(`/bookings/${theEvent.id}`, {
+        method: 'DELETE'
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to delete booking');
+      }
+  
+      fetchBookings(userId);
+    } catch (error) {
+      console.error('Error deleting booking:', error);
+    }
+  };
+  
   const handleDeleteEvent = () => {
-    const day = moment(selectedEvent.start).format("YYYY-MM-DD");
-    const start = moment(selectedEvent.start).format("HH:mm:ss");
-    const ending = moment(selectedEvent.end).format("HH:mm:ss");
     confirmAlert({
-      title: "Delete Booking for " + selectedEvent.title,
-      message: "For day " + day + "\nFrom " + start + " to " + ending,
+      title: 'Delete Booking for ' + selectedEvent.title,
+      message:
+        'For day ' +
+        moment(selectedEvent.start).format('YYYY-MM-DD') +
+        '\nFrom ' +
+        moment(selectedEvent.start).format('HH:mm:ss') +
+        ' to ' +
+        moment(selectedEvent.end).format('HH:mm:ss'),
       buttons: [
         {
-          label: "Yes",
-          onClick: async () => {
-            console.log("Delete event:", selectedEvent);
-          },
+          label: 'Yes',
+          onClick: deleteBooking // Call deleteBooking function when 'Yes' is clicked
         },
         {
-          label: "No",
-        },
-      ],
+          label: 'No'
+        }
+      ]
     });
   };
-
+  
   const renderRoomInfo = (event) => {
     if (event && event.room) {
       return (
