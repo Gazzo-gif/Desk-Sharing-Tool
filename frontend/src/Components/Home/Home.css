@@ -11,10 +11,6 @@
   background-color: #ffffff;
 }
 
-.sidebar {
-  /* height: 100%; */
-}
-
 .choose-date {
   display: flex;
   align-items: center;

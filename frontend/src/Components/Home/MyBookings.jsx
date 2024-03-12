@@ -3,7 +3,7 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "./HomeCalendar.scss";
-import "./Booking.css";
+import "./MyBookings.css";
 import SidebarComponent from "./SidebarComponent"
 import { useTranslation } from "react-i18next";
 
@@ -49,36 +49,33 @@ const MyBookings = () => {
   }, [t]);
 
   return (
-    <div className="desk-page">
-      <div className="sidebar">
+    <div className="mb-container">
+      <div>
         <SidebarComponent />
       </div>
-      <div className="container">
-        <div className="choose-date">
-          <h1>{t("myBookings")}</h1>
-        </div>
-
-        <div className="info-container">
-          <div>
-            <div className="calendar-container">
-              <Calendar
-                localizer={localizer}
-                style={{ height: 480}}
-                eventPropGetter={(event) => ({
-                  style: {
-                    backgroundColor: "#008444",
-                  },
-                })}
-                events={events}
-                startAccessor="start"
-                endAccessor="end"
-                defaultView="week"
-                min={new Date(0, 0, 0, 6, 0, 0)} // 6 am
-                max={new Date(0, 0, 0, 22, 0, 0)} // 10 pm
-                popup={true}
-              />
-            </div>
+      <div>
+        <h1 className="mb-text">{t("myBookings")}</h1>
+        <hr className="gradient" />
+        <div className="mb-content-container">
+          <div className="mb-calendar-column">
+            <Calendar
+              localizer={localizer}
+              style={{ height: '80vh' }}
+              eventPropGetter={(event) => ({
+                style: {
+                  backgroundColor: "#008444",
+                },
+              })}
+              events={events}
+              startAccessor="start"
+              endAccessor="end"
+              defaultView="week"
+              min={new Date(0, 0, 0, 6, 0, 0)} // 6 am
+              max={new Date(0, 0, 0, 22, 0, 0)} // 10 pm
+              popup={true}
+            />
           </div>
+          <div className="mb-info-column">Information</div>
         </div>
       </div>
     </div>

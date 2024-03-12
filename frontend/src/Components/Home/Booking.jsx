@@ -213,8 +213,8 @@ const Booking = () => {
       <div className="sidebar">
         <SidebarComponent />
       </div>
-      <div className="backButtonDiv">
-        <button className="backButton" onClick={back}>Back</button>
+      <div>
+        <button onClick={back}>Back</button>
       </div>
       <div className="container">
         <div className="choose-date">

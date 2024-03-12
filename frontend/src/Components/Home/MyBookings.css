@@ -1,0 +1,33 @@
+.mb-container {
+    display: flex;
+    align-items: flex-start;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    overflow-x: hidden;
+}
+
+.mb-text {
+    margin: 20px;
+    text-align: center;
+}
+  
+.mb-content-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    margin-top: 20px;
+    margin-left: 20px;
+    overflow-y: auto;
+}
+
+.mb-calendar-column {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.mb-info-column {
+    flex: 1;
+    margin-left: 20px;
+}
+  
