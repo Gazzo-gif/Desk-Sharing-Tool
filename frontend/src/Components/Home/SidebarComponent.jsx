@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { CgDisplayFullwidth } from "react-icons/cg";
-import { BsList } from "react-icons/bs";
+import { BsList, BsIncognito } from "react-icons/bs";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { RiAdminFill } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { FaLanguage, FaLock, FaEyeSlash, FaCog } from "react-icons/fa";
+import { FaLanguage, FaLock, FaCog } from "react-icons/fa";
+import SimpleModal from "./SimpleModal";
 
 const SidebarComponent = () => {
   const { t, i18n } = useTranslation();
@@ -16,6 +17,8 @@ const SidebarComponent = () => {
   const [activeTab, setActiveTab] = useState("calendar");
   const location = useLocation();
   const navigate = useNavigate();
+  const isAdmin = true;
+  const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
 
   useEffect(() => {
     // Extract the current pathname from the location
@@ -58,9 +61,29 @@ const SidebarComponent = () => {
         i18n.changeLanguage(newLanguage);
         break;
 
+      case "goAnonymous":
+        console.log("Going Anonymous");
+        break;
+
+      case "changePassword":
+        setIsChangePasswordModalOpen(true);
+        break;
+
       default:
         break;
     }
+  };
+
+  const handleCloseModal = () => {
+    setIsChangePasswordModalOpen(false);
+  };
+
+  const handleChangePasswordSubmit = (event) => {
+    event.preventDefault();
+    const prevPassword = event.target.prevPassword.value;
+    const newPassword = event.target.newPassword.value;
+    console.log({ prevPassword, newPassword }); // Replace this with actual logic to change the password
+    setIsChangePasswordModalOpen(false); // Close the modal after submit
   };
 
   return (
@@ -124,11 +147,17 @@ const SidebarComponent = () => {
         </Menu>
         <Menu>
           <SubMenu icon={<FaCog />} label={t("settings")}>
-            <MenuItem icon={<FaEyeSlash />}>{t("visibility")}</MenuItem>
-            <MenuItem icon={<FaLock />} >{t("password")}</MenuItem>
+            <MenuItem icon={<BsIncognito />} onClick={() => handleClick("goAnonymous")}>{t("visibility")}</MenuItem>
+            <MenuItem icon={<FaLock />} onClick={() => handleClick("changePassword")}>{t("password")}</MenuItem>
           </SubMenu>
         </Menu>
       </Sidebar>
+
+      <SimpleModal
+        isOpen={isChangePasswordModalOpen}
+        onClose={handleCloseModal}
+        onSubmit={handleChangePasswordSubmit}
+      />
     </div>
   );
 };
