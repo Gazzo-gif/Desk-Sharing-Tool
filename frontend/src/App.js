@@ -21,8 +21,7 @@ function App() {
           <Route path="/home" element={<Home />}></Route>
           <Route path="/floor" element={<Floor />}></Route>
           <Route path="/desks" element={<Booking />}></Route>
-          <Route path="/admin" element={<AdminPage />}></Route>
-          <Route path="/mybookings" element={<MyBookings />}></Route>
+          <Route path="/admin" element={<AdminPage />}></Route> {/* Add route for AdminPanel */}
 
           <Route path="*" element={<Navigate to="/home" />} />
         </Routes>
