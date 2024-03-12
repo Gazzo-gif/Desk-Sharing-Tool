@@ -3,7 +3,6 @@ import Home from "./Components/Home/Home";
 import LoginPage from "./Components/LoginForm/LoginPage";
 import Floor from "./Components/Floors/Floor";
 import Booking from "./Components/Home/Booking";
-import Profile from "./Components/Profile/Profile";
 import AdminPage from "./Components/AdminPanel/AdminPage"
 import MyBookings from "./Components/Home/MyBookings";
 import {
@@ -22,7 +21,6 @@ function App() {
           <Route path="/home" element={<Home />}></Route>
           <Route path="/floor" element={<Floor />}></Route>
           <Route path="/desks" element={<Booking />}></Route>
-          <Route path="/profile" element={<Profile />}></Route>
           <Route path="/admin" element={<AdminPage />}></Route>
           <Route path="/mybookings" element={<MyBookings />}></Route>
 
