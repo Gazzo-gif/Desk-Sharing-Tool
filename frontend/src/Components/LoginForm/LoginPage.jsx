@@ -28,7 +28,11 @@ const LoginPage = () => {
     }
 
     try {
+<<<<<<< HEAD
       const response = await fetch("/users/login", {
+=======
+      const response = await fetch("http://localhost:8080/users/login", {
+>>>>>>> b270e92 (admin panal rooms and desks)
         method: "POST",
         headers: {
           "Content-Type": "application/json",

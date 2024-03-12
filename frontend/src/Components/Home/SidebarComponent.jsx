@@ -1,13 +1,24 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { CgDisplayFullwidth } from "react-icons/cg";
 import { BsList, BsIncognito } from "react-icons/bs";
+=======
+import React, { useState } from "react";
+import { CgProfile } from "react-icons/cg";
+import { IoCalendarNumberOutline } from "react-icons/io5";
+import { CgDisplayFullwidth } from "react-icons/cg";
+import { BsList } from "react-icons/bs";
+>>>>>>> b270e92 (admin panal rooms and desks)
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { RiAdminFill } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+<<<<<<< HEAD
 import { FaLanguage, FaLock, FaCog } from "react-icons/fa";
 import SimpleModal from "./SimpleModal";
+=======
+>>>>>>> b270e92 (admin panal rooms and desks)
 
 const SidebarComponent = () => {
   const { t, i18n } = useTranslation();
@@ -17,8 +28,12 @@ const SidebarComponent = () => {
   const [activeTab, setActiveTab] = useState("calendar");
   const location = useLocation();
   const navigate = useNavigate();
+<<<<<<< HEAD
   const isAdmin = true;
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
+=======
+  const isAdmin = true; // Set to true/false based on user's admin status
+>>>>>>> b270e92 (admin panal rooms and desks)
 
   useEffect(() => {
     // Extract the current pathname from the location
@@ -45,6 +60,7 @@ const SidebarComponent = () => {
         navigate("/home", { replace: true });
         break;
 
+<<<<<<< HEAD
       case "admin":
         setActiveTab("admin");
         navigate("/admin", { replace: true });
@@ -69,21 +85,21 @@ const SidebarComponent = () => {
         setIsChangePasswordModalOpen(true);
         break;
 
+=======
+      case "profile":
+        setTab({ active: "profile" });
+        navigate("/profile", { replace: true });
+        break;
+
+      case "admin":
+        setTab({ active: "admin" });
+        navigate("/admin", { replace: true }); // Navigate to admin panel
+        break;
+
+>>>>>>> b270e92 (admin panal rooms and desks)
       default:
         break;
     }
-  };
-
-  const handleCloseModal = () => {
-    setIsChangePasswordModalOpen(false);
-  };
-
-  const handleChangePasswordSubmit = (event) => {
-    event.preventDefault();
-    const prevPassword = event.target.prevPassword.value;
-    const newPassword = event.target.newPassword.value;
-    console.log({ prevPassword, newPassword }); // Replace this with actual logic to change the password
-    setIsChangePasswordModalOpen(false); // Close the modal after submit
   };
 
   return (
@@ -115,8 +131,28 @@ const SidebarComponent = () => {
             active={activeTab === "collapse"}
             icon={<BsList />}
             onClick={() => handleClick("collapse")}
+<<<<<<< HEAD
           >
           </MenuItem>
+=======
+          />
+          <MenuItem
+            active={tab?.active === "profile" ? true : false}
+            icon={<CgProfile />}
+            onClick={() => handleClick("profile")}
+          >
+            {t("profile")}
+          </MenuItem>
+          {isAdmin && (
+            <MenuItem
+              active={tab?.active === "admin" ? true : false}
+              icon={<RiAdminFill />}
+              onClick={() => handleClick("admin")}
+            >
+              {t("admin")}
+            </MenuItem>
+          )}
+>>>>>>> b270e92 (admin panal rooms and desks)
           <MenuItem
             active={activeTab === "admin"}
             icon={<RiAdminFill />}
@@ -152,12 +188,6 @@ const SidebarComponent = () => {
           </SubMenu>
         </Menu>
       </Sidebar>
-
-      <SimpleModal
-        isOpen={isChangePasswordModalOpen}
-        onClose={handleCloseModal}
-        onSubmit={handleChangePasswordSubmit}
-      />
     </div>
   );
 };
