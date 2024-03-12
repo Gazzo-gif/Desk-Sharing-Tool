@@ -29,6 +29,12 @@ public class RoomController {
         List<Room> rooms = roomService.getAllRooms();
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
+    
+    @GetMapping("/status")
+    public ResponseEntity<List<Room>> getAllRoomsByActiveStatus() {
+        List<Room> rooms = roomService.getAllRoomsByActiveStatus();
+        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Room> getRoomById(@PathVariable("id") Long id) {
@@ -40,6 +46,18 @@ public class RoomController {
     @PutMapping("/{id}")
     public ResponseEntity<Room> updateRoom(@PathVariable("id") Long id, @RequestBody Room room) {
         Room updatedRoom = roomService.updateRoom(id, room);
+        return new ResponseEntity<>(updatedRoom, HttpStatus.OK);
+    }
+    
+    @PutMapping("/{id}/type/{type}")
+    public ResponseEntity<Room> updateRoomType(@PathVariable("id") Long id, @PathVariable("type") String type) {
+        Room updatedRoom = roomService.updateRoomType(id, type);
+        return new ResponseEntity<>(updatedRoom, HttpStatus.OK);
+    }
+    
+    @PutMapping("/{id}/{status}")
+    public ResponseEntity<Room> updateRoomStatus(@PathVariable("id") Long id, @PathVariable("status") String status) {
+        Room updatedRoom = roomService.updateRoomStatus(id, status);
         return new ResponseEntity<>(updatedRoom, HttpStatus.OK);
     }
 

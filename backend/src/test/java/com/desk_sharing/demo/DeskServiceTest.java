@@ -2,6 +2,7 @@ package com.desk_sharing.demo;
 
 import com.desk_sharing.entities.Desk;
 import com.desk_sharing.entities.Room;
+import com.desk_sharing.model.CreateDeskDto;
 import com.desk_sharing.repositories.DeskRepository;
 import com.desk_sharing.services.DeskService;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,8 +38,9 @@ class DeskServiceTest {
     @Test
     void testSaveDesk() {
         Desk desk = new Desk();
+        CreateDeskDto deskDto = new CreateDeskDto();
         Mockito.when(deskRepository.save(any(Desk.class))).thenReturn(testDesk);
-        Desk savedDesk = deskService.saveDesk(desk);
+        Desk savedDesk = deskService.saveDesk(deskDto);
         Mockito.verify(deskRepository, Mockito.times(1)).save(desk);
         assertEquals(testDesk, savedDesk);
     }

@@ -3,7 +3,9 @@ import Home from "./Components/Home/Home";
 import LoginPage from "./Components/LoginForm/LoginPage";
 import Floor from "./Components/Floors/Floor"; // Import the Floor component
 import Booking from "./Components/Home/Booking";
+import Profile from "./Components/Profile/Profile";
 import AdminPage from "./Components/AdminPanel/AdminPage"
+import SidebarComponent from './Components/Home/SidebarComponent';
 import {
   BrowserRouter as Router,
   Routes,
@@ -21,6 +23,7 @@ function App() {
           <Route path="/home" element={<Home />}></Route>
           <Route path="/floor" element={<Floor />}></Route> {/* Add the route for Floor */}
           <Route path="/desks" element={<Booking />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
           <Route path="/admin" element={<AdminPage />}></Route> {/* Add route for AdminPanel */}
 
           <Route path="*" element={<Navigate to="/home" />} />

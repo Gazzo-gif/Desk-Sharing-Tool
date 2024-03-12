@@ -1,14 +1,24 @@
 package com.desk_sharing.controllers;
 
-import com.desk_sharing.entities.Desk;
-import com.desk_sharing.services.DeskService;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Optional;
+import com.desk_sharing.entities.Desk;
+import com.desk_sharing.model.CreateDeskDto;
+import com.desk_sharing.services.DeskService;
 
 @RestController
 @CrossOrigin(origins = {"http://188.34.162.76:3000", "http://localhost:3000"})
@@ -19,7 +29,7 @@ public class DeskController {
     DeskService deskService;
 
     @PostMapping
-    public ResponseEntity<Desk> createDesk(@RequestBody Desk desk) {
+    public ResponseEntity<Desk> createDesk(@RequestBody CreateDeskDto desk) {
         Desk savedDesk = deskService.saveDesk(desk);
         return new ResponseEntity<>(savedDesk, HttpStatus.CREATED);
     }
@@ -43,9 +53,9 @@ public class DeskController {
         return new ResponseEntity<>(desks, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Desk> updateDesk(@PathVariable("id") Long id, @RequestBody Desk desk) {
-        Desk updatedDesk = deskService.updateDesk(id, desk);
+    @PutMapping("/{id}/{equipment}")
+    public ResponseEntity<Desk> updateDesk(@PathVariable("id") Long id, @PathVariable("equipment") String equipment) {
+    	Desk updatedDesk = deskService.updateDesk(id, equipment);
         return new ResponseEntity<>(updatedDesk, HttpStatus.OK);
     }
 

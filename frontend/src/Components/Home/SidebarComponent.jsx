@@ -1,14 +1,12 @@
-// SidebarComponent.js
 import React, { useState } from "react";
-import { CgProfile, CgDisplayFullwidth } from "react-icons/cg";
+import { CgProfile } from "react-icons/cg";
 import { IoCalendarNumberOutline } from "react-icons/io5";
-import { BsList, BsIncognito } from "react-icons/bs";
-import { TbPassword } from "react-icons/tb";
+import { CgDisplayFullwidth } from "react-icons/cg";
+import { BsList } from "react-icons/bs";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { RiAdminFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import SimpleModal from "./SimpleModal"; // Ensure this is the correct path to your SimpleModal component
 
 const SidebarComponent = () => {
   const { t } = useTranslation();
@@ -16,46 +14,31 @@ const SidebarComponent = () => {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   const isAdmin = true; // Set to true/false based on user's admin status
-  const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
 
   const handleClick = (name) => {
     switch (name) {
       case "collapse":
         setCollapsed(!collapsed);
         break;
+
       case "calendar":
         setTab({ active: "calendar" });
         navigate("/home", { replace: true });
         break;
+
       case "profile":
-        // If needed, implement logic for profile tab click
+        setTab({ active: "profile" });
+        navigate("/profile", { replace: true });
         break;
-      case "goAnonymous":
-        // Implement go anonymous functionality here
-        console.log("Going Anonymous");
-        break;
-      case "changePassword":
-        setIsChangePasswordModalOpen(true); // Open the change password modal
-        break;
+
       case "admin":
         setTab({ active: "admin" });
-        navigate("/admin", { replace: true });
+        navigate("/admin", { replace: true }); // Navigate to admin panel
         break;
+
       default:
         break;
     }
-  };
-
-  const handleCloseModal = () => {
-    setIsChangePasswordModalOpen(false);
-  };
-
-  const handleChangePasswordSubmit = (event) => {
-    event.preventDefault();
-    const prevPassword = event.target.prevPassword.value;
-    const newPassword = event.target.newPassword.value;
-    console.log({ prevPassword, newPassword }); // Replace this with actual logic to change the password
-    setIsChangePasswordModalOpen(false); // Close the modal after submit
   };
 
   return (
@@ -83,14 +66,13 @@ const SidebarComponent = () => {
             icon={<BsList />}
             onClick={() => handleClick("collapse")}
           />
-          <SubMenu
-            active={tab?.active === "profile"}
+          <MenuItem
+            active={tab?.active === "profile" ? true : false}
             icon={<CgProfile />}
-            label={t("profile")}
+            onClick={() => handleClick("profile")}
           >
-            <MenuItem icon={<BsIncognito />} onClick={() => handleClick("goAnonymous")}>{t("Go anonymous")}</MenuItem>
-            <MenuItem icon={<TbPassword />} onClick={() => handleClick("changePassword")}>{t("Change Password")}</MenuItem>
-          </SubMenu>
+            {t("profile")}
+          </MenuItem>
           {isAdmin && (
             <MenuItem
               active={tab?.active === "admin" ? true : false}
@@ -113,12 +95,6 @@ const SidebarComponent = () => {
           </SubMenu>
         </Menu>
       </Sidebar>
-
-      <SimpleModal
-        isOpen={isChangePasswordModalOpen}
-        onClose={handleCloseModal}
-        onSubmit={handleChangePasswordSubmit}
-      />
     </div>
   );
 };

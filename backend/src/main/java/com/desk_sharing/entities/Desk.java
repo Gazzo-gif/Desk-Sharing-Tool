@@ -8,9 +8,10 @@ public class Desk {
     
     @Id
     @Column(name = "desk_id", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade =  { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
     
