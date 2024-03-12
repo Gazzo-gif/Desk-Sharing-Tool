@@ -41,8 +41,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<Long> loginUser(@RequestBody User user) {
         Long id = userService.loginUser(user.getEmail(), user.getPassword());
-        HttpStatus status = (id != -1) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
-        return ResponseEntity.status(status).body(id);
+        return ResponseEntity.status(HttpStatus.OK).body(id);
     }
 
     @PutMapping("/visibility/{id}")
