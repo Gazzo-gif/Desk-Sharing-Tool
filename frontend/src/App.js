@@ -5,7 +5,6 @@ import Floor from "./Components/Floors/Floor"; // Import the Floor component
 import Booking from "./Components/Home/Booking";
 import Profile from "./Components/Profile/Profile";
 import AdminPage from "./Components/AdminPanel/AdminPage"
-import SidebarComponent from './Components/Home/SidebarComponent';
 import {
   BrowserRouter as Router,
   Routes,
