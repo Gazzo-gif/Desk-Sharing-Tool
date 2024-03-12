@@ -140,6 +140,10 @@ const Booking = () => {
   };
 
   const booking = async () => {
+    if (!clickedDeskId || !event.start || !event.end) {
+      alert("Please choose a desk and time before booking.");
+      return;
+    }  
 
     const userId = localStorage.getItem("userId");
     const room_Id = roomId;
