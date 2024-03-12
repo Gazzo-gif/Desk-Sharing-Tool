@@ -67,7 +67,7 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      <div className="sidebar">
+      <div>
         <SidebarComponent />
       </div>
       <div className="home-content">

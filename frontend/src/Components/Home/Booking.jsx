@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -214,8 +213,8 @@ const Booking = () => {
       <div className="sidebar">
         <SidebarComponent />
       </div>
-      <div className="backButtonDiv">
-        <button className="backButton" onClick={back}>Back</button>
+      <div>
+        <button onClick={back}>Back</button>
       </div>
       <div className="container">
         <div className="choose-date">
