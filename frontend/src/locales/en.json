@@ -33,5 +33,14 @@
     "full": "Fully booked",
     "some": "Some free slots",
 
-    "myBookings": "My Bookings"
+    "myBookings": "My Bookings",
+    "edit": "Edit",
+    "delete": "Delete",
+    "day": "Day",
+    "start": "Start",
+    "end": "End",
+    "room": "Room",
+    "floor": "Floor",
+    "type": "Type",
+    "equipment": "Equipment"
 }
