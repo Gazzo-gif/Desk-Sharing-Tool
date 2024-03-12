@@ -41,14 +41,11 @@ const LoginPage = () => {
 
       const data = await response.json();
       if (data !== -1) {
-        try {
-          localStorage.setItem("userId", String(data));
-        } catch (error) {
-          console.error("Error storing userId in localStorage:", error);
-        }        
+        localStorage.setItem("userId", String(data));  
         navigate("/home", { replace: true });
       } else {
         setLoginError(t("invalidCredentials"));
+        return;
       }
     } catch (error) {
       console.error("Login error:", error);
