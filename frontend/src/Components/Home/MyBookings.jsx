@@ -93,6 +93,7 @@ const MyBookings = () => {
       }
   
       fetchBookings(userId);
+      setSelectedEvent(null);
     } catch (error) {
       console.error('Error deleting booking:', error);
     }
