@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 const MyBookings = () => {
   const { t, i18n } = useTranslation();
   const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     moment.locale(i18n.language);
@@ -48,19 +49,34 @@ const MyBookings = () => {
     populateCalendarEvents(userId);
   }, [t]);
 
+  const handleEventSelect = (event) => {
+    setSelectedEvent(event);
+  };
+
+  const handleEditEvent = () => {
+    // Add your logic for editing the selected event
+    console.log("Edit event:", selectedEvent);
+  };
+
+  const handleDeleteEvent = () => {
+    // Add your logic for deleting the selected event
+    console.log("Delete event:", selectedEvent);
+  };
+
   return (
     <div className="mb-container">
       <div>
         <SidebarComponent />
       </div>
-      <div>
+      <div className="mb-content">
         <h1 className="mb-text">{t("myBookings")}</h1>
         <hr className="gradient" />
+        
         <div className="mb-content-container">
-          <div className="mb-calendar-column">
+          <div>
             <Calendar
               localizer={localizer}
-              style={{ height: '80vh' }}
+              style={{ height: '100vh' }}
               eventPropGetter={(event) => ({
                 style: {
                   backgroundColor: "#008444",
@@ -73,9 +89,23 @@ const MyBookings = () => {
               min={new Date(0, 0, 0, 6, 0, 0)} // 6 am
               max={new Date(0, 0, 0, 22, 0, 0)} // 10 pm
               popup={true}
+              onSelectEvent={handleEventSelect} // Handle event selection
             />
           </div>
-          <div className="mb-info-column">Information</div>
+          <div className="mb-info-column">
+            {selectedEvent && (
+              <div>
+                <h2>{selectedEvent.title}</h2>
+                <div style={{margin: "20px"}}>
+                  <p>Start: {moment(selectedEvent.start).format("HH:mm")}</p>
+                  <p>End: {moment(selectedEvent.end).format("HH:mm")}</p>
+                  <p>Equipment: {}</p>
+                  <button className="mb-submit-btn" onClick={handleEditEvent}>Edit</button>
+                  <button className="mb-submit-btn" onClick={handleDeleteEvent}>Delete</button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

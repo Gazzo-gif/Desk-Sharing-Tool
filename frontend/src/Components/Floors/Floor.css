@@ -1,4 +1,3 @@
-/* Floor.css */
 .floor-content {
   flex-grow: 1;
   overflow-y: auto; /* Ensures content is scrollable if it overflows */
@@ -22,13 +21,6 @@
   height: auto;
 }
 
-/* Add any additional styles for the sidebar if needed, for example */
-
-
-.sidebar .menu {
-  flex: 1;
-}
-
 .image-wrapper {
   position: relative;
   max-width: 100%;
@@ -43,52 +35,5 @@
   height: 50px;
   background-color: green;
   cursor: pointer;
-  opacity: 0.7; /* Adjust as needed */
+  opacity: 0.7;
 }
-
-.clickable-area.selected {
-  opacity: 1;
-  border: 2px solid yellow; /* Highlight selected area */
-}
-
-.room-info {
-  margin-top: 20px;
-}
-/* Desk List Styles */
-.desks-list {
-  background-color: #f9f9f9; /* Light background for the list */
-  border: 1px solid #ccc; /* Light border */
-  border-radius: 4px; /* Rounded corners */
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow */
-  width: 100%; /* Use full width of the parent container */
-  max-width: 400px; /* Restrict maximum width to keep the list short */
-  max-height: 500px; /* Maximum height before scroll */
-  overflow-y: auto; /* Enable vertical scrolling for overflow */
-  margin: 30px auto; /* Center the desk list horizontally and add some margin top */
-}
-
-.desks-list h3 {
-  margin-top: 0;
-  color: #333;
-}
-
-.desks-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.desks-list li {
-  padding: 10px;
-  border-radius: 4px;
-  background-color: #fff;
-  cursor: pointer;
-  margin-bottom: 2px; /* Space between items */
-}
-
-.desks-list li:hover, .desks-list li.selected-desk {
-  background-color: #007bff;
-  color: white;
-}
-
