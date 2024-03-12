@@ -1,3 +1,4 @@
+// SimpleModal.js
 import React from "react";
 
 const SimpleModal = ({ isOpen, onClose, onSubmit }) => {
