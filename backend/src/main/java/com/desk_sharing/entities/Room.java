@@ -20,6 +20,9 @@ public class Room {
 
     @Column(name = "floor", nullable = false)
     private String floor;
+    
+    @Column(name = "status")
+    private String status;
 
     public Room() {
     }
@@ -69,4 +72,12 @@ public class Room {
     public void setFloor(String floor) {
         this.floor = floor;
     }
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }
