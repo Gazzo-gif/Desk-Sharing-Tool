@@ -20,7 +20,7 @@ const Floor = () => {
 
   useEffect(() => {
     // Fetch room data from the backend
-    fetch('/rooms')
+    fetch('/rooms/status')
       .then(response => response.json())
       .then(data => {
         // Apply filter if selected

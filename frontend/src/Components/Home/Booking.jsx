@@ -8,6 +8,7 @@ import "./Booking.css";
 import SidebarComponent from "./SidebarComponent"
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation  } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Booking = () => {
   const { t, i18n } = useTranslation();
@@ -183,6 +184,7 @@ const Booking = () => {
           
               const data = await response.json();
               console.log("Booking saved successfully:", data);
+              toast("Booking saved successfully");
 
               const booking = {
                 id: data.id,
