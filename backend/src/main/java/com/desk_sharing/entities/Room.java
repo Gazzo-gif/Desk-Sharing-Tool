@@ -20,8 +20,17 @@ public class Room {
 
     @Column(name = "floor", nullable = false)
     private String floor;
+    
+    @Column(name = "status")
+    private String status;
 
     public Room() {
+    }
+
+    public Room(String type, int x, int y) {
+        this.type = type;
+        this.x = x;
+        this.y = y;
     }
 
     public Long getId() {
@@ -63,4 +72,12 @@ public class Room {
     public void setFloor(String floor) {
         this.floor = floor;
     }
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

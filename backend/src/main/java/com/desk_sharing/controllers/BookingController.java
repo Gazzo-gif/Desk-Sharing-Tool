@@ -21,6 +21,7 @@ import java.util.Map;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.format.DateTimeParseException;
 
 @RestController
 @CrossOrigin(origins = {"http://188.34.162.76:3000", "http://localhost:3000"})
@@ -53,25 +54,33 @@ public class BookingController {
 
     @PostMapping
     public ResponseEntity<BookingDTO> addBooking(@RequestBody Map<String, Object> bookingData) {
+        try {
+            Long user_id = Long.parseLong(bookingData.get("user_id").toString());
+            Long room_id = Long.parseLong(bookingData.get("room_id").toString());
+            Long desk_id = Long.parseLong(bookingData.get("desk_id").toString());
+            Date day = Date.valueOf(bookingData.get("day").toString());
+            Time begin = Time.valueOf(bookingData.get("begin").toString());
+            Time end = Time.valueOf(bookingData.get("end").toString());
 
-        Long user_id = Long.parseLong(bookingData.get("user_id").toString());
-        Long room_id = Long.parseLong(bookingData.get("room_id").toString());
-        Long desk_id = Long.parseLong(bookingData.get("desk_id").toString());
-        Date day = Date.valueOf(bookingData.get("day").toString());
-        Time begin = Time.valueOf(bookingData.get("begin").toString());
-        Time end = Time.valueOf(bookingData.get("end").toString());
+            User user = userService.getUser(user_id);
+            Room room = roomService.getRoomById(room_id)
+                .orElseThrow(() -> new IllegalArgumentException("Room not found with id: " + room_id));
+            Desk desk = deskService.getDeskById(desk_id)
+                .orElseThrow(() -> new IllegalArgumentException("Desk not found with id: " + desk_id));
 
-        User user = userService.getUser(user_id);
-        Room room = roomService.getRoom(room_id);
-        Desk desk = deskService.getDesk(desk_id);
-
-    
-        Booking newBooking = new Booking(user, room, desk, day, begin, end);
-        Booking savedBooking = bookingService.addBooking(newBooking);
-    
-        BookingDTO bookingDTO = convertToDTO(savedBooking);
-    
-        return new ResponseEntity<>(bookingDTO, HttpStatus.CREATED);
+            Booking newBooking = new Booking(user, room, desk, day, begin, end);
+            Booking savedBooking = bookingService.addBooking(newBooking);
+        
+            BookingDTO bookingDTO = convertToDTO(savedBooking);
+        
+            return new ResponseEntity<>(bookingDTO, HttpStatus.CREATED);
+        } catch (NumberFormatException | DateTimeParseException e) {
+            // Handle parsing errors
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (IllegalArgumentException e) {
+            // Handle missing room/desk errors
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping

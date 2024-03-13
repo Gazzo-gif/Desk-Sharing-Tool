@@ -10,7 +10,7 @@ public class Desk {
     @Column(name = "desk_id", unique = true)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade =  { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
     
@@ -18,6 +18,11 @@ public class Desk {
     private String equipment;
 
     public Desk() {
+    }
+
+    public Desk(Room room, String equipment) {
+        this.room = room;
+        this.equipment = equipment;
     }
 
     public Long getId() {
