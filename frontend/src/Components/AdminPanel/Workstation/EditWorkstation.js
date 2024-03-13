@@ -18,7 +18,7 @@ export default function EditWorkstation({ editWorkstationModal }) {
     }, []);
 
     async function getAllRooms(){
-        const response = await fetch("http://localhost:8080/rooms/status", {
+        const response = await fetch("/rooms/status", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export default function EditWorkstation({ editWorkstationModal }) {
             let idVal = idSplit[1].split(")");
             let roomId = idVal[0];
     
-            const response = await fetch("http://localhost:8080/desks/room/"+roomId, {
+            const response = await fetch("/desks/room/"+roomId, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export default function EditWorkstation({ editWorkstationModal }) {
 
       async function updateWorkstation(){
 
-        const response = await fetch("http://localhost:8080/desks/"+selectedDesk+"/"+equipment, {
+        const response = await fetch("/desks/"+selectedDesk+"/"+equipment, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -1,10 +1,10 @@
 package com.desk_sharing.controllers;
 
-import com.desk_sharing.dtos.BookingDTO;
 import com.desk_sharing.entities.Booking;
 import com.desk_sharing.entities.Desk;
 import com.desk_sharing.entities.Room;
 import com.desk_sharing.entities.User;
+import com.desk_sharing.model.BookingDTO;
 import com.desk_sharing.services.BookingService;
 import com.desk_sharing.services.DeskService;
 import com.desk_sharing.services.RoomService;
