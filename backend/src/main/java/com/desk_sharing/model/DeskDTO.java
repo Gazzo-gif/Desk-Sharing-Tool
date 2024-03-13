@@ -1,8 +1,10 @@
 package com.desk_sharing.model;
 
-public class CreateDeskDto {
+public class DeskDTO {
+
 	private Long roomId;
 	private String equipment;
+
 	public Long getRoomId() {
 		return roomId;
 	}

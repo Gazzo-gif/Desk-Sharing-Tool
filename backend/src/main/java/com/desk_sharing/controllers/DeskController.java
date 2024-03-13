@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.desk_sharing.entities.Desk;
-import com.desk_sharing.model.CreateDeskDto;
+import com.desk_sharing.model.DeskDTO;
 import com.desk_sharing.services.DeskService;
 
 @RestController
@@ -29,7 +29,7 @@ public class DeskController {
     DeskService deskService;
 
     @PostMapping
-    public ResponseEntity<Desk> createDesk(@RequestBody CreateDeskDto desk) {
+    public ResponseEntity<Desk> createDesk(@RequestBody DeskDTO desk) {
         Desk savedDesk = deskService.saveDesk(desk);
         return new ResponseEntity<>(savedDesk, HttpStatus.CREATED);
     }

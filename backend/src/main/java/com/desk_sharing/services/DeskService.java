@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.desk_sharing.entities.Desk;
 import com.desk_sharing.entities.Room;
-import com.desk_sharing.model.CreateDeskDto;
+import com.desk_sharing.model.DeskDTO;
 import com.desk_sharing.repositories.DeskRepository;
 
 @Service
@@ -20,7 +20,7 @@ public class DeskService {
     @Autowired
     RoomService roomService;
 
-    public Desk saveDesk(CreateDeskDto deskDto) {
+    public Desk saveDesk(DeskDTO deskDto) {
     	Optional<Room> optional = roomService.getRoomById(deskDto.getRoomId());
     	if(optional.isPresent()) {
     		Desk desk = new Desk();

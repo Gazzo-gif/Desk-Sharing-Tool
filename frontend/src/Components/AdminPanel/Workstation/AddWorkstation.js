@@ -23,7 +23,7 @@ export default function AddWorkstation({ addWorkstationModal }) {
         let roomId = idVal[0];
 
         
-        const response = await fetch("http://localhost:8080/desks", {
+        const response = await fetch("/desks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export default function AddWorkstation({ addWorkstationModal }) {
       }
 
       async function getAllRooms(){
-        const response = await fetch("http://localhost:8080/rooms/status", {
+        const response = await fetch("/rooms/status", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

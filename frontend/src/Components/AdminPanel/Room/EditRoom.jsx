@@ -13,7 +13,7 @@ export default function EditRoom({ editRoomModal }) {
       }, []);
 
       async function getAllRooms(){
-        const response = await fetch("http://localhost:8080/rooms", {
+        const response = await fetch("/rooms", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export default function EditRoom({ editRoomModal }) {
 
     async function handleRoomTypeChange(e, id){
 
-      const response = await fetch("http://localhost:8080/rooms/"+id+"/type/"+e.target.value, {
+      const response = await fetch("/rooms/"+id+"/type/"+e.target.value, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export default function EditRoom({ editRoomModal }) {
 
     async function handleStatusChange(e, id){
 
-        const response = await fetch("http://localhost:8080/rooms/"+id+"/"+e.target.value, {
+        const response = await fetch("/rooms/"+id+"/"+e.target.value, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
