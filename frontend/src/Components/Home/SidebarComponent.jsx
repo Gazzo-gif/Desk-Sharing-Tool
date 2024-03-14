@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { IoCalendarNumberOutline } from "react-icons/io5";
-import { CgDisplayFullwidth } from "react-icons/cg";
 import { BsList, BsIncognito } from "react-icons/bs";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { RiAdminFill } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { FaLanguage, FaLock, FaCog } from "react-icons/fa";
+import { FaLock, FaCog, FaBookmark } from "react-icons/fa";
 import SimpleModal from "./SimpleModal";
 import LogoutConfirmationModal from "./LogoutConfirmationModal";
 import { CiLogout } from "react-icons/ci";
+import { MdGTranslate } from "react-icons/md";
 
 const SidebarComponent = ({ name }) => {
   const { t, i18n } = useTranslation();
@@ -71,7 +71,7 @@ const SidebarComponent = ({ name }) => {
         setIsChangePasswordModalOpen(true);
         break;
 
-      case "logout": // Added case for logout
+      case "logout":
         setIsLogoutConfirmationOpen(true);
         break;
 
@@ -90,22 +90,9 @@ const SidebarComponent = ({ name }) => {
 
   const handleChangePasswordSubmit = (event) => {
     event.preventDefault();
-    const prevPassword = event.target.prevPassword.value;
-    const newPassword = event.target.newPassword.value;
-    const newPasswordAgain = event.target.newPasswordAgain.value;
-
-    if (newPassword !== newPasswordAgain) {
-      alert("Passwords Do Not Match");
-      return; // Prevent further execution
-    }
-
-    // If passwords match, you can proceed with your logic to change the password
-    console.log({ prevPassword, newPassword });
-
-    // Close the modal after submit
     setIsChangePasswordModalOpen(false);
   };
-
+  
   const handleLogoutConfirmed = () => {
     localStorage.removeItem("userId"); // Clear the user's session
     navigate("/", { replace: true }); // Redirect to login page
@@ -159,13 +146,13 @@ const SidebarComponent = ({ name }) => {
           </MenuItem>
           <MenuItem
             active={activeTab === "bookings"}
-            icon={<CgDisplayFullwidth />}
+            icon={<FaBookmark />}
             onClick={() => handleClick("bookings")}
           >
             {t("bookings")}
           </MenuItem>
           <MenuItem
-            icon={<FaLanguage />}
+            icon={<MdGTranslate />}
             onClick={() => handleClick("language")}
           >
             {i18n.language === "en" ? "Deutsch" : "English"}

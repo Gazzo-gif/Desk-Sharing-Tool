@@ -2,6 +2,8 @@ package com.desk_sharing.services;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -93,33 +95,32 @@ public class UserService  {
         }
     }
 
-    /**
-     * Function to change a user's password. Assuming there was some type of verification for the password
-     * 
-     * @param id user's ID
-     * @param password password to what you want to change
-     * @return true if there wasn't any error, false if something went wrong
-     */
-    public boolean changePassword(Long id, String password) {
+    public enum ChangePasswordResult {
+        PASSWORD_CHANGED,
+        USER_NOT_FOUND,
+        INCORRECT_OLD_PASSWORD,
+        ERROR
+    }
+    
+    public boolean changePassword(Long id, String oldPassword, String newPassword) {
         try {
             User user = userRepository.getById(id);
-            user.setPassword(passwordEncoder.encode(password));
-            return true;
+            if (user != null && passwordEncoder.matches(oldPassword, user.getPassword())) {
+                user.setPassword(passwordEncoder.encode(newPassword));
+                userRepository.save(user);
+                return true;
+            } else if (user == null) {
+                return false;
+            } else {
+                return false;
+            }
+        } catch (EntityNotFoundException e) {
+            return false;
         } catch (Exception e) {
             return false;
         }
     }
-
-    // This could be the verification we need for changing the password
-    public boolean checkPassword(User user, String password) {
-        if (user.getPassword() == password) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
+    
     /**
      * Function to delete an user
      * @param id ID of the user we want to delete
