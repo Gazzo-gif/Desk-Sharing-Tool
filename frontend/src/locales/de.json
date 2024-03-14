@@ -13,6 +13,12 @@
     "bookings": "Buchungen",
     "settings": "Einstellungen",
     "visibility": "Sichtbarkeit",
+    "logout": "Logout",
+
+    "previousPassword": "Vorheriges Passwort",
+    "newPassword": "Neues Passwort",
+    "newPasswordAgain": "Neues Passwort Nochmal",
+    "submit": "Einreichen",
 
     "selectedDate": "Datum Auswählen",
     "chooseDate": "Datum für eine Arbeitsplatzreservierung wählen",

@@ -92,8 +92,18 @@ const SidebarComponent = ({ name }) => {
     event.preventDefault();
     const prevPassword = event.target.prevPassword.value;
     const newPassword = event.target.newPassword.value;
-    console.log({ prevPassword, newPassword }); // Replace this with actual logic to change the password
-    setIsChangePasswordModalOpen(false); // Close the modal after submit
+    const newPasswordAgain = event.target.newPasswordAgain.value;
+
+    if (newPassword !== newPasswordAgain) {
+      alert("Passwords Do Not Match");
+      return; // Prevent further execution
+    }
+
+    // If passwords match, you can proceed with your logic to change the password
+    console.log({ prevPassword, newPassword });
+
+    // Close the modal after submit
+    setIsChangePasswordModalOpen(false);
   };
 
   const handleLogoutConfirmed = () => {
@@ -102,7 +112,7 @@ const SidebarComponent = ({ name }) => {
   };
 
   return (
-    <div className="sidebar">
+    <div>
       <Sidebar
         collapsed={collapsed}
         backgroundColor="#008444"
@@ -160,17 +170,12 @@ const SidebarComponent = ({ name }) => {
           >
             {i18n.language === "en" ? "Deutsch" : "English"}
           </MenuItem>
-          <MenuItem // Logout button
-            icon={<CiLogout />}
-            onClick={() => handleClick("logout")}
-          >
-            {t("Logout")}
-          </MenuItem>
         </Menu>
         <Menu>
           <SubMenu icon={<FaCog />} label={t("settings")}>
             <MenuItem icon={<BsIncognito />} onClick={() => handleClick("goAnonymous")}>{t("visibility")}</MenuItem>
             <MenuItem icon={<FaLock />} onClick={() => handleClick("changePassword")}>{t("password")}</MenuItem>
+            <MenuItem icon={<CiLogout />} onClick={() => handleClick("logout")}>{t("logout")}</MenuItem>
           </SubMenu>
         </Menu>
       </Sidebar>

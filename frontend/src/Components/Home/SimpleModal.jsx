@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const SimpleModal = ({ isOpen, onClose, onSubmit }) => {
+  const { t } = useTranslation();
+
   if (!isOpen) return null;
 
   return (
@@ -39,7 +42,7 @@ const SimpleModal = ({ isOpen, onClose, onSubmit }) => {
       >
         <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           <div>
-            <label style={{ display: "block", marginBottom: "5px" }}>Previous Password</label>
+            <label style={{ display: "block", marginBottom: "5px" }}>{t("previousPassword")}</label>
             <input type="password" name="prevPassword" required style={{
               width: "100%",
               padding: "10px",
@@ -49,8 +52,18 @@ const SimpleModal = ({ isOpen, onClose, onSubmit }) => {
             }} />
           </div>
           <div>
-            <label style={{ display: "block", marginBottom: "5px" }}>New Password</label>
+            <label style={{ display: "block", marginBottom: "5px" }}>{t("newPassword")}</label>
             <input type="password" name="newPassword" required style={{
+              width: "100%",
+              padding: "10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              transition: "border-color 0.3s",
+            }} />
+          </div>
+          <div>
+            <label style={{ display: "block", marginBottom: "5px" }}>{t("newPasswordAgain")}</label>
+            <input type="password" name="newPasswordAgain" required style={{
               width: "100%",
               padding: "10px",
               borderRadius: "5px",
@@ -67,7 +80,7 @@ const SimpleModal = ({ isOpen, onClose, onSubmit }) => {
             cursor: "pointer",
             fontWeight: "bold",
             transition: "background-color 0.3s",
-          }}>Submit</button>
+          }}>{t("submit")}</button>
         </form>
       </div>
     </div>
