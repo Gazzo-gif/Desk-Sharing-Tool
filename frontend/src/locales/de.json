@@ -43,6 +43,7 @@
     "floor": "Etage",
     "type": "Art",
     "equipment": "Austattung",
+    "choose": "Wählen Sie eine Buchung aus, um Informationen zu erhalten",
 
     "minimum": "Minimum booking duration is 2 hours",
     "maximum": "Maximum booking duration is 9 hours",
@@ -54,5 +55,16 @@
     "deskDelete": "Desk deleted successfully",
     "deskCreated": "Desk created successfully",
     "roomStatus": "Room status changed successfully",
-    "roomType": "Room type changed successfully"
+    "roomType": "Room type changed successfully",
+
+    "next": "Nächste",
+    "back": "Zurück",
+    "today": "Heute",
+    "month": "Monat",
+    "week": "Woche",
+    "agenda": "Agenda",
+    "noEventsInRange": "In diesem Bereich liegen keine Buchungen vor",
+    "date": "Datum",
+    "time": "Zeit",
+    "event": "Buchung"
 }

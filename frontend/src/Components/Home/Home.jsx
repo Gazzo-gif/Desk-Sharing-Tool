@@ -86,6 +86,16 @@ const Home = () => {
             onSelectSlot={handleSelectSlot}
             selectable={true}
             onKeyPressEvent={(data) => console.log(data)}
+            messages={{
+              next: t("next"),
+              previous: t("back"),
+              today: t("today"),
+              month: t("month"),
+              week: t("week"),
+              day: t("day"),
+              agenda: t("agenda"),
+              noEventsInRange: t("noEventsInRange")
+           }}
           />
         </div>
       </div>

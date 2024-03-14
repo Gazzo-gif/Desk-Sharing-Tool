@@ -43,6 +43,7 @@
     "floor": "Floor",
     "type": "Type",
     "equipment": "Equipment",
+    "choose": "Choose a booking to get information",
 
     "minimum": "Minimum booking duration is 2 hours",
     "maximum": "Maximum booking duration is 9 hours",
@@ -54,5 +55,16 @@
     "deskDelete": "Desk deleted successfully",
     "deskCreated": "Desk created successfully",
     "roomStatus": "Room status changed successfully",
-    "roomType": "Room type changed successfully"
+    "roomType": "Room type changed successfully",
+
+    "next": "Next",
+    "back": "Back",
+    "today": "Today",
+    "month": "Month",
+    "week": "Week",
+    "agenda": "Agenda",
+    "noEventsInRange": "There are no events in this range",
+    "date": "Date",
+    "time": "Time",
+    "event": "Booking"
 }

@@ -168,6 +168,19 @@ const MyBookings = () => {
               max={new Date(0, 0, 0, 22, 0, 0)} // 10 pm
               popup={true}
               onSelectEvent={handleEventSelect}
+              messages={{
+                next: t("next"),
+                previous: t("back"),
+                today: t("today"),
+                month: t("month"),
+                week: t("week"),
+                day: t("day"),
+                agenda: t("agenda"),
+                date: t("date"),
+                time: t("time"),
+                event: t("event"),
+                noEventsInRange: t("noEventsInRange")
+             }}
             />
           </div>
           <div className="mb-info-column">
@@ -190,6 +203,11 @@ const MyBookings = () => {
                     </button>
                   </div>
                 </div>
+              </div>
+            )}
+            {!selectedEvent && (
+              <div className="choose">
+                {t("choose")}
               </div>
             )}
           </div>
