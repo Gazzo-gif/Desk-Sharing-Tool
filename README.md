@@ -28,8 +28,10 @@ We are using docker to have a database running. So first of all make sure you ha
 
 Some other commands:
 
-3. If you want to get inside the container: `docker exec -it databse bash`
+3. If you want to get inside the container: `docker exec -it database bash`
 4. To get inside the database: `mariadb -pmypass`
+
+Also make sure you have a database called "mydatabase".
 
 ### Backend
 
