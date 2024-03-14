@@ -58,6 +58,16 @@ const SimpleModal = ({ isOpen, onClose, onSubmit }) => {
               transition: "border-color 0.3s",
             }} />
           </div>
+          <div>
+            <label style={{ display: "block", marginBottom: "5px" }}>New Password Again</label>
+            <input type="password" name="newPasswordAgain" required style={{
+              width: "100%",
+              padding: "10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              transition: "border-color 0.3s",
+            }} />
+          </div>
           <button type="submit" style={{
             padding: "10px 20px",
             borderRadius: "5px",
