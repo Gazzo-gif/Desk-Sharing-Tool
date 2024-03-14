@@ -8,8 +8,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FaLanguage, FaLock, FaCog } from "react-icons/fa";
 import SimpleModal from "./SimpleModal";
+import LogoutConfirmationModal from "./LogoutConfirmationModal";
+import { CiLogout } from "react-icons/ci";
 
-const SidebarComponent = () => {
+const SidebarComponent = ({ name }) => {
   const { t, i18n } = useTranslation();
   const [collapsed, setCollapsed] = useState(
     localStorage.getItem("sidebarCollapsed") === "true"
@@ -17,8 +19,8 @@ const SidebarComponent = () => {
   const [activeTab, setActiveTab] = useState("calendar");
   const location = useLocation();
   const navigate = useNavigate();
-  const isAdmin = true;
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
+  const [isLogoutConfirmationOpen, setIsLogoutConfirmationOpen] = useState(false);
 
   useEffect(() => {
     // Extract the current pathname from the location
@@ -69,13 +71,21 @@ const SidebarComponent = () => {
         setIsChangePasswordModalOpen(true);
         break;
 
+      case "logout": // Added case for logout
+        setIsLogoutConfirmationOpen(true);
+        break;
+
       default:
         break;
     }
   };
 
-  const handleCloseModal = () => {
+  const handleCloseChangePasswordModal = () => {
     setIsChangePasswordModalOpen(false);
+  };
+
+  const handleCloseLogoutConfirmationModal = () => {
+    setIsLogoutConfirmationOpen(false);
   };
 
   const handleChangePasswordSubmit = (event) => {
@@ -84,6 +94,11 @@ const SidebarComponent = () => {
     const newPassword = event.target.newPassword.value;
     console.log({ prevPassword, newPassword }); // Replace this with actual logic to change the password
     setIsChangePasswordModalOpen(false); // Close the modal after submit
+  };
+
+  const handleLogoutConfirmed = () => {
+    localStorage.removeItem("userId"); // Clear the user's session
+    navigate("/", { replace: true }); // Redirect to login page
   };
 
   return (
@@ -116,6 +131,7 @@ const SidebarComponent = () => {
             icon={<BsList />}
             onClick={() => handleClick("collapse")}
           >
+            {name ? `Hello, ${name}` : "Hello!"}
           </MenuItem>
           <MenuItem
             active={activeTab === "admin"}
@@ -144,6 +160,12 @@ const SidebarComponent = () => {
           >
             {i18n.language === "en" ? "Deutsch" : "English"}
           </MenuItem>
+          <MenuItem // Logout button
+            icon={<CiLogout />}
+            onClick={() => handleClick("logout")}
+          >
+            {t("Logout")}
+          </MenuItem>
         </Menu>
         <Menu>
           <SubMenu icon={<FaCog />} label={t("settings")}>
@@ -153,10 +175,18 @@ const SidebarComponent = () => {
         </Menu>
       </Sidebar>
 
+      {/* Change Password Modal */}
       <SimpleModal
         isOpen={isChangePasswordModalOpen}
-        onClose={handleCloseModal}
+        onClose={handleCloseChangePasswordModal}
         onSubmit={handleChangePasswordSubmit}
+      />
+
+      {/* Logout Confirmation Modal */}
+      <LogoutConfirmationModal
+        isOpen={isLogoutConfirmationOpen}
+        onClose={handleCloseLogoutConfirmationModal}
+        onConfirm={handleLogoutConfirmed}
       />
     </div>
   );
