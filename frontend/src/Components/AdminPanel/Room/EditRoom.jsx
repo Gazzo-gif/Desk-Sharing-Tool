@@ -4,9 +4,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import * as React from 'react';
 import { toast } from 'react-toastify';
-//import { addNewTeam } from '../util/apiCalls';
+import { useTranslation } from "react-i18next";
 
 export default function EditRoom({ editRoomModal }) {
+  const { t } = useTranslation();
     const [allRooms, setAllRooms] = React.useState([]);
     React.useEffect(() => {
         getAllRooms();
@@ -41,7 +42,7 @@ export default function EditRoom({ editRoomModal }) {
         },
         body: JSON.stringify({}),
       });
-      toast("Room type changed successfully");
+      toast(t("roomType"));
       getAllRooms();
   }
 
@@ -54,7 +55,7 @@ export default function EditRoom({ editRoomModal }) {
           },
           body: JSON.stringify({}),
         });
-        toast("Room status changed successfully");
+        toast(t("roomStatus"));
         getAllRooms();
     }
 

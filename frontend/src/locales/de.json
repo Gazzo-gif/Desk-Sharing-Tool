@@ -1,18 +1,18 @@
 {
     "login": "Anmeldung",
-    "forgotPassword": "Kennwort Vergessen",
+    "forgotPassword": "Passwort Vergessen",
     "invalidEmail": "Ungültige E-Mail Adresse",
-    "invalidCredentials": "E-Mail Adresse oder Kennwort ungültig",
+    "invalidCredentials": "E-Mail Adresse oder Passwort ungültig",
     "loginFailed": "Anmeldung fehlgeschlagen. Versuche es später erneut.",
     "email": "Email",
-    "password": "Kennwort",
+    "password": "Passwort",
 
     "profile": "Profil",
     "admin": "Admin",
     "calendar": "Kalender",
     "bookings": "Buchungen",
     "settings": "Einstellungen",
-    "visibility": "Sichtweite",
+    "visibility": "Sichtbarkeit",
 
     "selectedDate": "Datum Auswählen",
     "chooseDate": "Datum für eine Arbeitsplatzreservierung wählen",
@@ -42,5 +42,17 @@
     "room": "Zimmer",
     "floor": "Etage",
     "type": "Art",
-    "equipment": "Austattung"
+    "equipment": "Austattung",
+
+    "minimum": "Minimum booking duration is 2 hours",
+    "maximum": "Maximum booking duration is 9 hours",
+    "overlap": "This slot overlaps with another booking for this desk",
+    "booked": "Booking saved successfully",
+    "selectDesk": "Please first select a desk",
+    "blank": "Please choose a desk and time before booking",
+    "deskUpdate": "Desk updated successfully",
+    "deskDelete": "Desk deleted successfully",
+    "deskCreated": "Desk created successfully",
+    "roomStatus": "Room status changed successfully",
+    "roomType": "Room type changed successfully"
 }

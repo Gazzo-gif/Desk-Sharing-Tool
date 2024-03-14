@@ -6,8 +6,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import * as React from 'react';
 import { toast } from 'react-toastify';
+import { useTranslation } from "react-i18next";
 
 export default function EditWorkstation({ editWorkstationModal }) {
+  const { t } = useTranslation();
     const [allRooms, setAllRooms] = React.useState([]);
     const [allDesks, setAllDesks] = React.useState([]);
     const [selectedRoom, setSelectedRoom]= React.useState('');
@@ -66,7 +68,7 @@ export default function EditWorkstation({ editWorkstationModal }) {
       }).then(resp => {
         resp.json().then(data => {
           console.log(data);
-          toast("Desk updated successfully");
+          toast(t("deskUpdate"));
           editWorkstationModal();
         });
       }).catch(error => {
