@@ -32,7 +32,7 @@ export default function AddWorkstation({ addWorkstationModal }) {
           "equipment": equipment
       })
     }).then(resp => {
-        toast(t("deskCreated"));
+        toast.success(t("deskCreated"));
         addWorkstationModal();
     }).catch(error => {
       console.log("login user err " + error);

@@ -68,7 +68,7 @@ export default function EditWorkstation({ editWorkstationModal }) {
       }).then(resp => {
         resp.json().then(data => {
           console.log(data);
-          toast(t("deskUpdate"));
+          toast.success(t("deskUpdate"));
           editWorkstationModal();
         });
       }).catch(error => {

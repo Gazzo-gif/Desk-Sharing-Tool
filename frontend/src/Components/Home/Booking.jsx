@@ -105,12 +105,12 @@ const Booking = () => {
   
     // Check if the duration is within the allowed range
     if (duration < 2 * 60 * 60 * 1000) {
-      toast(t("minimum"));
+      toast.warning(t("minimum"));
       return;
     }
   
     if (duration > 9 * 60 * 60 * 1000) {
-      toast(t("maximum"));
+      toast.warning(t("maximum"));
       return;
     }
   
@@ -125,7 +125,7 @@ const Booking = () => {
     );
   
     if (isOverlap) {
-      toast(t("overlap"));
+      toast.warning(t("overlap"));
       return;
     }
   
@@ -142,7 +142,7 @@ const Booking = () => {
 
   const booking = async () => {
     if (!clickedDeskId || !event.start || !event.end) {
-      toast(t("blank"));
+      toast.error(t("blank"));
       return;
     }  
 
@@ -184,7 +184,7 @@ const Booking = () => {
           
               const data = await response.json();
               console.log("Booking saved successfully:", data);
-              toast(t("booked"));
+              toast.success(t("booked"));
 
               const booking = {
                 id: data.id,
@@ -251,7 +251,7 @@ const Booking = () => {
                   if (clickedDeskId !== null) {
                     selectSlot(data);
                   } else {
-                    toast(t("selectDesk"))
+                    toast.warning(t("selectDesk"))
                   }
                 }}
                 selectable={true}

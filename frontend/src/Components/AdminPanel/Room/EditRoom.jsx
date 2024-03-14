@@ -42,7 +42,7 @@ export default function EditRoom({ editRoomModal }) {
         },
         body: JSON.stringify({}),
       });
-      toast(t("roomType"));
+      toast.success(t("roomType"));
       getAllRooms();
   }
 
@@ -55,7 +55,7 @@ export default function EditRoom({ editRoomModal }) {
           },
           body: JSON.stringify({}),
         });
-        toast(t("roomStatus"));
+        toast.success(t("roomStatus"));
         getAllRooms();
     }
 

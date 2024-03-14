@@ -66,7 +66,7 @@ export default function DeleteWorkstation({ deleteWorkstationModal }) {
                 },body: JSON.stringify({})
               }).then(resp => {
                
-                  toast(t("deskDelete"));
+                  toast.success(t("deskDelete"));
                   deleteWorkstationModal();
               }).catch(error => {
                 console.log("login user err " + error);
