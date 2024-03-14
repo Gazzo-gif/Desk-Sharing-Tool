@@ -34,6 +34,7 @@ root.render(
     <I18nextProvider i18n={i18n}> {/* Wrap your App component with the I18nextProvider */}
       <App />
       <ToastContainer 
+<<<<<<< HEAD
      position="bottom-right"
      autoClose={2000}
      hideProgressBar={false}
@@ -44,6 +45,10 @@ root.render(
      draggable
      pauseOnHover
      theme="light" 
+=======
+        // position="bottom-right"
+        autoClose={2000}
+>>>>>>> faeb6a2 (popups)
       />
     </I18nextProvider>
   </React.StrictMode>

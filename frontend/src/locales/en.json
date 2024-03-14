@@ -43,7 +43,7 @@
     "floor": "Floor",
     "type": "Type",
     "equipment": "Equipment",
-    "choose": "Choose a booking to get information",
+    "choose": "Choose a booking",
 
     "minimum": "Minimum booking duration is 2 hours",
     "maximum": "Maximum booking duration is 9 hours",

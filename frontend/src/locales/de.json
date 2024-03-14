@@ -43,7 +43,7 @@
     "floor": "Etage",
     "type": "Art",
     "equipment": "Austattung",
-    "choose": "Wählen Sie eine Buchung aus, um Informationen zu erhalten",
+    "choose": "Wählen Sie eine Buchung aus",
 
     "minimum": "Minimum booking duration is 2 hours",
     "maximum": "Maximum booking duration is 9 hours",
