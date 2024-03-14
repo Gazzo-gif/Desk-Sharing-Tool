@@ -96,7 +96,7 @@ const Booking = () => {
     });
   }, [desks, clickedDeskId]);
 
-  const gg = (data) => {
+  const selectSlot = (data) => {
     const startTime = new Date(data.start);
     const endTime = new Date(data.end);
   
@@ -105,12 +105,12 @@ const Booking = () => {
   
     // Check if the duration is within the allowed range
     if (duration < 2 * 60 * 60 * 1000) {
-      alert("Minimum booking duration is 2 hours.");
+      toast(t("minimum"));
       return;
     }
   
     if (duration > 9 * 60 * 60 * 1000) {
-      alert("Maximum booking duration is 9 hours.");
+      toast(t("maximum"));
       return;
     }
   
@@ -125,7 +125,7 @@ const Booking = () => {
     );
   
     if (isOverlap) {
-      alert("This slot overlaps with another booking for this desk. Please choose a different slot.");
+      toast(t("overlap"));
       return;
     }
   
@@ -142,7 +142,7 @@ const Booking = () => {
 
   const booking = async () => {
     if (!clickedDeskId || !event.start || !event.end) {
-      alert("Please choose a desk and time before booking.");
+      toast(t("blank"));
       return;
     }  
 
@@ -184,7 +184,7 @@ const Booking = () => {
           
               const data = await response.json();
               console.log("Booking saved successfully:", data);
-              toast("Booking saved successfully");
+              toast(t("booked"));
 
               const booking = {
                 id: data.id,
@@ -249,7 +249,9 @@ const Booking = () => {
                 defaultDate={date}
                 onSelectSlot={(data) => {
                   if (clickedDeskId !== null) {
-                    gg(data);
+                    selectSlot(data);
+                  } else {
+                    toast(t("selectDesk"))
                   }
                 }}
                 selectable={true}

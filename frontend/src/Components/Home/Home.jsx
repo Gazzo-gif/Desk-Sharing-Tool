@@ -81,8 +81,7 @@ const Home = () => {
             events={events}
             startAccessor="start"
             endAccessor="end"
-            views={["month", "agenda"]}
-            defaultView="month"
+            views={["month"]}
             style={{ height: 500 }}
             onSelectSlot={handleSelectSlot}
             selectable={true}

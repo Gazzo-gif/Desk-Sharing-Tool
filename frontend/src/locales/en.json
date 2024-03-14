@@ -42,5 +42,17 @@
     "room": "Room",
     "floor": "Floor",
     "type": "Type",
-    "equipment": "Equipment"
+    "equipment": "Equipment",
+
+    "minimum": "Minimum booking duration is 2 hours",
+    "maximum": "Maximum booking duration is 9 hours",
+    "overlap": "This slot overlaps with another booking for this desk",
+    "booked": "Booking saved successfully",
+    "selectDesk": "Please first select a desk",
+    "blank": "Please choose a desk and time before booking.",
+    "deskUpdate": "Desk updated successfully",
+    "deskDelete": "Desk deleted successfully",
+    "deskCreated": "Desk created successfully",
+    "roomStatus": "Room status changed successfully",
+    "roomType": "Room type changed successfully"
 }

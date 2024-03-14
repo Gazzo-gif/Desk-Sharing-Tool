@@ -6,8 +6,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import * as React from 'react';
 import { toast } from 'react-toastify';
+import { useTranslation } from "react-i18next";
 
 export default function DeleteWorkstation({ deleteWorkstationModal }) {
+  const { t } = useTranslation();
     const [allRooms, setAllRooms] = React.useState([]);
     const [allDesks, setAllDesks] = React.useState([]);
     const [selectedRoom, setSelectedRoom]= React.useState('');
@@ -64,7 +66,7 @@ export default function DeleteWorkstation({ deleteWorkstationModal }) {
                 },body: JSON.stringify({})
               }).then(resp => {
                
-                  toast("Desk deleted successfully");
+                  toast(t("deskDelete"));
                   deleteWorkstationModal();
               }).catch(error => {
                 console.log("login user err " + error);
