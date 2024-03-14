@@ -1,6 +1,7 @@
 package com.desk_sharing.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,8 +51,13 @@ public class UserController {
     }
 
     @PutMapping("/password/{id}")
-    public boolean changePassword(@PathVariable("id") Long id, @RequestBody String password) {
-        return userService.changePassword(id, password);
+    public ResponseEntity<Boolean> changePassword(@PathVariable("id") Long id, @RequestBody Map<String, String> request) {
+        String oldPassword = request.get("oldPassword");
+        String newPassword = request.get("newPassword");
+    
+        boolean answer = userService.changePassword(id, oldPassword, newPassword);
+        HttpStatus status = (answer) ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+        return ResponseEntity.status(status).body(answer);
     }
 
     @DeleteMapping("/{id}")
