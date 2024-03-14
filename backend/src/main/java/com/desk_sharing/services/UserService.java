@@ -168,30 +168,23 @@ public class UserService  {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    /**
-     * Function to get all the users in the database
-     * 
-     * @return a list with all the users and their information
-     */
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    /**
-     * Function to get a user by its ID
-     * 
-     * @return all the inforamtion of the user we are looking for
-     */
     public User getUser(Long id) {
+<<<<<<< HEAD
         return userRepository.getById(id);
+=======
+        User user = userRepository.findById(id).orElse(null);
+        if (user instanceof HibernateProxy) {
+            HibernateProxy hibernateProxy = (HibernateProxy) user;
+            user = (User) hibernateProxy.getHibernateLazyInitializer().getImplementation();
+        }
+        return user;
+>>>>>>> 2d92f0c (get user info)
     }
 
-    /**
-     * Function to add a new user to the database, it will encrypt the given password
-     * 
-     * @param user user we want to register
-     * @return the saved entity
-     */
     public User registerUser(User user) {
         if (!userRepository.existsByEmail(user.getEmail())) {
             // Encrypt the password before saving
@@ -202,16 +195,10 @@ public class UserService  {
         else return null;
     }
 
-    /**
-     * Function to loging in the app
-     * 
-     * @param email users login wiht their email instead of the ID or username
-     * @param password password that should correspond with the user
-     * @return true if there wasn't any error, false if something went wrong
-     */
-    public Long loginUser(String email, String password) {
+    public User loginUser(String email, String password) {
         User user = userRepository.findByEmail(email);
         if (user != null) {
+<<<<<<< HEAD
             // Compare the provided password with the encrypted password in the database
 //            if (passwordEncoder.matches(password, user.getPassword())) {
 //                return user.getId();
@@ -219,20 +206,20 @@ public class UserService  {
 //            // return passwordEncoder.matches(password, user.getPassword());
 //            else return (long) -1;
         	return user.getId();
+=======
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                return user;
+            }
+            else return null;
+>>>>>>> 2d92f0c (get user info)
         }
-        return (long) -1;
+        return null;
     }
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    /**
-     * Function to edit the visibility of a user (true visible, false anonymous)
-     * 
-     * @param id user's ID
-     * @return true if there wasn't any error, false if something went wrong
-     */
     public int changeVisibility(Long id) {
         try {
             User user = userRepository.getById(id);
@@ -248,13 +235,6 @@ public class UserService  {
         } catch (Exception e) {
             return -1;
         }
-    }
-
-    public enum ChangePasswordResult {
-        PASSWORD_CHANGED,
-        USER_NOT_FOUND,
-        INCORRECT_OLD_PASSWORD,
-        ERROR
     }
     
     public boolean changePassword(Long id, String oldPassword, String newPassword) {
@@ -276,11 +256,6 @@ public class UserService  {
         }
     }
     
-    /**
-     * Function to delete an user
-     * @param id ID of the user we want to delete
-     * @return true if there wasn't any error, false if something went wrong
-     */
     public boolean deleteUser(Long id) {
         try {
             userRepository.deleteById(id);
@@ -290,11 +265,6 @@ public class UserService  {
         }
     }
 
-    /**
-     * Function to get if an user is admin or not
-     * @param id ID of the user we want to get the information of
-     * @return true if it is an admin, false if it's not
-     */
     public boolean isAdmin(Long id) {
         User user = userRepository.getById(id);
         return user.isAdmin();

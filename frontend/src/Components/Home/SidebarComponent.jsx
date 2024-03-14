@@ -229,6 +229,7 @@ const SidebarComponent = ({ name }) => {
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
   const [isLogoutConfirmationOpen, setIsLogoutConfirmationOpen] = useState(false);
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [isVisibilityOn, setIsVisibilityOn] = useState(true); // State to manage visibility toggle
 =======
   const [user, setUser] = useState({});
@@ -257,6 +258,11 @@ const SidebarComponent = ({ name }) => {
 >>>>>>> 98adf4e (visibility)
 
   useEffect(() => {
+=======
+  const [visibility, setVisibility] = useState();
+
+  useEffect(() => {
+>>>>>>> 2d92f0c (get user info)
     // Extract the current pathname from the location
     const path = location.pathname;
     // Determine the active tab based on the current pathname
@@ -373,7 +379,11 @@ const SidebarComponent = ({ name }) => {
         toast.success("Visibility changed successfully");
         if (data === 1) {
           setVisibility(true);
-        } else setVisibility(false);
+          localStorage.setItem("visibility", true);
+        } else {
+          setVisibility(false);
+          localStorage.setItem("visibility", false);
+        }
       } else {
         toast.warning("Failed to change visibility");
       }
@@ -412,7 +422,11 @@ const SidebarComponent = ({ name }) => {
             icon={<BsList />}
             onClick={() => handleClick("collapse")}
           >
+<<<<<<< HEAD
             {name ? `Hello, ${name}` : "Hello!"}
+=======
+            {localStorage.getItem("name") ? `Hello, ${localStorage.getItem("name")}` : "Hello!"}
+>>>>>>> 2d92f0c (get user info)
           </MenuItem>
           <MenuItem
             active={activeTab === "admin"}
