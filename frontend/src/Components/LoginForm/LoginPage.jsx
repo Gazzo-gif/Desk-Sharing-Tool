@@ -40,8 +40,11 @@ const LoginPage = () => {
       }
 
       const data = await response.json();
-      if (data !== -1) {
-        localStorage.setItem("userId", String(data));  
+      if (data !== null) {
+        // Save some useful information for later
+        localStorage.setItem("userId", String(data.id));
+        localStorage.setItem("name", String(data.name)); 
+        localStorage.setItem("visibility", data.visibility);  
         navigate("/home", { replace: true });
       } else {
         setLoginError(t("invalidCredentials"));

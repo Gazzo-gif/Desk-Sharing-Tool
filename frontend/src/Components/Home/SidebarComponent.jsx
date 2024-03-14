@@ -22,29 +22,7 @@ const SidebarComponent = () => {
   const navigate = useNavigate();
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
   const [isLogoutConfirmationOpen, setIsLogoutConfirmationOpen] = useState(false);
-  const [user, setUser] = useState({});
   const [visibility, setVisibility] = useState();
-
-  useEffect(() => {
-    // Fetch user's name from the backend
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch(`/users/get/${localStorage.getItem("userId")}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const userData = await response.json();
-        setUser(userData);
-        setVisibility(userData.visibility)
-        console.log("User data:", userData);
-
-      } catch (error) {
-        console.error("Error fetching user's name:", error);
-      }
-    };
-    
-    fetchUserData();
-  }, []);
 
   useEffect(() => {
     // Extract the current pathname from the location
@@ -136,7 +114,11 @@ const SidebarComponent = () => {
         toast.success("Visibility changed successfully");
         if (data === 1) {
           setVisibility(true);
-        } else setVisibility(false);
+          localStorage.setItem("visibility", true);
+        } else {
+          setVisibility(false);
+          localStorage.setItem("visibility", false);
+        }
       } else {
         toast.warning("Failed to change visibility");
       }
@@ -175,7 +157,7 @@ const SidebarComponent = () => {
             icon={<BsList />}
             onClick={() => handleClick("collapse")}
           >
-            {user.name ? `Hello, ${user.name}` : "Hello!"}
+            {localStorage.getItem("name") ? `Hello, ${localStorage.getItem("name")}` : "Hello!"}
           </MenuItem>
           <MenuItem
             active={activeTab === "admin"}

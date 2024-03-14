@@ -40,9 +40,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Long> loginUser(@RequestBody User user) {
-        Long id = userService.loginUser(user.getEmail(), user.getPassword());
-        return ResponseEntity.status(HttpStatus.OK).body(id);
+    public ResponseEntity<User> loginUser(@RequestBody User user) {
+        User answer = userService.loginUser(user.getEmail(), user.getPassword());
+        return ResponseEntity.status(HttpStatus.OK).body(answer);
     }
 
     @PutMapping("/visibility/{id}")
