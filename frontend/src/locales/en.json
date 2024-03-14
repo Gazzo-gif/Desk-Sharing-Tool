@@ -13,6 +13,19 @@
     "bookings": "Bookings",
     "settings": "Settings",
     "visibility": "Visibility",
+<<<<<<< HEAD
+=======
+    "logout": "Logout",
+
+    "logoutConfirmation": "Are you sure you want to logout?",
+    "toLogout": "Logout",
+    "cancel": "Cancel",
+
+    "previousPassword": "Previous Password",
+    "newPassword": "New Password",
+    "newPasswordAgain": "New Password Again",
+    "submit": "Submit",
+>>>>>>> 2300eb1 (localization)
 
     "selectedDate": "Selected Date",
     "chooseDate": "Choose a date for a desk",

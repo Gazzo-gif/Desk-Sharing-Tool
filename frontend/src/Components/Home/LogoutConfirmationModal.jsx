@@ -11,18 +11,18 @@ const LogoutConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
 
   return (
     <Dialog open={isOpen} onClose={onClose}>
-      <DialogTitle>{t("Logout")}</DialogTitle>
+      <DialogTitle>{t("logout")}</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {t("Are you sure you want to logout?")}
+          {t("logoutConfirmation")}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
-          {t("Cancel")}
+          {t("cancel")}
         </Button>
         <Button onClick={onConfirm} color="primary" autoFocus>
-          {t("Logout")}
+          {t("toLogout")}
         </Button>
       </DialogActions>
     </Dialog>
