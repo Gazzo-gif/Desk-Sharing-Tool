@@ -28,14 +28,16 @@ We are using docker to have a database running. So first of all make sure you ha
 
 Some other commands:
 
-3. If you want to get inside the container: `docker exec -it databse bash`
+3. If you want to get inside the container: `docker exec -it database bash`
 4. To get inside the database: `mariadb -pmypass`
+
+Also make sure you have a database called "mydatabase".
 
 ### Backend
 
 We are going to run the backend with maven, so first make sure you have maven installed.
 
-Now make sure you are in the backend directory. Then we can do a cleaning and install of all dependencies: `mvn clean install` or `mvn clean package`.
+Now make sure you are in the backend directory. Then we can do a cleaning and install of all dependencies: `mvn clean install` or `mvn clean package` (maybe you have to use `./mvn` or `./mvnw`.
 
 If you didnt have any error you can now run using this command: `java -jar target/backend-0.0.1-SNAPSHOT.jar `
 
