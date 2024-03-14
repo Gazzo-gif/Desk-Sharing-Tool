@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from 'react-toastify';
 
-const SimpleModal = ({ isOpen, onClose }) => {
+const ChangePassword = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const userId = localStorage.getItem("userId");
   const [formData, setFormData] = useState({
@@ -48,7 +48,7 @@ const SimpleModal = ({ isOpen, onClose }) => {
     } catch (error) {
         console.error("Error changing password:", error);
         setError("Error changing password");
-    }  
+    }
   };
 
   if (!isOpen) return null;
@@ -67,7 +67,7 @@ const SimpleModal = ({ isOpen, onClose }) => {
         alignItems: "center",
         zIndex: 9999 // Set a high z-index value
       }}
-      onClick={onClose} // Close modal when clicking on the backdrop
+      onClick={onClose}
     >
       <div
         style={{
@@ -146,4 +146,4 @@ const SimpleModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default SimpleModal;
+export default ChangePassword;

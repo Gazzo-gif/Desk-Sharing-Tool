@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @PutMapping("/visibility/{id}")
-    public boolean changeVisibility(@PathVariable("id") Long id) {
+    public int changeVisibility(@PathVariable("id") Long id) {
         return userService.changeVisibility(id);
     }
 
