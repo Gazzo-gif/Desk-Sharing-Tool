@@ -89,16 +89,20 @@ public class UserService  {
      * @param id user's ID
      * @return true if there wasn't any error, false if something went wrong
      */
-    public boolean changeVisibility(Long id) {
+    public int changeVisibility(Long id) {
         try {
             User user = userRepository.getById(id);
             if (user.getVisibility()) {
                 user.setVisibility(false);
-            } else user.setVisibility(true);
-
-            return true;
+                userRepository.save(user);
+                return 0;
+            } else {
+                user.setVisibility(true);
+                userRepository.save(user);
+                return 1;
+            }
         } catch (Exception e) {
-            return false;
+            return -1;
         }
     }
 

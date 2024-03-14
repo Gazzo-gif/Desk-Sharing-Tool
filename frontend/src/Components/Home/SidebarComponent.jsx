@@ -6,10 +6,11 @@ import { RiAdminFill } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FaLock, FaCog, FaBookmark, FaEye, FaEyeSlash } from "react-icons/fa";
-import SimpleModal from "./SimpleModal";
+import ChangePassword from "./ChangePassword";
 import LogoutConfirmationModal from "./LogoutConfirmationModal";
 import { CiLogout } from "react-icons/ci";
 import { MdGTranslate } from "react-icons/md";
+import { toast } from 'react-toastify';
 
 const SidebarComponent = () => {
   const { t, i18n } = useTranslation();
@@ -21,8 +22,8 @@ const SidebarComponent = () => {
   const navigate = useNavigate();
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
   const [isLogoutConfirmationOpen, setIsLogoutConfirmationOpen] = useState(false);
-  const [isVisibilityOn, setIsVisibilityOn] = useState(true);
   const [user, setUser] = useState({});
+  const [visibility, setVisibility] = useState();
 
   useEffect(() => {
     // Fetch user's name from the backend
@@ -34,6 +35,7 @@ const SidebarComponent = () => {
         }
         const userData = await response.json();
         setUser(userData);
+        setVisibility(userData.visibility)
         console.log("User data:", userData);
 
       } catch (error) {
@@ -97,8 +99,8 @@ const SidebarComponent = () => {
         setIsLogoutConfirmationOpen(true);
         break;
 
-      case "toggleVisibility":
-        setIsVisibilityOn((prevVisibility) => !prevVisibility);
+      case "visibility":
+        changeVisibility();
         break;
 
       default:
@@ -123,6 +125,25 @@ const SidebarComponent = () => {
     localStorage.removeItem("userId"); // Clear the user's session
     navigate("/", { replace: true }); // Redirect to login page
   };
+
+  const changeVisibility = async () => {
+    try {
+      const response = await fetch(`/users/visibility/${localStorage.getItem("userId")}`, {
+        method: "PUT"
+      });
+      const data = await response.json();
+      if (response.ok && data !== -1) {
+        toast.success("Visibility changed successfully");
+        if (data === 1) {
+          setVisibility(true);
+        } else setVisibility(false);
+      } else {
+        toast.warning("Failed to change visibility");
+      }
+    } catch (error) {
+        console.log("Error changing visibility");
+    }  
+  }
 
   return (
     <div>
@@ -186,7 +207,7 @@ const SidebarComponent = () => {
         </Menu>
         <Menu>
           <SubMenu icon={<FaCog />} label={t("settings")}>
-            <MenuItem icon={isVisibilityOn ? <FaEye /> : <FaEyeSlash />} onClick={() => handleClick("toggleVisibility")}>{t("visibility")}</MenuItem>
+            <MenuItem icon={visibility ? <FaEye /> : <FaEyeSlash />} onClick={() => handleClick("visibility")}>{t("visibility")}</MenuItem>
             <MenuItem icon={<FaLock />} onClick={() => handleClick("changePassword")}>{t("password")}</MenuItem>
             <MenuItem icon={<CiLogout />} onClick={() => handleClick("logout")}>{t("logout")}</MenuItem>
           </SubMenu>
@@ -194,7 +215,7 @@ const SidebarComponent = () => {
       </Sidebar>
 
       {/* Change Password Modal */}
-      <SimpleModal
+      <ChangePassword
         isOpen={isChangePasswordModalOpen}
         onClose={handleCloseChangePasswordModal}
         onSubmit={handleChangePasswordSubmit}
