@@ -1,6 +1,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
+=======
+import React, { useState } from "react";
+>>>>>>> 0f71ca4 (Overlaping Solved)
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { CgDisplayFullwidth } from "react-icons/cg";
 import { BsList, BsIncognito } from "react-icons/bs";
@@ -16,10 +20,15 @@ import { RiAdminFill } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { FaLanguage, FaLock, FaCog } from "react-icons/fa";
 import SimpleModal from "./SimpleModal";
 =======
 >>>>>>> b270e92 (admin panal rooms and desks)
+=======
+import SimpleModal from "./SimpleModal"; // Ensure this is the correct path to your SimpleModal component
+import { CiSettings } from "react-icons/ci";
+>>>>>>> 0f71ca4 (Overlaping Solved)
 
 const SidebarComponent = () => {
   const { t, i18n } = useTranslation();
@@ -60,8 +69,21 @@ const SidebarComponent = () => {
         setActiveTab("calendar");
         navigate("/home", { replace: true });
         break;
+<<<<<<< HEAD
 
 <<<<<<< HEAD
+=======
+      case "settings":
+        // If needed, implement logic for profile tab click
+        break;
+      case "goAnonymous":
+        // Implement go anonymous functionality here
+        console.log("Going Anonymous");
+        break;
+      case "changePassword":
+        setIsChangePasswordModalOpen(true); // Open the change password modal
+        break;
+>>>>>>> 0f71ca4 (Overlaping Solved)
       case "admin":
         setActiveTab("admin");
         navigate("/admin", { replace: true });
@@ -133,6 +155,15 @@ const SidebarComponent = () => {
             icon={<BsList />}
             onClick={() => handleClick("collapse")}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+          />
+          <SubMenu
+            active={tab?.active === "settings"}
+            icon={<CiSettings />
+          }
+            label={t("Settings")}
+>>>>>>> 0f71ca4 (Overlaping Solved)
           >
           </MenuItem>
 =======
@@ -168,6 +199,7 @@ const SidebarComponent = () => {
           >
             {t("calendar")}
           </MenuItem>
+<<<<<<< HEAD
           <MenuItem
             active={activeTab === "bookings"}
             icon={<CgDisplayFullwidth />}
@@ -187,6 +219,9 @@ const SidebarComponent = () => {
             <MenuItem icon={<BsIncognito />} onClick={() => handleClick("goAnonymous")}>{t("visibility")}</MenuItem>
             <MenuItem icon={<FaLock />} onClick={() => handleClick("changePassword")}>{t("password")}</MenuItem>
           </SubMenu>
+=======
+          
+>>>>>>> 0f71ca4 (Overlaping Solved)
         </Menu>
       </Sidebar>
     </div>
