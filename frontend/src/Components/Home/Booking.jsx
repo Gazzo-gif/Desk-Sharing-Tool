@@ -542,6 +542,16 @@ const Booking = () => {
                       : "#008444", // Color for new events
                   },
                 })}
+                messages={{
+                  next: t("next"),
+                  previous: t("back"),
+                  today: t("today"),
+                  month: t("month"),
+                  week: t("week"),
+                  day: t("day"),
+                  agenda: t("agenda"),
+                  noEventsInRange: t("noEventsInRange")
+               }}
               />
             </div>
             <button className="submit-btn" onClick={() => booking()}>
