@@ -1,5 +1,5 @@
 import React from "react";
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from "@material-ui/core";
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 const LogoutConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
