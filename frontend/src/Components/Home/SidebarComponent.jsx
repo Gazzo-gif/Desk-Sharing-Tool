@@ -202,7 +202,11 @@ import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { RiAdminFill } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+<<<<<<< HEAD
 import { FaLock, FaCog, FaBookmark } from "react-icons/fa";
+=======
+import { FaLanguage, FaLock, FaCog, FaEye, FaEyeSlash } from "react-icons/fa"; // Added FaEye and FaEyeSlash
+>>>>>>> 9150b06 (Visibility)
 import SimpleModal from "./SimpleModal";
 import LogoutConfirmationModal from "./LogoutConfirmationModal";
 import { CiLogout } from "react-icons/ci";
@@ -218,6 +222,7 @@ const SidebarComponent = ({ name }) => {
   const navigate = useNavigate();
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
   const [isLogoutConfirmationOpen, setIsLogoutConfirmationOpen] = useState(false);
+  const [isVisibilityOn, setIsVisibilityOn] = useState(true); // State to manage visibility toggle
 
   useEffect(() => {
     // Extract the current pathname from the location
@@ -270,6 +275,10 @@ const SidebarComponent = ({ name }) => {
 
       case "logout":
         setIsLogoutConfirmationOpen(true);
+        break;
+
+      case "toggleVisibility":
+        setIsVisibilityOn((prevVisibility) => !prevVisibility); // Toggle visibility state
         break;
 
       default:
@@ -385,7 +394,7 @@ const SidebarComponent = ({ name }) => {
         </Menu>
         <Menu>
           <SubMenu icon={<FaCog />} label={t("settings")}>
-            <MenuItem icon={<BsIncognito />} onClick={() => handleClick("goAnonymous")}>{t("visibility")}</MenuItem>
+            <MenuItem icon={isVisibilityOn ? <FaEye /> : <FaEyeSlash />} onClick={() => handleClick("toggleVisibility")}>{isVisibilityOn ? t("Visible") : t("Anonymous")}</MenuItem>
             <MenuItem icon={<FaLock />} onClick={() => handleClick("changePassword")}>{t("password")}</MenuItem>
           </SubMenu>
         </Menu>
