@@ -15,9 +15,9 @@ const SimpleModal = ({ isOpen, onClose, onSubmit }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        zIndex: 9999, // Set a high z-index value
+        zIndex: 9999, 
       }}
-      onClick={onClose} // Close modal when clicking on the backdrop
+      onClick={onClose} 
     >
       <div
         style={{
@@ -34,7 +34,7 @@ const SimpleModal = ({ isOpen, onClose, onSubmit }) => {
           boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
         }}
         onClick={(e) => {
-          e.stopPropagation(); // Prevent click from bubbling up to the backdrop
+          e.stopPropagation(); 
         }}
       >
         <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>

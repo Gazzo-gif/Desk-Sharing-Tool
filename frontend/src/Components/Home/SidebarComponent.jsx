@@ -1,6 +1,4 @@
-// SidebarComponent.js
 import React, { useState } from "react";
-import { CgProfile, CgDisplayFullwidth } from "react-icons/cg";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { BsList, BsIncognito } from "react-icons/bs";
 import { TbPassword } from "react-icons/tb";
@@ -9,6 +7,7 @@ import { RiAdminFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SimpleModal from "./SimpleModal"; // Ensure this is the correct path to your SimpleModal component
+import { CiSettings } from "react-icons/ci";
 
 const SidebarComponent = () => {
   const { t } = useTranslation();
@@ -27,7 +26,7 @@ const SidebarComponent = () => {
         setTab({ active: "calendar" });
         navigate("/home", { replace: true });
         break;
-      case "profile":
+      case "settings":
         // If needed, implement logic for profile tab click
         break;
       case "goAnonymous":
@@ -84,9 +83,10 @@ const SidebarComponent = () => {
             onClick={() => handleClick("collapse")}
           />
           <SubMenu
-            active={tab?.active === "profile"}
-            icon={<CgProfile />}
-            label={t("profile")}
+            active={tab?.active === "settings"}
+            icon={<CiSettings />
+          }
+            label={t("Settings")}
           >
             <MenuItem icon={<BsIncognito />} onClick={() => handleClick("goAnonymous")}>{t("Go anonymous")}</MenuItem>
             <MenuItem icon={<TbPassword />} onClick={() => handleClick("changePassword")}>{t("Change Password")}</MenuItem>
@@ -107,10 +107,7 @@ const SidebarComponent = () => {
           >
             {t("calendar")}
           </MenuItem>
-          <SubMenu icon={<CgDisplayFullwidth />} label={t("bookings")}>
-            <MenuItem>12/12/24</MenuItem>
-            <MenuItem>13/12/24</MenuItem>
-          </SubMenu>
+          
         </Menu>
       </Sidebar>
 
