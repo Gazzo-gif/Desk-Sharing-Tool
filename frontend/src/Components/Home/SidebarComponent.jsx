@@ -290,11 +290,26 @@ const SidebarComponent = ({ name }) => {
 <<<<<<< HEAD
     const prevPassword = event.target.prevPassword.value;
     const newPassword = event.target.newPassword.value;
+<<<<<<< HEAD
     console.log({ prevPassword, newPassword }); // Replace this with actual logic to change the password
     setIsChangePasswordModalOpen(false); // Close the modal after submit
 =======
     setIsChangePasswordModalOpen(false);
 >>>>>>> a1dd232 (change password)
+=======
+    const newPasswordAgain = event.target.newPasswordAgain.value;
+
+    if (newPassword !== newPasswordAgain) {
+      alert("Passwords Do Not Match");
+      return; // Prevent further execution
+    }
+
+    // If passwords match, you can proceed with your logic to change the password
+    console.log({ prevPassword, newPassword });
+
+    // Close the modal after submit
+    setIsChangePasswordModalOpen(false);
+>>>>>>> 1a932ff (new password again added)
   };
   
   const handleLogoutConfirmed = () => {

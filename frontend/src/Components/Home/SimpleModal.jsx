@@ -109,16 +109,27 @@ const SimpleModal = ({ isOpen, onClose }) => {
             }} />
           </div>
           <div>
+<<<<<<< HEAD
             <label style={{ display: "block", marginBottom: "5px" }}>{t("newPasswordAgain")}</label>
             <input type="password" name="newPasswordAgain" value={formData.newPasswordAgain} onChange={handleChange} required style={{
+=======
+            <label style={{ display: "block", marginBottom: "5px" }}>New Password Again</label>
+            <input type="password" name="newPasswordAgain" required style={{
+>>>>>>> 1a932ff (new password again added)
               width: "100%",
               padding: "10px",
               borderRadius: "5px",
               border: "1px solid #ccc",
+<<<<<<< HEAD
               transition: "border-color 0.3s"
             }} />
           </div>
           {error && <p style={{ color: "red" }}>{error}</p>}
+=======
+              transition: "border-color 0.3s",
+            }} />
+          </div>
+>>>>>>> 1a932ff (new password again added)
           <button type="submit" style={{
             padding: "10px 20px",
             borderRadius: "5px",
