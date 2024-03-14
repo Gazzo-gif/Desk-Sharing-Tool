@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { IoCalendarNumberOutline } from "react-icons/io5";
-import { BsList, BsIncognito } from "react-icons/bs";
+import { BsList } from "react-icons/bs";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { RiAdminFill } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { FaLock, FaCog, FaBookmark } from "react-icons/fa";
+import { FaLock, FaCog, FaBookmark, FaEye, FaEyeSlash } from "react-icons/fa";
 import SimpleModal from "./SimpleModal";
 import LogoutConfirmationModal from "./LogoutConfirmationModal";
 import { CiLogout } from "react-icons/ci";
 import { MdGTranslate } from "react-icons/md";
 
-const SidebarComponent = ({ name }) => {
+const SidebarComponent = () => {
   const { t, i18n } = useTranslation();
   const [collapsed, setCollapsed] = useState(
     localStorage.getItem("sidebarCollapsed") === "true"
@@ -21,6 +21,28 @@ const SidebarComponent = ({ name }) => {
   const navigate = useNavigate();
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
   const [isLogoutConfirmationOpen, setIsLogoutConfirmationOpen] = useState(false);
+  const [isVisibilityOn, setIsVisibilityOn] = useState(true);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    // Fetch user's name from the backend
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`/users/get/${localStorage.getItem("userId")}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const userData = await response.json();
+        setUser(userData);
+        console.log("User data:", userData);
+
+      } catch (error) {
+        console.error("Error fetching user's name:", error);
+      }
+    };
+    
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     // Extract the current pathname from the location
@@ -75,6 +97,10 @@ const SidebarComponent = ({ name }) => {
         setIsLogoutConfirmationOpen(true);
         break;
 
+      case "toggleVisibility":
+        setIsVisibilityOn((prevVisibility) => !prevVisibility);
+        break;
+
       default:
         break;
     }
@@ -103,7 +129,7 @@ const SidebarComponent = ({ name }) => {
       <Sidebar
         collapsed={collapsed}
         backgroundColor="#008444"
-        width={collapsed ? "80px" : "200px"}
+        width={collapsed ? "80px" : "210px"}
         style={{
           height: "100vh",
           [`&.active`]: {
@@ -115,7 +141,7 @@ const SidebarComponent = ({ name }) => {
       >
         <Menu
           menuItemStyles={{
-            button: ({ level, active, disabled }) => {
+            button: ({ level, active }) => {
               if (level === 0)
                 return {
                   backgroundColor: active ? "#ffdd00" : undefined,
@@ -128,7 +154,7 @@ const SidebarComponent = ({ name }) => {
             icon={<BsList />}
             onClick={() => handleClick("collapse")}
           >
-            {name ? `Hello, ${name}` : "Hello!"}
+            {user.name ? `Hello, ${user.name}` : "Hello!"}
           </MenuItem>
           <MenuItem
             active={activeTab === "admin"}
@@ -160,7 +186,7 @@ const SidebarComponent = ({ name }) => {
         </Menu>
         <Menu>
           <SubMenu icon={<FaCog />} label={t("settings")}>
-            <MenuItem icon={<BsIncognito />} onClick={() => handleClick("goAnonymous")}>{t("visibility")}</MenuItem>
+            <MenuItem icon={isVisibilityOn ? <FaEye /> : <FaEyeSlash />} onClick={() => handleClick("toggleVisibility")}>{t("visibility")}</MenuItem>
             <MenuItem icon={<FaLock />} onClick={() => handleClick("changePassword")}>{t("password")}</MenuItem>
             <MenuItem icon={<CiLogout />} onClick={() => handleClick("logout")}>{t("logout")}</MenuItem>
           </SubMenu>

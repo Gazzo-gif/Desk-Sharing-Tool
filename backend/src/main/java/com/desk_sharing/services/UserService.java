@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.hibernate.proxy.HibernateProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,13 @@ public class UserService  {
      * @return all the inforamtion of the user we are looking for
      */
     public User getUser(Long id) {
-        return userRepository.getById(id);
+        User user = userRepository.findById(id).orElse(null);
+        // Unwrap Hibernate proxy if necessary
+        if (user instanceof HibernateProxy) {
+            HibernateProxy hibernateProxy = (HibernateProxy) user;
+            user = (User) hibernateProxy.getHibernateLazyInitializer().getImplementation();
+        }
+        return user;
     }
 
     /**
