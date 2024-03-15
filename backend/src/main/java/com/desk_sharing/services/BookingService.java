@@ -5,6 +5,7 @@ import com.desk_sharing.repositories.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,5 +45,10 @@ public class BookingService {
 
     public List<Booking> findByDeskId(Long desk_id) {
         return bookingRepository.findByDeskId(desk_id);
+    }
+
+    public List<Booking> findByDeskIdAndDay(Long deskId, Date day) {
+        List<Booking> bookings = bookingRepository.findByDeskIdAndDay(deskId, day);
+        return bookings;
     }
 }
