@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import "./LoginPage.css";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
-import flagImage from "../../images/flag.png"; // Adjusted import path
+import flagImage from "../../images/flag.png";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next"; // Import useTranslation hook
+import { useTranslation } from "react-i18next";
 
 const LoginPage = () => {
-  const { t } = useTranslation(); // Initialize translation hook
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
@@ -47,9 +47,11 @@ const LoginPage = () => {
       const data = await response.json();
       if (data !== null) {
         // Save some useful information for later
+        console.log(data);
         localStorage.setItem("userId", String(data.id));
-        localStorage.setItem("name", String(data.name)); 
-        localStorage.setItem("visibility", data.visibility);  
+        localStorage.setItem("name", String(data.name));
+        localStorage.setItem("visibility", data.visibility);
+        localStorage.setItem("admin", String(data.admin));
         navigate("/home", { replace: true });
       } else {
         setLoginError(t("invalidCredentials"));

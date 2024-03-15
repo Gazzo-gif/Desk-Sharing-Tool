@@ -303,10 +303,6 @@ const SidebarComponent = ({ name }) => {
         i18n.changeLanguage(newLanguage);
         break;
 
-      case "goAnonymous":
-        console.log("Going Anonymous");
-        break;
-
       case "changePassword":
         setIsChangePasswordModalOpen(true);
         break;
@@ -428,13 +424,15 @@ const SidebarComponent = ({ name }) => {
             {localStorage.getItem("name") ? `Hello, ${localStorage.getItem("name")}` : "Hello!"}
 >>>>>>> 2d92f0c (get user info)
           </MenuItem>
-          <MenuItem
-            active={activeTab === "admin"}
-            icon={<RiAdminFill />}
-            onClick={() => handleClick("admin")}
-          >
-            {t("admin")}
-          </MenuItem>
+          {localStorage.getItem("admin") === "true" && (
+            <MenuItem
+              active={activeTab === "admin"}
+              icon={<RiAdminFill />}
+              onClick={() => handleClick("admin")}
+            >
+              {t("admin")}
+            </MenuItem>
+          )}
           <MenuItem
             active={activeTab === "calendar"}
             icon={<IoCalendarNumberOutline />}

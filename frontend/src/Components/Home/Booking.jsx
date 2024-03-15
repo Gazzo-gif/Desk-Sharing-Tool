@@ -355,7 +355,9 @@ const Booking = () => {
         const bookingEvents = bookingData.map((booking) => ({
           start: new Date(booking.day + 'T' + booking.begin),
           end: new Date(booking.day + 'T' + booking.end),
-          title: booking.user.name,
+          title: booking.user.id.toString() === localStorage.getItem("userId")
+            ? "Yours"
+            : (booking.user.visibility ? booking.user.name : "Anonymous"),
           id: 0,
         }));
         
@@ -510,7 +512,7 @@ const Booking = () => {
                   onClick={() => setClickedDeskId(desk.id)}
                 >
                   <p className="item-name">{desk.equipment}</p>
-                  <p className="item-taken">Some free slots</p>
+                  <p className="item-taken">{t("available")}</p>
                 </div>
               </div>
             ))}
