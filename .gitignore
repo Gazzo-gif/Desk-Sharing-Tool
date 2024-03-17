@@ -1,3 +1,4 @@
 /backend/target
 /.vscode
 /frontend/node_modules
+/.metadata/

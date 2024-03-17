@@ -237,6 +237,37 @@ public class UserService  {
         }
     }
     
+    public User updateUserById(Long id, User user) {
+        try {
+            User userFromDB = userRepository.getById(id);
+            if (userFromDB != null) {
+            	
+            	if (userRepository.existsByEmail(user.getEmail()) && !userFromDB.getEmail().equals(user.getEmail())) {
+            		return null;
+            	}
+            	
+            	if(user.getEmail() != null) {
+            		userFromDB.setEmail(user.getEmail());
+            	}
+            	
+            	if(user.getName() != null) {
+            		userFromDB.setName(user.getName());
+            	}
+            	
+            	if(user.getSurname() != null) {
+            		userFromDB.setSurname(user.getSurname());
+            	}
+            	System.out.println(user.isAdmin()+"==="+user.getVisibility());
+            	userFromDB.setVisibility(user.getVisibility());
+            	userFromDB.setAdmin(user.isAdmin());
+                return userRepository.save(userFromDB);
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return null;
+    }
+    
     public boolean changePassword(Long id, String oldPassword, String newPassword) {
         try {
             User user = userRepository.getById(id);

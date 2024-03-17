@@ -69,6 +69,12 @@
     "deskCreated": "Desk created successfully",
     "roomStatus": "Room status changed successfully",
     "roomType": "Room type changed successfully",
+    "userCreated": "User created successfully",
+    "userUpdated": "User updated successfully",
+    "userDeleted": "User deleted successfully",
+    "bookingDeleted": "Bookings deleted successfully",
+    "bookingUpdated": "Bookings updated successfully",
+    
 
     "next": "Next",
     "back": "Back",

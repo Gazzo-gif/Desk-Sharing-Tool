@@ -113,6 +113,11 @@ import { Dialog, DialogTitle, IconButton } from '@mui/material';
 import AddWorkstation from './Workstation/AddWorkstation';
 import EditWorkstation from './Workstation/EditWorkstation';
 import DeleteWorkstation from './Workstation/DeleteWorkstation';
+import AddEmployee from './UserManagement/AddEmployee';
+import DeleteEmployee from './UserManagement/DeleteEmployee';
+import EditEmployee from './UserManagement/EditEmployee';
+import DeleteBookings from './Bookings/DeleteBookings';
+import EditBookings from './Bookings/EditBookings';
 
 const AdminPage = ({ collapsed, onCollapse }) => {
   const [showEmployeeButtons, setShowEmployeeButtons] = useState(false);
@@ -122,7 +127,12 @@ const AdminPage = ({ collapsed, onCollapse }) => {
   const [isAddWorkstationOpen, setIsAddWorkstationOpen] = useState(false);
   const [isEditWorkstationOpen, setIsEditWorkstationOpen] = useState(false);
   const [isDeleteWorkstationOpen, setIsDeleteWorkstationOpen] = useState(false);
+  const [isAddEmployeeOpen, setIsAddEmployeeOpen] = useState(false);
+  const [isEditEmployeeOpen, setIsEditEmployeeOpen] = useState(false);
+  const [isDeleteEmployeeOpen, setIsDeleteEmployeeOpen] = useState(false);
 
+  const [isEditBookingsOpen, setIsEditBookingsOpen] = useState(false);
+  const [isDeleteBookingsOpen, setIsDeleteBookingsOpen] = useState(false);
   const toggleEmployeeButtons = () => {
     setShowEmployeeButtons(!showEmployeeButtons);
     if (showEmployeeButtons === false) {
@@ -151,7 +161,12 @@ const AdminPage = ({ collapsed, onCollapse }) => {
   const toggleAddWorkstationModal = () => setIsAddWorkstationOpen(!isAddWorkstationOpen);
   const toggleEditWorkstationModal = () => setIsEditWorkstationOpen(!isEditWorkstationOpen);
   const toggleDeleteWorkstationModal = () => setIsDeleteWorkstationOpen(!isDeleteWorkstationOpen);
+  const toggleAddEmployeeModal = () => setIsAddEmployeeOpen(!isAddEmployeeOpen);
+  const toggleEditEmployeeModal = () => setIsEditEmployeeOpen(!isEditEmployeeOpen);
+  const toggleDeleteEmployeeModal = () => setIsDeleteEmployeeOpen(!isDeleteEmployeeOpen);
 
+  const toggleEditBookingsModal = () => setIsEditBookingsOpen(!isEditBookingsOpen);
+  const toggleDeleteBookingsModal = () => setIsDeleteBookingsOpen(!isDeleteBookingsOpen);
   const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialog-paper': {
       minWidth: '800px !important',
@@ -162,6 +177,13 @@ const AdminPage = ({ collapsed, onCollapse }) => {
   const BootstrapWorkstationDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialog-paper': {
       minWidth: '500px !important',
+      height: 'auto'
+    },
+  }));
+
+  const BootstrapEmployeeDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialog-paper': {
+      minWidth: '1000px !important',
       height: 'auto'
     },
   }));
@@ -195,7 +217,7 @@ const AdminPage = ({ collapsed, onCollapse }) => {
               <button className="edit-rooms-button" onClick={toggleWorkstationButtons}>
                 Edit Rooms
               </button>
-              <FaPlusMinus className="logo" style={{ cursor: 'pointer' }} onClick={toggleEditRoomModal} />
+              <FaPlusMinus className="logo" />
             </div>
             <div className="manage-bookings-container">
               <button className="manage-bookings-button" onClick={toggleBookingButtons}>
@@ -211,17 +233,20 @@ const AdminPage = ({ collapsed, onCollapse }) => {
             </div>
           </div>
           <div className={`employee-button-wrapper ${showEmployeeButtons ? 'visible' : ''}`}>
-            <button className="employee-button" onClick={() => console.log("Add Employee clicked")}>
+            <button className="employee-button" onClick={toggleAddEmployeeModal}>
               Add Employee
             </button>
-            <button className="employee-button" onClick={() => console.log("Delete Employee clicked")}>
+            <button className="employee-button" onClick={toggleDeleteEmployeeModal}>
               Delete Employee
             </button>
-            <button className="employee-button" onClick={() => console.log("Edit Employee clicked")}>
+            <button className="employee-button" onClick={toggleEditEmployeeModal}>
               Edit Employee
             </button>
           </div>
           <div className={`workstation-button-wrapper ${showWorkstationButtons ? 'visible' : ''}`}>
+            <button className="workstation-button" onClick={toggleEditRoomModal}>
+              Edit Room
+            </button>
             <button className="workstation-button" onClick={toggleAddWorkstationModal}>
               Add Workstation
             </button>
@@ -233,10 +258,10 @@ const AdminPage = ({ collapsed, onCollapse }) => {
             </button>
           </div>
           <div className={`booking-button-wrapper ${showBookingButtons ? 'visible' : ''}`}>
-            <button className="booking-button" onClick={() => console.log("Delete Booking clicked")}>
+            <button className="booking-button" onClick={toggleDeleteBookingsModal}>
               Delete Booking
             </button>
-            <button className="booking-button" onClick={() => console.log("Edit Booking clicked")}>
+            <button className="booking-button" onClick={toggleEditBookingsModal}>
               Edit Booking
             </button>
           </div>
@@ -267,6 +292,42 @@ const AdminPage = ({ collapsed, onCollapse }) => {
         </BootstrapDialogTitle>
         <DeleteWorkstation deleteWorkstationModal={toggleDeleteWorkstationModal} />
       </BootstrapWorkstationDialog>
+
+
+      <BootstrapWorkstationDialog onClose={toggleAddEmployeeModal} aria-labelledby="customized-dialog-title" open={isAddEmployeeOpen}>
+        <BootstrapDialogTitle id="customized-dialog-title" className="toolHeader" style={{ textAlign: 'center', backgroundColor: 'green', color: 'white' }}>
+          ADD EMPLOYEE
+        </BootstrapDialogTitle>
+        <AddEmployee addEmployeeModal={toggleAddEmployeeModal} />
+      </BootstrapWorkstationDialog>
+
+      <BootstrapEmployeeDialog onClose={toggleEditEmployeeModal} aria-labelledby="customized-dialog-title" open={isEditEmployeeOpen}>
+        {/* <BootstrapDialogTitle id="customized-dialog-title" className="toolHeader" style={{ textAlign: 'center', backgroundColor: 'green', color: 'white' }}>
+          EDIT EMPLOYEE
+        </BootstrapDialogTitle> */}
+        <EditEmployee editEmployeeModal={toggleEditEmployeeModal} />
+      </BootstrapEmployeeDialog>
+
+      <BootstrapEmployeeDialog onClose={toggleDeleteEmployeeModal} aria-labelledby="customized-dialog-title" open={isDeleteEmployeeOpen}>
+        <BootstrapDialogTitle id="customized-dialog-title" className="toolHeader" style={{ textAlign: 'center', backgroundColor: 'green', color: 'white' }}>
+          DELETE EMPLOYEE
+        </BootstrapDialogTitle>
+        <DeleteEmployee deleteEmployeeModal={toggleDeleteEmployeeModal} />
+      </BootstrapEmployeeDialog>
+
+      <BootstrapEmployeeDialog onClose={toggleEditBookingsModal} aria-labelledby="customized-dialog-title" open={isEditBookingsOpen}>
+        <BootstrapDialogTitle id="customized-dialog-title" className="toolHeader" style={{ textAlign: 'center', backgroundColor: 'green', color: 'white' }}>
+          EDIT BOOKINGS
+        </BootstrapDialogTitle>
+        <EditBookings editBookingsModal={toggleEditBookingsModal} />
+      </BootstrapEmployeeDialog>
+
+      <BootstrapEmployeeDialog onClose={toggleDeleteBookingsModal} aria-labelledby="customized-dialog-title" open={isDeleteBookingsOpen}>
+        <BootstrapDialogTitle id="customized-dialog-title" className="toolHeader" style={{ textAlign: 'center', backgroundColor: 'green', color: 'white' }}>
+          DELETE BOOKINGsS
+        </BootstrapDialogTitle>
+        <DeleteBookings deleteBookingsModal={toggleDeleteBookingsModal} />
+      </BootstrapEmployeeDialog>
     </div>
   );
 };
