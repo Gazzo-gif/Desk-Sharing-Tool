@@ -338,5 +338,26 @@
 
   .bottom-container{
     display: flex;
+<<<<<<< HEAD
 >>>>>>> a514437 (Added desks to Admin panel)
+=======
+  }
+  .maps{
+    display: flex;
+  }
+  .map{
+    margin: 20px;
+  }
+  .data-display{
+    /* background-color: #006c37; */
+    height: 90vh;
+    width: 70vw;
+  }
+  .column{
+    width: 50%;
+
+  }
+  .heat{
+    width: 50%;
+>>>>>>> 624b4a1 (Added Heat, Column, Usage Graphs)
   }
