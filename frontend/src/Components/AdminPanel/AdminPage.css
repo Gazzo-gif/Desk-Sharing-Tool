@@ -166,3 +166,7 @@
   .booking-button:hover {
     background-color: #006c37;
   }
+
+  .bottom-container{
+    display: flex;
+  }
