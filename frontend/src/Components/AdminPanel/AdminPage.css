@@ -339,8 +339,17 @@
   .bottom-container{
     display: flex;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> a514437 (Added desks to Admin panel)
 =======
+=======
+    width: 100%;
+  }
+  .data-display{
+    /* background-color: #006c37; */
+    height: 90vh;
+    width: 70vw;
+>>>>>>> 570c53c (Separate tabs for Statistics)
   }
   .maps{
     display: flex;
@@ -348,16 +357,36 @@
   .map{
     margin: 20px;
   }
-  .data-display{
-    /* background-color: #006c37; */
-    height: 90vh;
-    width: 70vw;
+  .heat-map{
+    margin: 20px;
+    border-bottom: 2px solid black;
+    opacity: 1;
   }
+  .usage-map{
+    margin: 20px;
+    border-bottom: 2px solid black;
+    opacity: 1;
+  }
+  .column-map{
+    margin: 20px;
+    border-bottom: 2px solid black;
+    opacity: 1;
+  }
+
   .column{
     width: 50%;
 
   }
   .heat{
+<<<<<<< HEAD
     width: 50%;
 >>>>>>> 624b4a1 (Added Heat, Column, Usage Graphs)
+=======
+    /* width: 50%; */
+  }
+  .map-content{
+    background-color: #008444;
+    height: 40vh;
+    width: 65vw;
+>>>>>>> 570c53c (Separate tabs for Statistics)
   }
