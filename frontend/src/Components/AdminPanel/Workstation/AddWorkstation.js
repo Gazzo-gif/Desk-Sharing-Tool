@@ -13,9 +13,14 @@ export default function AddWorkstation({ addWorkstationModal }) {
   const [allRooms, setAllRooms] = React.useState([]);
   const [selectedRoom, setSelectedRoom]= React.useState('');
   const [equipment, setEquipment]= React.useState('');
+  const [deskId, setDeskId] = React.useState('');
   React.useEffect(() => {
       getAllRooms();
   }, []);
+
+  const handleCloseBtn = () => {
+    addWorkstationModal();
+  }
 
   async function addWorkstation(){
     if(selectedRoom){
@@ -23,11 +28,17 @@ export default function AddWorkstation({ addWorkstationModal }) {
       let idVal = idSplit[1].split(")");
       let roomId = idVal[0];
 
+      if(!roomId || !deskId || !equipment ){
+        toast("Field cannot be blank!");
+        return false;
+      }
+
       const response = await fetch("/desks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },body: JSON.stringify({
+        "deskId": deskId,
           "roomId": roomId,
           "equipment": equipment
       })
@@ -84,6 +95,17 @@ export default function AddWorkstation({ addWorkstationModal }) {
               )}
             />
             <br></br>
+            <FormControl required={true} size="small" fullWidth variant="standard">
+                            <TextField
+                                id="standard-adornment-reason"
+                                label="Desk Id"
+                                size="small"
+                                type={"number"}
+                                value={deskId}
+                                onChange={(e)=>setDeskId(e.target.value)}
+                            />
+                        </FormControl>
+                        <br></br><br></br>
             <FormControl fullWidth size='small'>
               <InputLabel id="demo-simple-select-label">Equipments</InputLabel>
               <Select
@@ -104,6 +126,7 @@ export default function AddWorkstation({ addWorkstationModal }) {
       </DialogContent>
       <DialogActions>
         <Button onClick={()=>addWorkstation()}>&nbsp;SUBMIT</Button>
+        <Button onClick={handleCloseBtn}>&nbsp;CLOSE</Button>
       </DialogActions>
     </React.Fragment>
   );

@@ -19,6 +19,10 @@ export default function EditWorkstation({ editWorkstationModal }) {
         getAllRooms();
     }, []);
 
+    const handleCloseBtn = () => {
+      editWorkstationModal();
+    }
+
     async function getAllRooms(){
         const response = await fetch("/rooms/status", {
         method: "GET",
@@ -191,6 +195,7 @@ export default function EditWorkstation({ editWorkstationModal }) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={()=>updateWorkstation()}>&nbsp;UPDATE</Button>
+                <Button onClick={handleCloseBtn}>&nbsp;CLOSE</Button>
             </DialogActions>
 
            

@@ -49,6 +49,13 @@ public class UserController {
     public int changeVisibility(@PathVariable("id") Long id) {
         return userService.changeVisibility(id);
     }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUserById(@PathVariable("id") Long id, @RequestBody User user) {
+    	User updateUser = userService.updateUserById(id, user);
+        HttpStatus status = (updateUser != null) ? HttpStatus.OK : HttpStatus.CONFLICT;
+        return ResponseEntity.status(status).body(updateUser);
+    }
 
     @PutMapping("/password/{id}")
     public ResponseEntity<Boolean> changePassword(@PathVariable("id") Long id, @RequestBody Map<String, String> request) {

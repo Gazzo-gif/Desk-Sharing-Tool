@@ -5,6 +5,7 @@ import com.desk_sharing.entities.Desk;
 import com.desk_sharing.entities.Room;
 import com.desk_sharing.entities.User;
 import com.desk_sharing.model.BookingDTO;
+import com.desk_sharing.model.BookingEditDTO;
 import com.desk_sharing.services.BookingService;
 import com.desk_sharing.services.DeskService;
 import com.desk_sharing.services.RoomService;
@@ -130,5 +131,17 @@ public class BookingController {
     public ResponseEntity<List<Booking>> geDateBookings(@PathVariable("id") Long desk_id, @RequestBody Map<String, String> request) {
         List<Booking> bookings = bookingService.findByDeskIdAndDay(desk_id, Date.valueOf(request.get("day")));
         return new ResponseEntity<>(bookings, HttpStatus.OK);
+    }
+    
+    @GetMapping("/room/date/{id}")
+    public ResponseEntity<List<Booking>> getRoomBookingsByDayAndRoomId(@PathVariable("id") Long roomId, @RequestParam("day") String day) {
+        List<Booking> bookings = bookingService.findByRoomIdAndDay(roomId, Date.valueOf(day));
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
+    }
+    
+    @PutMapping("/edit/timings")
+    public ResponseEntity<Booking> editBookingTimings(@RequestBody BookingEditDTO booking) {
+        Booking updatedBooking = bookingService.editBookingTimings(booking);
+        return new ResponseEntity<>(updatedBooking, HttpStatus.OK);
     }
 }

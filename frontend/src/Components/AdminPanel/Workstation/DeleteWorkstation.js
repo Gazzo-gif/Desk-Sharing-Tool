@@ -18,6 +18,10 @@ export default function DeleteWorkstation({ deleteWorkstationModal }) {
         getAllRooms();
     }, []);
 
+    const handleCloseBtn = () => {
+      deleteWorkstationModal();
+    }
+
     async function getAllRooms(){
         const response = await fetch("/rooms/status", {
         method: "GET",
@@ -168,6 +172,7 @@ export default function DeleteWorkstation({ deleteWorkstationModal }) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={()=>deleteWorkstation()}>&nbsp;DELETE</Button>
+                <Button onClick={handleCloseBtn}>&nbsp;CLOSE</Button>
             </DialogActions>
 
            

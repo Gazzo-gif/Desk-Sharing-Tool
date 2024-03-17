@@ -1,6 +1,7 @@
 package com.desk_sharing.services;
 
 import com.desk_sharing.entities.Booking;
+import com.desk_sharing.model.BookingEditDTO;
 import com.desk_sharing.repositories.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingService {
@@ -51,4 +53,26 @@ public class BookingService {
         List<Booking> bookings = bookingRepository.findByDeskIdAndDay(deskId, day);
         return bookings;
     }
+    
+    public List<Booking> findByRoomIdAndDay(Long roomId, Date day) {
+        List<Booking> bookings = bookingRepository.findByRoomIdAndDay(roomId, day);
+        return bookings;
+    }
+
+	public Booking editBookingTimings(BookingEditDTO booking) {
+		Optional<Booking> bookingById = getBookingById(booking.getId());
+		if(bookingById.isPresent()) {
+			List<Booking> alreadyBookingList = bookingRepository.getAllBookings(bookingById.get().getId(), bookingById.get().getRoom().getId(), bookingById.get().getDesk().getId(), bookingById.get().getDay(), booking.getBegin(), booking.getEnd());
+			List<Long> ids = alreadyBookingList.stream().map(e -> e.getId()).collect(Collectors.toList());
+			System.out.println("--->"+ids);
+			if(alreadyBookingList != null && !alreadyBookingList.isEmpty()) {
+				throw new RuntimeException("Already some bookings exist with same time");
+			}
+			Booking booking2 = bookingById.get();
+			booking2.setBegin(booking.getBegin());
+			booking2.setEnd(booking.getEnd());
+			bookingRepository.save(booking2);
+		}
+		return null;
+	}
 }
