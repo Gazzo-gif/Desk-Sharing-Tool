@@ -170,3 +170,21 @@
   .bottom-container{
     display: flex;
   }
+  .maps{
+    display: flex;
+  }
+  .map{
+    margin: 20px;
+  }
+  .data-display{
+    /* background-color: #006c37; */
+    height: 90vh;
+    width: 70vw;
+  }
+  .column{
+    width: 50%;
+
+  }
+  .heat{
+    width: 50%;
+  }
