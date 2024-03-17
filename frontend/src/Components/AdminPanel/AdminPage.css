@@ -169,6 +169,12 @@
 
   .bottom-container{
     display: flex;
+    width: 100%;
+  }
+  .data-display{
+    /* background-color: #006c37; */
+    height: 90vh;
+    width: 70vw;
   }
   .maps{
     display: flex;
@@ -176,15 +182,31 @@
   .map{
     margin: 20px;
   }
-  .data-display{
-    /* background-color: #006c37; */
-    height: 90vh;
-    width: 70vw;
+  .heat-map{
+    margin: 20px;
+    border-bottom: 2px solid black;
+    opacity: 1;
   }
+  .usage-map{
+    margin: 20px;
+    border-bottom: 2px solid black;
+    opacity: 1;
+  }
+  .column-map{
+    margin: 20px;
+    border-bottom: 2px solid black;
+    opacity: 1;
+  }
+
   .column{
     width: 50%;
 
   }
   .heat{
-    width: 50%;
+    /* width: 50%; */
+  }
+  .map-content{
+    background-color: #008444;
+    height: 40vh;
+    width: 65vw;
   }

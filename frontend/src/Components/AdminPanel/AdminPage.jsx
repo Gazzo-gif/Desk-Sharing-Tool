@@ -13,6 +13,8 @@ const AdminPage = ({ collapsed, onCollapse }) => {
   const roomId = localStorage.getItem("roomId");
   const [activeButton, setActiveButton] = useState(null);
   const [graph, setGraph] = useState("column-map");
+  const [floor, setFloor] = useState("ground");
+  const [activeTab, setTab] = useState("general");
   const [desks, setDesks] = useState([]);
   useEffect(() => {
     const fetchDesks = async () => {
@@ -54,9 +56,21 @@ const AdminPage = ({ collapsed, onCollapse }) => {
     <div className="adminhome-page">
       <SidebarComponent collapsed={collapsed} onCollapse={onCollapse} />
       <div className="adminpage-content">
-        {true ? (
-          <></>
-        ) : (
+        <div className="maps">
+          <div
+            onClick={() => setTab("general")}
+            className={activeTab === "general" ? "column-map" : "map"}
+          >
+            General
+          </div>
+          <div
+            onClick={() => setTab("statistics")}
+            className={activeTab === "statistics" ? "heat-map" : "map"}
+          >
+            Statistics
+          </div>
+        </div>
+        {activeTab === "general" ? (
           <div className="admin-content">
             <h1>Admin Page Content</h1>
             <div className="admin-controls-container">
@@ -171,55 +185,79 @@ const AdminPage = ({ collapsed, onCollapse }) => {
               </div>
             </div>
           </div>
-        )}
-        <div className="bottom-container">
-          <div className="desk-container">
-            {desks.map((desk, index) => (
-              <div className="desk-component" key={index}>
-                <div>{desk.id}.</div>
-                <div className="desk-description">
-                  <p className="item-name">{desk.equipment}</p>
-                  <p className="item-taken">Some free slots</p>
+        ) : (
+          <div className="bottom-container">
+            <div className="desk-containe">
+              {desks.map((desk, index) => (
+                <div className="desk-component" key={index}>
+                  <div>{desk.id}.</div>
+                  <div className="desk-description">
+                    <p className="item-name">{desk.equipment}</p>
+                    <p className="item-taken">Some free slots</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="data-display">
+              <div className="maps">
+                <div
+                  onClick={() => setFloor("ground")}
+                  className={floor === "ground" ? "column-map" : "map"}
+                >
+                  Ground Floor
+                </div>
+                <div
+                  onClick={() => setFloor("first")}
+                  className={floor === "first" ? "heat-map" : "map"}
+                >
+                  First Floor
                 </div>
               </div>
-            ))}
-          </div>
-          <div className="data-display">
-            <div className="maps">
-              <div onClick={() => setGraph("column-map")} className="map">
-                Column Map
+              <div className="maps">
+                <div
+                  onClick={() => setGraph("column-map")}
+                  className={graph === "column-map" ? "column-map" : "map"}
+                >
+                  Column Map
+                </div>
+                <div
+                  onClick={() => setGraph("heat-map")}
+                  className={graph === "heat-map" ? "heat-map" : "map"}
+                >
+                  Heat Map
+                </div>
+                <div
+                  onClick={() => setGraph("usage-map")}
+                  className={graph === "usage-map" ? "usage-map" : "map"}
+                >
+                  Usage
+                </div>
               </div>
-              <div onClick={() => setGraph("heat-map")} className="map">
-                Heat Map
-              </div>
-              <div onClick={() => setGraph("usage-map")} className="map">
-                Usage
-              </div>
-            </div>
 
-            {graph === "heat-map" ? (
-              <div className="heat">
-                <HeatMap />
-              </div>
-            ) : (
-              ""
-            )}
-            {graph === "column-map" ? (
-              <div className="column">
-                <ColumnGraph />
-              </div>
-            ) : (
-              ""
-            )}
-            {graph === "usage-map" ? (
-              <div className="heat">
-                <UsageGraph />
-              </div>
-            ) : (
-              ""
-            )}
+              {graph === "heat-map" ? (
+                <div className="map-content">
+                  <HeatMap />
+                </div>
+              ) : (
+                ""
+              )}
+              {graph === "column-map" ? (
+                <div className="map-content">
+                  <ColumnGraph />
+                </div>
+              ) : (
+                ""
+              )}
+              {graph === "usage-map" ? (
+                <div className="map-content">
+                  <UsageGraph />
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
