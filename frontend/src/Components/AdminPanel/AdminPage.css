@@ -210,3 +210,7 @@
     height: 40vh;
     width: 65vw;
   }
+  .desk-list{
+    height: 85vh;
+    overflow-y: scroll;
+  }
