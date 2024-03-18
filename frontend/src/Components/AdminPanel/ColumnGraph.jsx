@@ -1,15 +1,24 @@
 import React from "react";
+import { useEffect } from "react";
 import { Chart } from "react-google-charts";
 
-export const data = [
-  ["Element", "Density", { role: "style" }],
-  ["Copper", 8.94, "#b87333"], // RGB value
-  ["Silver", 10.49, "silver"], // English color name
-  ["Gold", 19.3, "gold"],
-  ["Platinum", 21.45, "color: #e5e4e2"], // CSS-style declaration
-];
-
 export function ColumnGraph() {
+  const data = [
+    ["Day of the Week", "Hours", { role: "style" }],
+    ["Monday", getRandomInt(7, 20), "gold"], // RGB value
+    ["Tuesday", getRandomInt(7, 20), "gold"], // English color name
+    ["Wednesday", getRandomInt(7, 20), "gold"],
+    ["Thursday", getRandomInt(7, 20), "gold"], // CSS-style declaration
+    ["Friday", getRandomInt(7, 20), "gold"],
+  ];
+
+  // Function to generate random integer between min and max (inclusive)
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  useEffect(() => {
+    // console.log(data);
+  }, [data]);
   return (
     <Chart
       chartType="ColumnChart"
