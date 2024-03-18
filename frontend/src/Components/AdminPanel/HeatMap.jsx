@@ -9,32 +9,24 @@ export const data = [
     "Market increase/decrease (color)",
   ],
   ["Global", null, 0, 0],
-  ["America", "Global", 0, 0],
-  ["Europe", "Global", 0, 0],
-  ["Asia", "Global", 0, 0],
-  ["Australia", "Global", 0, 0],
-  ["Africa", "Global", 0, 0],
-  ["Brazil", "America", 11, 10],
-  ["USA", "America", 52, 31],
-  ["Mexico", "America", 24, 12],
-  ["Canada", "America", 16, -23],
-  ["France", "Europe", 42, -11],
-  ["Germany", "Europe", 31, -2],
-  ["Sweden", "Europe", 22, -13],
-  ["Italy", "Europe", 17, 4],
-  ["UK", "Europe", 21, -5],
-  ["China", "Asia", 36, 4],
-  ["Japan", "Asia", 20, -12],
-  ["India", "Asia", 40, 63],
-  ["Laos", "Asia", 4, 34],
-  ["Mongolia", "Asia", 1, -5],
-  ["Iran", "Asia", 18, 13],
-  ["Pakistan", "Asia", 11, -52],
-  ["Egypt", "Africa", 21, 0],
-  ["S. Africa", "Africa", 30, 43],
-  ["Sudan", "Africa", 12, 2],
-  ["Congo", "Africa", 10, 12],
-  ["Zaire", "Africa", 8, 10],
+  ["Room1", "Global", 0, 0], // Original "Europe" entry
+  ["Room2", "Global", 0, 0], // "Asia" replaced with "First"
+  ["Room3", "Room1", 11, 10], // "Brazil" replaced with "Room1"
+  ["Room4", "Room1", 52, 31], // "USA" replaced with "Room1"
+  ["Room5", "Room1", 24, 12], // "Mexico" replaced with "Room1"
+  ["Room6", "Room1", 16, -23], // "Canada" replaced with "Room1"
+  ["Room7", "Room1", 42, -11], // "France" replaced with "Room1"
+  ["Room8", "Room1", 31, -2], // "Germany" replaced with "Room1"
+  ["Room9", "Room1", 22, -13], // "Sweden" replaced with "Room1"
+  ["Room10", "Room1", 17, 4], // "Italy" replaced with "Room1"
+  ["Room11", "Room1", 21, -5], // "UK" replaced with "Room1"
+  ["Room12", "Room2", 36, 4], // "China" replaced with "Room2"
+  ["Room13", "Room2", 20, -12], // "Japan" replaced with "Room2"
+  ["Room14", "Room2", 40, 63], // "India" replaced with "Room2"
+  ["Room15", "Room2", 4, 34], // "Laos" replaced with "Room2"
+  ["Room16", "Room2", 1, -5], // "Mongolia" replaced with "Room2"
+  ["Room17", "Room2", 18, 13], // "Iran" replaced with "Room2"
+  ["Room18", "Room2", 11, -52], // "Pakistan" replaced with "Room2"
 ];
 
 export const options = {

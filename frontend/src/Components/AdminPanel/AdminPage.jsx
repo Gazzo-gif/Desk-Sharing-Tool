@@ -17,6 +17,7 @@ const AdminPage = ({ collapsed, onCollapse }) => {
   const [activeTab, setTab] = useState("general");
   const [deskList, setDeskList] = useState([]);
   const [desks, setDesks] = useState([]);
+  let tempActive = graph;
   const floorFilter = (currentFloor) => {
     // const currentFloor = "Ground";
     if (currentFloor === "Ground") {
@@ -69,6 +70,7 @@ const AdminPage = ({ collapsed, onCollapse }) => {
       fetchDesks();
     }
   }, [roomId, deskList]);
+
   const toggleButtons = (button) => {
     if (activeButton === button) {
       setActiveButton(null); // Toggle off if the same button is clicked
@@ -215,13 +217,14 @@ const AdminPage = ({ collapsed, onCollapse }) => {
             <div className="desk-list">
               {deskList.map((desk, index) => (
                 <div
-                  onClick={() => console.log("desks:", desk)}
+                  // onClick={() => console.log("desks:", desk)}
+                  // onClick={() => setGraph(`${tempActive}`)}
                   className="desk-component"
                   key={index}
                 >
                   <div>{desk.id}.</div>
                   <div className="desk-description">
-                    <p className="item-name">{desk.floor} 2</p>
+                    <p className="item-name">{desk.floor}</p>
                     <p className="item-taken">Some free slots</p>
                   </div>
                 </div>
