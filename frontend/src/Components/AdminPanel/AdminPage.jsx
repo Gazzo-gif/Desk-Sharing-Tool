@@ -222,7 +222,32 @@ const AdminPage = ({ collapsed, onCollapse }) => {
   const [graph, setGraph] = useState("column-map");
   const [floor, setFloor] = useState("ground");
   const [activeTab, setTab] = useState("general");
+  const [deskList, setDeskList] = useState([]);
   const [desks, setDesks] = useState([]);
+  const floorFilter = (currentFloor) => {
+    // const currentFloor = "Ground";
+    if (currentFloor === "Ground") {
+      setFloor("ground");
+    }
+    if (currentFloor === "First") {
+      setFloor("first");
+    }
+    fetch("http://188.34.162.76:8080/rooms")
+      .then((response) => response.json())
+      .then((data) => {
+        // Filter rooms based on the current floor
+        const filteredRooms = data.filter(
+          (room) => room.floor === currentFloor
+        );
+        setDeskList(filteredRooms);
+        console.log(filteredRooms);
+        // setRooms(filteredRooms);
+      })
+      .catch((error) => {
+        console.error("Error fetching room data:", error);
+      });
+  };
+
   useEffect(() => {
     const fetchDesks = async () => {
       try {
@@ -250,7 +275,7 @@ const AdminPage = ({ collapsed, onCollapse }) => {
     if (roomId) {
       fetchDesks();
     }
-  }, [roomId]);
+  }, [roomId, deskList]);
   const toggleButtons = (button) => {
     if (activeButton === button) {
       setActiveButton(null); // Toggle off if the same button is clicked
@@ -557,12 +582,16 @@ const AdminPage = ({ collapsed, onCollapse }) => {
 =======
         ) : (
           <div className="bottom-container">
-            <div className="desk-containe">
-              {desks.map((desk, index) => (
-                <div className="desk-component" key={index}>
+            <div className="desk-list">
+              {deskList.map((desk, index) => (
+                <div
+                  onClick={() => console.log("desks:", desk)}
+                  className="desk-component"
+                  key={index}
+                >
                   <div>{desk.id}.</div>
                   <div className="desk-description">
-                    <p className="item-name">{desk.equipment}</p>
+                    <p className="item-name">{desk.floor} 2</p>
                     <p className="item-taken">Some free slots</p>
                   </div>
                 </div>
@@ -571,13 +600,13 @@ const AdminPage = ({ collapsed, onCollapse }) => {
             <div className="data-display">
               <div className="maps">
                 <div
-                  onClick={() => setFloor("ground")}
+                  onClick={() => floorFilter("Ground")}
                   className={floor === "ground" ? "column-map" : "map"}
                 >
                   Ground Floor
                 </div>
                 <div
-                  onClick={() => setFloor("first")}
+                  onClick={() => floorFilter("First")}
                   className={floor === "first" ? "heat-map" : "map"}
                 >
                   First Floor

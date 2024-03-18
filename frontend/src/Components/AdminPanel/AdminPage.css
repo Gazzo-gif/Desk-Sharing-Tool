@@ -388,5 +388,12 @@
     background-color: #008444;
     height: 40vh;
     width: 65vw;
+<<<<<<< HEAD
 >>>>>>> 570c53c (Separate tabs for Statistics)
+=======
+  }
+  .desk-list{
+    height: 85vh;
+    overflow-y: scroll;
+>>>>>>> fd89088 (Filter mechanism works)
   }
