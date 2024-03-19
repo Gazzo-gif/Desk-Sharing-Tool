@@ -4,8 +4,21 @@
   justify-content: space-between;
   width: 210px;
 }
-
-.desk-description {
+.desk-component:hover{
+  cursor: pointer;
+}
+.desk-description-no-data{
+  background-color: rgb(163, 162, 162);
+  display: flex;
+  margin: 25px;
+  justify-content: space-between;
+  height: 125px;
+  width:140px;
+  border-radius: 7px;
+  padding: 5px;
+  animation: changeOpacity 2s linear infinite; /* Adjust the duration as needed */
+}
+.desk-description{
   background-color: yellowgreen;
   height: 125px;
   width: 140px;

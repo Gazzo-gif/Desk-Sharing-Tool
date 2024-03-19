@@ -57,7 +57,6 @@ const SidebarComponent = () => {
       case "bookings":
         setActiveTab("bookings");
         navigate("/mybookings", { replace: true });
-        break;
 
       case "language":
         const currentLanguage = i18n.language;
