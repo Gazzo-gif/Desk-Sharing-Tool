@@ -372,16 +372,17 @@ const SidebarComponent = ({ name }) => {
       });
       const data = await response.json();
       if (response.ok && data !== -1) {
-        toast.success("Visibility changed successfully");
         if (data === 1) {
           setVisibility(true);
           localStorage.setItem("visibility", true);
+          toast.success(t("visible"));
         } else {
           setVisibility(false);
           localStorage.setItem("visibility", false);
+          toast.success(t("anonymous"));
         }
       } else {
-        toast.warning("Failed to change visibility");
+        toast.warning(t("failVisibility"));
       }
     } catch (error) {
         console.log("Error changing visibility");
@@ -419,10 +420,14 @@ const SidebarComponent = ({ name }) => {
             onClick={() => handleClick("collapse")}
           >
 <<<<<<< HEAD
+<<<<<<< HEAD
             {name ? `Hello, ${name}` : "Hello!"}
 =======
             {localStorage.getItem("name") ? `Hello, ${localStorage.getItem("name")}` : "Hello!"}
 >>>>>>> 2d92f0c (get user info)
+=======
+            {localStorage.getItem("name") ? `${t("hello")}, ${localStorage.getItem("name")}` : `${t("hello")}!`}
+>>>>>>> a3ef087 (visibility localization)
           </MenuItem>
           {localStorage.getItem("admin") === "true" && (
             <MenuItem

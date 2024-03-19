@@ -16,6 +16,11 @@
 <<<<<<< HEAD
 =======
     "logout": "Logout",
+    "hello": "Hello",
+
+    "visible": "Visibility changed successfully to visible",
+    "anonymous": "Visibility changed successfully to anonymous",
+    "failVisibility": "Failed to change visibility",
 
     "logoutConfirmation": "Are you sure you want to logout?",
     "toLogout": "Logout",
@@ -76,7 +81,6 @@
     "bookingDeleted": "Bookings deleted successfully",
     "bookingUpdated": "Bookings updated successfully",
     
-
     "next": "Next",
     "back": "Back",
     "today": "Today",

@@ -16,6 +16,11 @@
 <<<<<<< HEAD
 =======
     "logout": "Abmeldung",
+    "hello": "Hallo",
+
+    "visible": "Die Sichtbarkeit wurde erfolgreich in „Sichtbar“ geändert",
+    "anonymous": "Die Sichtbarkeit wurde erfolgreich auf „Anonym“ geändert",
+    "failVisibility": "Die Sichtbarkeit konnte nicht geändert werden",
 
     "logoutConfirmation": "Sind Sie sicher, dass sie sich abmelden wollen?",
     "toLogout": "Abmelden",
