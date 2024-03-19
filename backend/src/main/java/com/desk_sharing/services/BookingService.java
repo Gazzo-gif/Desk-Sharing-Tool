@@ -1,14 +1,19 @@
 package com.desk_sharing.services;
 
 import com.desk_sharing.entities.Booking;
+import com.desk_sharing.entities.Desk;
+import com.desk_sharing.entities.Room;
 import com.desk_sharing.model.BookingEditDTO;
 import com.desk_sharing.repositories.BookingRepository;
+import com.desk_sharing.repositories.DeskRepository;
+import com.desk_sharing.repositories.RoomRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +21,12 @@ public class BookingService {
 
     @Autowired
     BookingRepository bookingRepository;
+    
+    @Autowired
+    RoomRepository roomRepository;
+    
+    @Autowired
+    DeskRepository deskRepository;
 
     public Booking addBooking(Booking booking) {
         return bookingRepository.save(booking);
@@ -62,7 +73,10 @@ public class BookingService {
 	public Booking editBookingTimings(BookingEditDTO booking) {
 		Optional<Booking> bookingById = getBookingById(booking.getId());
 		if(bookingById.isPresent()) {
-			List<Booking> alreadyBookingList = bookingRepository.getAllBookings(bookingById.get().getId(), bookingById.get().getRoom().getId(), bookingById.get().getDesk().getId(), bookingById.get().getDay(), booking.getBegin(), booking.getEnd());
+			List<Booking> alreadyBookingList = bookingRepository.getAllBookings(
+                bookingById.get().getId(), bookingById.get().getRoom().getId(), 
+                bookingById.get().getDesk().getId(), bookingById.get().getDay(), 
+                booking.getBegin(), booking.getEnd());
 			List<Long> ids = alreadyBookingList.stream().map(e -> e.getId()).collect(Collectors.toList());
 			System.out.println("--->"+ids);
 			if(alreadyBookingList != null && !alreadyBookingList.isEmpty()) {
@@ -75,4 +89,51 @@ public class BookingService {
 		}
 		return null;
 	}
+
+    public Dictionary<Date, Integer> getAvailableDays(List<Date> days) {
+        Dictionary<Date, Integer> slots= new Hashtable<>();
+        List<Room> rooms = roomRepository.findAllByStatus("enable");
+        // Every day of a month
+        for (Date day : days) {
+            slots.put(day, 0);
+            // Ever enabled room
+            for (Room room : rooms) {
+                List<Desk> desks = deskRepository.findByRoomId(room.getId());
+                // Every desk in a room
+                for (Desk desk : desks) {
+                    LocalTime time = LocalTime.of(6, 0, 0);
+                    LocalTime end = LocalTime.of(22, 0, 0);
+                    List<Booking> bookings = findByDeskIdAndDay(desk.getId(), day);
+                    if (!bookings.isEmpty()) {
+                        // Order list depending on the starting hour
+                        Collections.sort(bookings, new Comparator<Booking>() {
+                            @Override
+                            public int compare(Booking b1, Booking b2) {
+                                return b1.getBegin().compareTo(b2.getBegin());
+                            }
+                        });
+                        // Check free slots
+                        for (int i = 0; i < bookings.size(); i++) {
+                            LocalTime time2 = bookings.get(i).getBegin().toLocalTime();
+                            long minutesDifference = time.until(time2, java.time.temporal.ChronoUnit.MINUTES);
+                            
+                            if (minutesDifference >= 120) {
+                                slots.put(day, slots.get(day) + 1);
+                            }
+                            time = bookings.get(i).getEnd().toLocalTime();
+                        }
+
+                        long minutesDifference = time.until(end, java.time.temporal.ChronoUnit.MINUTES);
+                        
+                        if (minutesDifference >= 120) {
+                            slots.put(day, slots.get(day) + 1);
+                        }
+                    } else {
+                        slots.put(day, slots.get(day) + 1);
+                    }
+                }
+            }
+        }
+        return slots;
+    }
 }

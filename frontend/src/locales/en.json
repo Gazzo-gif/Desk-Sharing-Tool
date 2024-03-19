@@ -42,6 +42,7 @@
     "available": "Available",
     "full": "Fully booked",
     "some": "Some free slots",
+    "freeSlots": "Free Slots",
 
     "myBookings": "My Bookings",
     "edit": "Edit",
