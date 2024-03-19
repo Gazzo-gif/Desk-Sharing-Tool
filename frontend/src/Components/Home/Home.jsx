@@ -14,36 +14,6 @@ const Home = () => {
   const [events, setEvents] = useState([]);
   const [now, setNow] = useState(moment());
 
-  // useEffect(() => {
-  //   const userId = localStorage.getItem("userId");
-
-  //   async function fetchBookings(userId) {
-  //     const response = await fetch(`/bookings/user/${userId}`);
-  //     if (!response.ok) {
-  //       throw new Error("Failed to fetch bookings");
-  //     }
-  //     const bookings = await response.json();
-  //     return bookings;
-  //   }
-
-  //   async function populateCalendarEvents(userId) {
-  //     try {
-  //       const bookings = await fetchBookings(userId);
-  //       const calendarEvents = bookings.map((booking) => ({
-  //         id: booking.id,
-  //         title: `${t('desk')} ${booking.desk.id}`,
-  //         start: new Date(booking.day + "T" + booking.begin),
-  //         end: new Date(booking.day + "T" + booking.end),
-  //       }));
-  //       setEvents(calendarEvents);
-  //     } catch (error) {
-  //       console.error("Error fetching bookings:", error);
-  //     }
-  //   }
-
-  //   populateCalendarEvents(userId);
-  // }, [t]);
-
   const handleSelectSlot = ({ start }) => {
     const selectedDateEvent = {
       start,
@@ -59,7 +29,7 @@ const Home = () => {
     }, 500);
   };
 
-  const generateMonthDays = (date) => {
+  const generateMonthDays = async (date) => {
     const currentMonth = moment(date).startOf('month');
     const daysInMonth = [];
     const eventsForMonth = [];
@@ -67,15 +37,35 @@ const Home = () => {
     for (let i = 0; i < currentMonth.daysInMonth(); i++) {
       const day = currentMonth.clone().add(i, 'days');
       daysInMonth.push(day.format('YYYY-MM-DD'));
+    }
+
+    try {
+      const response = await fetch(`/bookings/days/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(daysInMonth),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to fetch bookings");
+      }
+  
+      const data = await response.json();
 
       // Create an event for each day of the month
-      const newEvent = {
-        start: day.toDate(),
-        end: day.toDate(),
-        title: t("available"),
-        allDay: true,
-      };
-      eventsForMonth.push(newEvent);
+      for (const day in data) {
+        const newEvent = {
+          start: moment(day).startOf('day').toDate(),
+          end: moment(day).endOf('day').toDate(),
+          title: `${t("freeSlots")}: ${data[day]}`,
+          allDay: true,
+        };
+        eventsForMonth.push(newEvent);
+      }
+    } catch (error) {
+      console.error("Error fetching bookings:", error);
     }
 
     setEvents(eventsForMonth);

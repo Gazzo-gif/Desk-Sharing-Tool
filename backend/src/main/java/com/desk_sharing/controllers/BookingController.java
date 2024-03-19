@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Dictionary;
 import java.util.List;
 import java.util.Optional;
 import java.util.Map;
@@ -134,5 +135,10 @@ public class BookingController {
     public ResponseEntity<Booking> editBookingTimings(@RequestBody BookingEditDTO booking) {
         Booking updatedBooking = bookingService.editBookingTimings(booking);
         return new ResponseEntity<>(updatedBooking, HttpStatus.OK);
+    }
+
+    @PostMapping("/days")
+    public Dictionary<Date, Integer> getBookingsForDays(@RequestBody List<Date> days) {
+        return bookingService.getAvailableDays(days);
     }
 }
