@@ -17,6 +17,7 @@ const AdminPage = ({ collapsed, onCollapse }) => {
   const [activeTab, setTab] = useState("general");
   const [deskList, setDeskList] = useState([]);
   const [desks, setDesks] = useState([]);
+  const [refresh, setRefresh] = useState(true);
   let tempActive = graph;
   const floorFilter = (currentFloor) => {
     // const currentFloor = "Ground";
@@ -80,7 +81,9 @@ const AdminPage = ({ collapsed, onCollapse }) => {
       setActiveButton(button);
     }
   };
-
+  const randomiseData = () => {
+    setRefresh(!refresh);
+  };
   return (
     <div className="adminhome-page">
       <SidebarComponent collapsed={collapsed} onCollapse={onCollapse} />
@@ -226,7 +229,7 @@ const AdminPage = ({ collapsed, onCollapse }) => {
               ) : (
                 deskList.map((desk, index) => (
                   <div
-                    // onClick={() => console.log("desks:", desk)}
+                    onClick={() => randomiseData()}
                     // onClick={() => setGraph(`${tempActive}`)}
                     className="desk-component"
                     key={index}
@@ -292,7 +295,7 @@ const AdminPage = ({ collapsed, onCollapse }) => {
                   )}
                   {graph === "column-map" ? (
                     <div className="map-content">
-                      <ColumnGraph />
+                      <ColumnGraph value={refresh} />
                     </div>
                   ) : (
                     ""
