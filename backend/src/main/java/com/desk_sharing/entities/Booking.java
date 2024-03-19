@@ -2,8 +2,16 @@ package com.desk_sharing.entities;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDateTime;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "bookings")
@@ -28,6 +36,10 @@ public class Booking {
     
     @Column(name = "day", nullable = false)
     private Date day; // yyyy-mm-dd
+    
+    private boolean bookingInProgress;
+    
+    private LocalDateTime lockExpiryTime;
     
     @Column(name = "begin", nullable = false)
     private Time begin; // hh:mm:ss
@@ -101,4 +113,21 @@ public class Booking {
     public void setEnd(Time end) {
         this.end = end;
     }
+
+	public boolean isBookingInProgress() {
+		return bookingInProgress;
+	}
+
+	public void setBookingInProgress(boolean bookingInProgress) {
+		this.bookingInProgress = bookingInProgress;
+	}
+
+	public LocalDateTime getLockExpiryTime() {
+		return lockExpiryTime;
+	}
+
+	public void setLockExpiryTime(LocalDateTime lockExpiryTime) {
+		this.lockExpiryTime = lockExpiryTime;
+	}
+    
 }

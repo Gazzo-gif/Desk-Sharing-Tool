@@ -376,6 +376,38 @@ const Booking = () => {
     });
   }, [desks, clickedDeskId]);
 
+  async function loadBookings(){
+    const response = await fetch(
+      `/bookings/desk/${clickedDeskId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Error fetching desk booking data");
+    }
+
+    const bookingData = await response.json();
+    console.log("Booking data for desk:", bookingData);
+
+    // Parse the booking data and add events to tempArray
+    const bookingEvents = bookingData.map((booking) => ({
+      start: new Date(booking.day + 'T' + booking.begin),
+      end: new Date(booking.day + 'T' + booking.end),
+      title: booking.user.id.toString() === localStorage.getItem("userId")
+        ? "Yours"
+        : (booking.user.visibility ? booking.user.name : "Anonymous"),
+      id: 0,
+    }));
+    
+    setDeskEvents(bookingEvents);
+    setEvents(bookingEvents);
+  }
+
   const selectSlot = (data) => {
     const startTime = new Date(data.start);
     const endTime = new Date(data.end);
@@ -425,14 +457,39 @@ const Booking = () => {
       toast.error(t("blank"));
       return;
     }  
-
+    loadBookings();
     const userId = localStorage.getItem("userId");
     const room_Id = roomId;
     const deskId = clickedDeskId;
     const day = moment(event.start).format("YYYY-MM-DD");
     const start = moment(event.start).format("HH:mm:ss");
     const ending = moment(event.end).format("HH:mm:ss");
+    const bookingData = {
+      user_id: userId,
+      room_id: room_Id,
+      desk_id: deskId,
+      day: day,
+      begin: start,
+      end: ending
+    };
+    const response = await fetch("/bookings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(bookingData)
+    })
 
+    if (!response.ok) {
+      //throw new Error("Error fetching desk booking data");
+      const data = await response.json();
+    console.log(data);
+      toast.error(data.message);
+      return false;
+    }
+
+    const data = await response.json();
+    console.log(data);
     confirmAlert({
       title: "Book Desk " + clickedDeskId,
       message: "For day " + day + "\nFrom " + start + " to " + ending,
@@ -440,37 +497,28 @@ const Booking = () => {
         {
           label: "Yes",
           onClick: async () => {
-            const bookingData = {
-              user_id: userId,
-              room_id: room_Id,
-              desk_id: deskId,
-              day: day,
-              begin: start,
-              end: ending
-            };
-
+           
             try {
-              const response = await fetch("/bookings", {
-                method: "POST",
+              const response = await fetch("/bookings/confirm/"+data.id, {
+                method: "PUT",
                 headers: {
                   "Content-Type": "application/json"
                 },
-                body: JSON.stringify(bookingData)
+                body: JSON.stringify({})
               })
 
               if (!response.ok) {
                 throw new Error("Error fetching desk booking data");
               }
-          
-              const data = await response.json();
-              console.log("Booking saved successfully:", data);
+              const dat = await response.json();
+              console.log("Booking saved successfully:", dat);
               toast.success(t("booked"));
 
               const booking = {
-                id: data.id,
-                title: `Desk ${data.deskId}`,
-                start: new Date(`${data.day}T${data.begin}`),
-                end: new Date(`${data.day}T${data.end}`)
+                id: dat.id,
+                title: `Desk ${dat.deskId}`,
+                start: new Date(`${dat.day}T${dat.begin}`),
+                end: new Date(`${dat.day}T${dat.end}`)
               }
 
               navigate("/home", { state: { booking }, replace: true });
@@ -481,6 +529,25 @@ const Booking = () => {
         },
         {
           label: "No",
+          onClick: async () => {
+           
+            try {
+              const response = await fetch("/bookings/"+data.id, {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({})
+              })
+              loadBookings();
+              if (!response.ok) {
+                throw new Error("Error fetching desk booking data");
+              }
+              
+            } catch (error) {
+              console.error("Error saving booking:", error);
+            }
+          },
         },
       ],
     });

@@ -1,9 +1,26 @@
 package com.desk_sharing.controllers;
 
+import java.sql.Date;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.desk_sharing.entities.Booking;
-import com.desk_sharing.entities.Desk;
-import com.desk_sharing.entities.Room;
-import com.desk_sharing.entities.User;
 import com.desk_sharing.model.BookingDTO;
 import com.desk_sharing.model.BookingEditDTO;
 import com.desk_sharing.services.BookingService;
@@ -11,6 +28,7 @@ import com.desk_sharing.services.DeskService;
 import com.desk_sharing.services.RoomService;
 import com.desk_sharing.services.UserService;
 
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +42,8 @@ import java.util.Map;
 import java.sql.Date;
 import java.sql.Time;
 
+=======
+>>>>>>> 9973c73 (locking and tests)
 @RestController
 @CrossOrigin(origins = {"http://188.34.162.76:3000", "http://localhost:3000"})
 @RequestMapping("/bookings")
@@ -55,6 +75,7 @@ public class BookingController {
 
     @PostMapping
     public ResponseEntity<BookingDTO> addBooking(@RequestBody Map<String, Object> bookingData) {
+<<<<<<< HEAD
 
         Long user_id = Long.parseLong(bookingData.get("user_id").toString());
         Long room_id = Long.parseLong(bookingData.get("room_id").toString());
@@ -74,7 +95,27 @@ public class BookingController {
         BookingDTO bookingDTO = convertToDTO(savedBooking);
     
         return new ResponseEntity<>(bookingDTO, HttpStatus.CREATED);
+=======
+        try {
+            Booking savedBooking = bookingService.createBooking(bookingData);
+            BookingDTO bookingDTO = convertToDTO(savedBooking);
+            return new ResponseEntity<>(bookingDTO, HttpStatus.CREATED);
+        } catch (NumberFormatException | DateTimeParseException e) {
+            // Handle parsing errors
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (IllegalArgumentException e) {
+            // Handle missing room/desk errors
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+>>>>>>> 9973c73 (locking and tests)
     }
+    
+    @PutMapping("/confirm/{id}")
+    public ResponseEntity<Booking> confirmBooking(@PathVariable("id") long bookingId) {
+        Booking updatedBooking = bookingService.confirmBooking(bookingId);
+        return new ResponseEntity<>(updatedBooking, HttpStatus.OK);
+    }
+
 
     @GetMapping
     public ResponseEntity<List<Booking>> getAllBookings() {

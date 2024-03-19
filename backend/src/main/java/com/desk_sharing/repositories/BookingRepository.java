@@ -26,4 +26,14 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 	List<Booking> getAllBookings(@Param("id") Long id, @Param("roomId") Long roomId,@Param("deskId") Long deskId, 
 			@Param("day") Date day, @Param("startTime") Time startTime,
 			@Param("endTime") Time endTime);
+	
+	@Query(value = "SELECT * FROM bookings WHERE room_id = :roomId AND desk_id=:deskId AND day=:day AND "
+			+ "((:startTime BETWEEN begin AND end) OR (:endTime BETWEEN begin AND end) OR "
+			+ "(begin >= :startTime AND begin < :endTime) OR (end > :startTime AND end <= :endTime))"
+			, nativeQuery = true)
+	List<Booking> getAllBookingsForPreventDuplicates(@Param("roomId") Long roomId,@Param("deskId") Long deskId, 
+			@Param("day") Date day, @Param("startTime") Time startTime,
+			@Param("endTime") Time endTime);
+	
+	List<Booking> findAllByBookingInProgress(boolean inProg);
 }

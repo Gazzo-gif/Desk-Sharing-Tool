@@ -1,5 +1,6 @@
 package com.desk_sharing.services;
 
+<<<<<<< HEAD
 import com.desk_sharing.entities.Booking;
 import com.desk_sharing.entities.Desk;
 import com.desk_sharing.entities.Room;
@@ -14,7 +15,28 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalTime;
 import java.util.*;
+=======
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+>>>>>>> 9973c73 (locking and tests)
 import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import com.desk_sharing.entities.Booking;
+import com.desk_sharing.entities.Desk;
+import com.desk_sharing.entities.Room;
+import com.desk_sharing.entities.User;
+import com.desk_sharing.model.BookingEditDTO;
+import com.desk_sharing.repositories.BookingRepository;
 
 @Service
 public class BookingService {
@@ -28,8 +50,47 @@ public class BookingService {
     @Autowired
     DeskRepository deskRepository;
 
-    public Booking addBooking(Booking booking) {
-        return bookingRepository.save(booking);
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    RoomService roomService;
+
+    @Autowired
+    DeskService deskService;
+    
+    public Booking createBooking(Map<String, Object> bookingData) {
+    	Long user_id = Long.parseLong(bookingData.get("user_id").toString());
+        Long room_id = Long.parseLong(bookingData.get("room_id").toString());
+        Long desk_id = Long.parseLong(bookingData.get("desk_id").toString());
+        Date day = Date.valueOf(bookingData.get("day").toString());
+        Time begin = Time.valueOf(bookingData.get("begin").toString());
+        Time end = Time.valueOf(bookingData.get("end").toString());
+
+        User user = userService.getUser(user_id);
+        Room room = roomService.getRoomById(room_id)
+            .orElseThrow(() -> new IllegalArgumentException("Room not found with id: " + room_id));
+        Desk desk = deskService.getDeskById(desk_id)
+            .orElseThrow(() -> new IllegalArgumentException("Desk not found with id: " + desk_id));
+        
+        LocalDateTime now = LocalDateTime.now();
+        List<Booking> existingBookings = bookingRepository.getAllBookingsForPreventDuplicates(room_id, desk_id, day, begin, end);
+        
+        boolean anyLockedBooking = existingBookings.stream()
+                .anyMatch(booking -> booking.isBookingInProgress() && now.isBefore(booking.getLockExpiryTime()));
+
+        if (existingBookings.isEmpty() || !anyLockedBooking) {
+        	Booking newBooking = new Booking(user, room, desk, day, begin, end);
+            newBooking.setLockExpiryTime(LocalDateTime.now().plusMinutes(5));
+            newBooking.setBookingInProgress(true);
+            return addBooking(newBooking);
+        } else {
+        	throw new RuntimeException("Already someone booked the desk");
+        }
+    }
+
+    public Booking addBooking(Booking newBooking) {
+    	return bookingRepository.save(newBooking);
     }
 
     public List<Booking> getAllBookings() {
@@ -89,6 +150,7 @@ public class BookingService {
 		}
 		return null;
 	}
+<<<<<<< HEAD
 
     public Dictionary<Date, Integer> getAvailableDays(List<Date> days) {
         Dictionary<Date, Integer> slots= new Hashtable<>();
@@ -135,5 +197,36 @@ public class BookingService {
             }
         }
         return slots;
+=======
+	
+	public Booking confirmBooking(long bookingId) {
+		Optional<Booking> bookingById = getBookingById(bookingId);
+		if(bookingById.isPresent()) {
+			Booking booking = bookingById.get();
+			booking.setBookingInProgress(false);
+			booking.setLockExpiryTime(null);
+			return bookingRepository.save(booking);
+		}
+		return null;
+	}
+	
+	
+	@Transactional
+	@Scheduled(cron = "0 0/2 * * * *")
+    public void releaseDeskLock() {
+        List<Booking> booking = bookingRepository.findAllByBookingInProgress(true);
+        if (booking != null && !booking.isEmpty()) {
+        	List<Booking> collect = booking.stream()
+        			.filter(e -> LocalDateTime.now().isAfter(e.getLockExpiryTime()))
+        			.map(each -> {
+        				each.setBookingInProgress(false);
+        				each.setLockExpiryTime(null);
+        				return each;
+        			})
+        			.collect(Collectors.toList());
+        	System.out.println("Matched bookings without confirm, size="+collect.size());
+            bookingRepository.deleteAll(collect);
+        }
+>>>>>>> 9973c73 (locking and tests)
     }
 }
