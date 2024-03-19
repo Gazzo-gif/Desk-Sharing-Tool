@@ -200,7 +200,6 @@
 
   .column{
     width: 50%;
-
   }
   .heat{
     /* width: 50%; */
@@ -209,6 +208,34 @@
     /* background-color: #008444; */
     height: 60vh;
     width: 65vw;
+  }
+  .no-map-content{
+    /* background: #628876; */
+    height: 60vh;
+    width: 65vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* animation: changeOpacity 4s linear infinite; */
+  @keyframes changeOpacity {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  .no-map-content{
+    animation: changeOpacity 2s linear infinite; /* Adjust the duration as needed */
+    height: 60vh;
+    width: 65vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .desk-list{
     height: 85vh;
