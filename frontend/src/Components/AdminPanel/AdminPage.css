@@ -166,3 +166,78 @@
   .booking-button:hover {
     background-color: #006c37;
   }
+
+  .bottom-container{
+    display: flex;
+    width: 100%;
+  }
+  .data-display{
+    /* background-color: #006c37; */
+    height: 90vh;
+    width: 70vw;
+  }
+  .maps{
+    display: flex;
+  }
+  .map{
+    margin: 20px;
+  }
+  .heat-map{
+    margin: 20px;
+    border-bottom: 2px solid black;
+    opacity: 1;
+  }
+  .usage-map{
+    margin: 20px;
+    border-bottom: 2px solid black;
+    opacity: 1;
+  }
+  .column-map{
+    margin: 20px;
+    border-bottom: 2px solid black;
+    opacity: 1;
+  }
+
+  .column{
+    width: 50%;
+  }
+  .heat{
+    /* width: 50%; */
+  }
+  .map-content{
+    /* background-color: #008444; */
+    height: 60vh;
+    width: 65vw;
+  }
+  .no-map-content{
+    /* background: #628876; */
+    height: 60vh;
+    width: 65vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* animation: changeOpacity 4s linear infinite; */
+  @keyframes changeOpacity {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  .no-map-content{
+    animation: changeOpacity 2s linear infinite; /* Adjust the duration as needed */
+    height: 60vh;
+    width: 65vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .desk-list{
+    height: 85vh;
+    overflow-y: scroll;
+  }

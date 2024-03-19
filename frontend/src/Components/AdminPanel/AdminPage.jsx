@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import SidebarComponent from '../Home/SidebarComponent';
+import React, { useState, useEffect } from "react";
+import SidebarComponent from "../Home/SidebarComponent";
 import { FaAddressBook, FaPlusMinus } from "react-icons/fa6";
 import { FaBook } from "react-icons/fa";
-import './AdminPage.css'; // Import the CSS file for AdminPage
+import "./AdminPage.css"; // Import the CSS file for AdminPage
 import { MdDownload } from "react-icons/md";
 import styled from '@emotion/styled';
 import EditRoom from './Room/EditRoom';
@@ -15,8 +15,87 @@ import DeleteEmployee from './UserManagement/DeleteEmployee';
 import EditEmployee from './UserManagement/EditEmployee';
 import DeleteBookings from './Bookings/DeleteBookings';
 import EditBookings from './Bookings/EditBookings';
+import { ColumnGraph } from "./ColumnGraph";
+import { HeatMap } from "./HeatMap";
+import { UsageGraph } from "./UsageGraph";
+import noDataImage from "../Assets/nodb.png";
 
 const AdminPage = ({ collapsed, onCollapse }) => {
+  const roomId = localStorage.getItem("roomId");
+  const [activeButton, setActiveButton] = useState(null);
+  const [graph, setGraph] = useState("column-map");
+  const [floor, setFloor] = useState("ground");
+  const [activeTab, setTab] = useState("general");
+  const [deskList, setDeskList] = useState([]);
+  const [desks, setDesks] = useState([]);
+  const [refresh, setRefresh] = useState(true);
+  let tempActive = graph;
+
+  const floorFilter = (currentFloor) => {
+    // const currentFloor = "Ground";
+    if (currentFloor === "Ground") {
+      setFloor("ground");
+    }
+    if (currentFloor === "First") {
+      setFloor("first");
+    }
+    fetch("/rooms")
+      .then((response) => response.json())
+      .then((data) => {
+        // Filter rooms based on the current floor
+        const filteredRooms = data.filter(
+          (room) => room.floor === currentFloor
+        );
+        setDeskList(filteredRooms);
+        setTab("statistics");
+        console.log(filteredRooms);
+        // setRooms(filteredRooms);
+      })
+      .catch((error) => {
+        console.error("Error fetching room data:", error);
+      });
+  };
+
+  useEffect(() => {
+    // floorFilter("ground");
+    const fetchDesks = async () => {
+      try {
+        const response = await fetch(
+          `http://188.34.162.76:8080/desks/room/${roomId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Error fetching desk data");
+        }
+
+        const data = await response.json();
+        setDesks(data);
+      } catch (error) {
+        console.error("Error fetching desk data:", error);
+      }
+    };
+
+    if (roomId) {
+      fetchDesks();
+    }
+  }, [roomId, deskList]);
+
+  const toggleButtons = (button) => {
+    if (activeButton === button) {
+      setActiveButton(null); // Toggle off if the same button is clicked
+    } else {
+      setActiveButton(button);
+    }
+  };
+  const randomiseData = () => {
+    setRefresh(!refresh);
+  };
   const [showEmployeeButtons, setShowEmployeeButtons] = useState(false);
   const [showWorkstationButtons, setShowWorkstationButtons] = useState(false);
   const [showBookingButtons, setShowBookingButtons] = useState(false);
@@ -101,9 +180,24 @@ const AdminPage = ({ collapsed, onCollapse }) => {
     <div className="adminhome-page">
       <SidebarComponent />
       <div className="adminpage-content">
-        <div className="admin-content">
-          <h1>Admin Page Content</h1>
-          <div className="admin-controls-container">
+        <div className="maps">
+          <div
+            onClick={() => setTab("general")}
+            className={activeTab === "general" ? "column-map" : "map"}
+          >
+            General
+          </div>
+          <div
+            onClick={() => floorFilter("Ground")}
+            className={activeTab === "statistics" ? "heat-map" : "map"}
+          >
+            Statistics
+          </div>
+        </div>
+        {activeTab === "general" ? (
+          <div className="admin-content">
+            <h1>Admin Page Content</h1>
+            <div className="admin-controls-container">
             <div className="user-management-container">
               <button className="user-management-button" onClick={toggleEmployeeButtons}>
                 User Management
@@ -121,12 +215,6 @@ const AdminPage = ({ collapsed, onCollapse }) => {
                 Manage Bookings
               </button>
               <FaBook className="logo" />
-            </div>
-            <div className="download-statistics-container">
-              <button className="download-statistics-button" onClick={() => console.log("Download Statistics clicked")}>
-                Download Statistics
-              </button>
-              <MdDownload className="logo" />
             </div>
           </div>
           <div className={`employee-button-wrapper ${showEmployeeButtons ? 'visible' : ''}`}>
@@ -162,7 +250,102 @@ const AdminPage = ({ collapsed, onCollapse }) => {
               Edit Booking
             </button>
           </div>
-        </div>
+          </div>
+        ) : (
+          <div className="bottom-container">
+            <div className="desk-list">
+              {deskList === "" ? (
+                <div className="desk-component">
+                  <div className="desk-description-no-data">
+                    <p className="item-name">No items available</p>
+                  </div>
+                </div>
+              ) : (
+                deskList.map((desk, index) => (
+                  <div
+                    onClick={() => randomiseData()}
+                    // onClick={() => setGraph(`${tempActive}`)}
+                    className="desk-component"
+                    key={index}
+                  >
+                    <div>{desk.id}.</div>
+                    <div className="desk-description">
+                      <p className="item-name">{desk.floor}</p>
+                      <p className="item-taken">Some free slots</p>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+            <div className="data-display">
+              <div className="maps">
+                <div
+                  onClick={() => floorFilter("Ground")}
+                  className={floor === "ground" ? "column-map" : "map"}
+                >
+                  Ground Floor
+                </div>
+                <div
+                  onClick={() => floorFilter("First")}
+                  className={floor === "first" ? "heat-map" : "map"}
+                >
+                  First Floor
+                </div>
+              </div>
+              <div className="maps">
+                <div
+                  onClick={() => setGraph("column-map")}
+                  className={graph === "column-map" ? "column-map" : "map"}
+                >
+                  Column Map
+                </div>
+                <div
+                  onClick={() => setGraph("heat-map")}
+                  className={graph === "heat-map" ? "heat-map" : "map"}
+                >
+                  Heat Map
+                </div>
+                <div
+                  onClick={() => setGraph("usage-map")}
+                  className={graph === "usage-map" ? "usage-map" : "map"}
+                >
+                  Usage
+                </div>
+              </div>
+              {deskList === "" ? (
+                <div className="no-map-content">
+                  {/* <HeatMap /> */}
+                  {/* <p>No data available</p> */}
+                  <img src={noDataImage} alt="" style={{ height: "100%" }} />
+                </div>
+              ) : (
+                <>
+                  {graph === "heat-map" ? (
+                    <div className="map-content">
+                      <HeatMap />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {graph === "column-map" ? (
+                    <div className="map-content">
+                      <ColumnGraph value={refresh} />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {graph === "usage-map" ? (
+                    <div className="map-content">
+                      <UsageGraph />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
       <BootstrapDialog onClose={toggleEditRoomModal} aria-labelledby="customized-dialog-title" open={isEditRoomOpen}>
