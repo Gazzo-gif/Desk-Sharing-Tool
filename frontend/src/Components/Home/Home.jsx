@@ -12,6 +12,7 @@ const Home = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
+  const [now, setNow] = useState(moment());
 
   // useEffect(() => {
   //   const userId = localStorage.getItem("userId");
@@ -77,12 +78,12 @@ const Home = () => {
       eventsForMonth.push(newEvent);
     }
 
-    // setMonthDays(daysInMonth);
     setEvents(eventsForMonth);
+    setNow(date);
   };
 
   useEffect(() => {
-    generateMonthDays(moment());
+    generateMonthDays(now);
   }, [t]);
 
   const handleNavigate = (newDate, view) => {
