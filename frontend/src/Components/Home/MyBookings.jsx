@@ -7,12 +7,15 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import "./HomeCalendar.scss";
 import "./MyBookings.css";
 import SidebarComponent from "./SidebarComponent";
+import EditBookingModal from "../AdminPanel/Bookings/EditBookingsModal";
+import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 
 const MyBookings = () => {
   const { t, i18n } = useTranslation();
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [theEvent, setTheEvent] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
   const userId = localStorage.getItem("userId");
 
   const localizer = momentLocalizer(moment);
@@ -66,21 +69,14 @@ const MyBookings = () => {
   };
   
   const handleEditEvent = () => {
-    confirmAlert({
-      title: "Edit Booking for " + selectedEvent.title,
-      buttons: [
-        {
-          label: "Yes",
-          onClick: async () => {
-            console.log("Edit event:", selectedEvent);
-          },
-        },
-        {
-          label: "No",
-        },
-      ],
-    });
+    setShowEditModal(true);
   };
+
+  const reloadCalendar = async () => {
+    console.log("Reloading calendar...");
+    fetchBookings(userId);
+    setSelectedEvent(null);
+  };  
 
   const deleteBooking = async () => {
     try {
@@ -213,6 +209,20 @@ const MyBookings = () => {
           </div>
         </div>
       </div>
+      {showEditModal && (
+        <Dialog open={showEditModal} onClose={() => setShowEditModal(false)}>
+          <DialogTitle>Edit Booking Time</DialogTitle>
+          <DialogContent>
+            <EditBookingModal
+              editBookingModal={() => setShowEditModal(false)} // Close modal function
+              id={selectedEvent.id} // Pass necessary props
+              startTimeFromDb={moment(selectedEvent.start).format("HH:mm:ss")}
+              endTimeFromDb={moment(selectedEvent.end).format("HH:mm:ss")}
+              onSuccess={reloadCalendar}
+            />
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 };
