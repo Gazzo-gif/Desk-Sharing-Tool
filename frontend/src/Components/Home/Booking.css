@@ -91,6 +91,9 @@
   justify-content: space-between;
   width: 210px;
 }
+.desk-component:hover{
+  cursor: pointer;
+}
 .desk-description-no-data{
   background-color: rgb(163, 162, 162);
   display: flex;

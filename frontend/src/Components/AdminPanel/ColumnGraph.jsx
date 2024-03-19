@@ -1,8 +1,14 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 
-export function ColumnGraph() {
+export function ColumnGraph(props) {
+  // Define state to hold the received value
+  const [receivedValue, setReceivedValue] = useState("");
+  useEffect(() => {
+    setReceivedValue(props.value);
+  }, [receivedValue]);
+
   const data = [
     ["Day of the Week", "Hours", { role: "style" }],
     ["Monday", getRandomInt(7, 20), "gold"], // RGB value
