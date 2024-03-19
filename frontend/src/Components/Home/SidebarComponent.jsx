@@ -107,16 +107,17 @@ const SidebarComponent = () => {
       });
       const data = await response.json();
       if (response.ok && data !== -1) {
-        toast.success("Visibility changed successfully");
         if (data === 1) {
           setVisibility(true);
           localStorage.setItem("visibility", true);
+          toast.success(t("visible"));
         } else {
           setVisibility(false);
           localStorage.setItem("visibility", false);
+          toast.success(t("anonymous"));
         }
       } else {
-        toast.warning("Failed to change visibility");
+        toast.warning(t("failVisibility"));
       }
     } catch (error) {
         console.log("Error changing visibility");
@@ -153,7 +154,7 @@ const SidebarComponent = () => {
             icon={<BsList />}
             onClick={() => handleClick("collapse")}
           >
-            {localStorage.getItem("name") ? `Hello, ${localStorage.getItem("name")}` : "Hello!"}
+            {localStorage.getItem("name") ? `${t("hello")}, ${localStorage.getItem("name")}` : `${t("hello")}!`}
           </MenuItem>
           {localStorage.getItem("admin") === "true" && (
             <MenuItem
