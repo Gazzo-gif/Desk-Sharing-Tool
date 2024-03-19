@@ -13,35 +13,35 @@ const Home = () => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
 
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");
+  // useEffect(() => {
+  //   const userId = localStorage.getItem("userId");
 
-    async function fetchBookings(userId) {
-      const response = await fetch(`/bookings/user/${userId}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch bookings");
-      }
-      const bookings = await response.json();
-      return bookings;
-    }
+  //   async function fetchBookings(userId) {
+  //     const response = await fetch(`/bookings/user/${userId}`);
+  //     if (!response.ok) {
+  //       throw new Error("Failed to fetch bookings");
+  //     }
+  //     const bookings = await response.json();
+  //     return bookings;
+  //   }
 
-    async function populateCalendarEvents(userId) {
-      try {
-        const bookings = await fetchBookings(userId);
-        const calendarEvents = bookings.map((booking) => ({
-          id: booking.id,
-          title: `${t('desk')} ${booking.desk.id}`,
-          start: new Date(booking.day + "T" + booking.begin),
-          end: new Date(booking.day + "T" + booking.end),
-        }));
-        setEvents(calendarEvents);
-      } catch (error) {
-        console.error("Error fetching bookings:", error);
-      }
-    }
+  //   async function populateCalendarEvents(userId) {
+  //     try {
+  //       const bookings = await fetchBookings(userId);
+  //       const calendarEvents = bookings.map((booking) => ({
+  //         id: booking.id,
+  //         title: `${t('desk')} ${booking.desk.id}`,
+  //         start: new Date(booking.day + "T" + booking.begin),
+  //         end: new Date(booking.day + "T" + booking.end),
+  //       }));
+  //       setEvents(calendarEvents);
+  //     } catch (error) {
+  //       console.error("Error fetching bookings:", error);
+  //     }
+  //   }
 
-    populateCalendarEvents(userId);
-  }, [t]);
+  //   populateCalendarEvents(userId);
+  // }, [t]);
 
   const handleSelectSlot = ({ start }) => {
     const selectedDateEvent = {
@@ -56,6 +56,39 @@ const Home = () => {
     setTimeout(() => {
       navigate("/floor", { state: { date: start } });
     }, 500);
+  };
+
+  const generateMonthDays = (date) => {
+    const currentMonth = moment(date).startOf('month');
+    const daysInMonth = [];
+    const eventsForMonth = [];
+
+    for (let i = 0; i < currentMonth.daysInMonth(); i++) {
+      const day = currentMonth.clone().add(i, 'days');
+      daysInMonth.push(day.format('YYYY-MM-DD'));
+
+      // Create an event for each day of the month
+      const newEvent = {
+        start: day.toDate(),
+        end: day.toDate(),
+        title: t("available"),
+        allDay: true,
+      };
+      eventsForMonth.push(newEvent);
+    }
+
+    // setMonthDays(daysInMonth);
+    setEvents(eventsForMonth);
+  };
+
+  useEffect(() => {
+    generateMonthDays(moment());
+  }, [t]);
+
+  const handleNavigate = (newDate, view) => {
+    if (view === 'month') {
+      generateMonthDays(newDate);
+    }
   };
 
   const localizer = momentLocalizer(moment);
@@ -96,6 +129,7 @@ const Home = () => {
               agenda: t("agenda"),
               noEventsInRange: t("noEventsInRange")
            }}
+           onNavigate={handleNavigate}
           />
         </div>
       </div>

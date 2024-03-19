@@ -1,5 +1,4 @@
-import { FormControl, FormControlLabel, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, Snackbar, TextField } from '@mui/material';
-import Autocomplete from '@mui/material/Autocomplete';
+import { FormControl, Grid, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
@@ -9,9 +8,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from "react-i18next";
 import moment from 'moment';
 
-export default function EditBookingModal({ editBookingModal, id, startTimeFromDb, 
-  //passwordFromDb, 
-  endTimeFromDb}) {
+export default function EditBookingModal({ editBookingModal, id, startTimeFromDb, endTimeFromDb, onSuccess }) {
   const { t } = useTranslation();
   const [startTime, setStartTime] = React.useState(startTimeFromDb);
   const [endTime, setEndTime] = React.useState(endTimeFromDb);
@@ -23,77 +20,67 @@ export default function EditBookingModal({ editBookingModal, id, startTimeFromDb
   async function updateBooking(){
     console.log(moment(startTime, "HH:mm:ss a").format("HH:mm:ss"), moment(endTime, "HH:mm:ss a").format("HH:mm:ss"));
     if(!startTime  || !endTime){
-        toast.error("Fields cannot be blank!");
-        return false;
+      toast.error("Fields cannot be blank!");
+      return false;
     }
       
-      const response = await fetch("/bookings/edit/timings", {
+    const response = await fetch("/bookings/edit/timings", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },body: JSON.stringify({
         "begin": moment(startTime, "HH:mm:ss a").format("HH:mm:ss"),
-          "end": moment(endTime, "HH:mm:ss a").format("HH:mm:ss"),
-          "id": id
+        "end": moment(endTime, "HH:mm:ss a").format("HH:mm:ss"),
+        "id": id
       })
     }).then(resp => {
-
-        if(resp.status === 200){
-            toast.success(t("bookingUpdated"));
-            editBookingModal();
-        } else if(resp.status === 400){
-            resp.json().then( dat => {
-                toast.error(dat.message);
-                
-            })
-           
-        }
-            
-        
-       
+      if(resp.status === 200){
+          toast.success(t("bookingUpdated"));
+          editBookingModal();
+          onSuccess();
+      } else if(resp.status === 400){
+        resp.json().then( dat => {
+          toast.error(dat.message);
+        }) 
+      }  
     }).catch(error => {
       console.log("login user err " + error);
     });
-
-      
-    }
-
+  }
     
   return (
     <React.Fragment>
       <DialogContent>
         <Grid container >
           <Box sx={{ flexGrow: 1, padding: '10px' }}>
-            
             <br></br>
             <FormControl required={true} size="small" fullWidth variant="standard">
-                            <TextField
-                                id="standard-adornment-reason"
-                                label="Begin"
-                                size="small"
-                                type={"time"}
-                                value={startTime}
-                                onChange={(e)=>setStartTime(e.target.value)}
-                            />
-                        </FormControl>
-                        <br></br><br></br>
+              <TextField
+                id="standard-adornment-reason"
+                label="Begin"
+                size="small"
+                type={"time"}
+                value={startTime}
+                onChange={(e)=>setStartTime(e.target.value)}
+              />
+            </FormControl>
+            <br></br><br></br>
             <FormControl required={true} size="small" fullWidth variant="standard">
-                            <TextField
-                                id="standard-adornment-reason"
-                                label="End"
-                                size="small"
-                                type={"time"}
-                                value={endTime}
-                                onChange={(e)=>setEndTime(e.target.value)}
-                            />
-                        </FormControl>
+              <TextField
+                id="standard-adornment-reason"
+                label="End"
+                size="small"
+                type={"time"}
+                value={endTime}
+                onChange={(e)=>setEndTime(e.target.value)}
+              />
+            </FormControl>
           </Box>
         </Grid>
-
       </DialogContent>
       <DialogActions>
         <Button onClick={()=>updateBooking()}>&nbsp;UPDATE</Button>
-        <Button onClick={handleCloseBtn}>&nbsp;CLOSE</Button>
+        <Button onClick={handleCloseBtn}>&nbsp;CANCEL</Button>
       </DialogActions>
     </React.Fragment>
   );
