@@ -23,13 +23,16 @@ export default function AddWorkstation({ addWorkstationModal }) {
   }
 
   async function addWorkstation(){
-    if(selectedRoom){
+    if(!selectedRoom){
+      toast.error("Please Select Room");
+      return false;
+    }
       let idSplit = selectedRoom.split("(");
       let idVal = idSplit[1].split(")");
       let roomId = idVal[0];
 
       if(!roomId || !deskId || !equipment ){
-        toast("Field cannot be blank!");
+        toast.error("Field cannot be blank!");
         return false;
       }
 
@@ -48,7 +51,7 @@ export default function AddWorkstation({ addWorkstationModal }) {
     }).catch(error => {
       console.log("login user err " + error);
     });
-    }
+    
 
       
     }
@@ -113,6 +116,7 @@ export default function AddWorkstation({ addWorkstationModal }) {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={equipment}
+                placeholder='Equipments'
                 label="Equipments"
                 onChange={(e) => setEquipment(e.target.value)}
               >
