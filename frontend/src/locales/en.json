@@ -63,6 +63,10 @@
     "type": "Type",
     "equipment": "Equipment",
     "choose": "Choose a booking",
+    "editBookingTime": "Edit Booking Time",
+    "deleteBooking": "Are you sure you want to remove this booking?",
+    "from": "from",
+    "to": "to",
 
     "minimum": "Minimum booking duration is 2 hours",
     "maximum": "Maximum booking duration is 9 hours",
@@ -90,5 +94,10 @@
     "noEventsInRange": "There are no events in this range",
     "date": "Date",
     "time": "Time",
-    "event": "Booking"
+    "event": "Booking",
+    
+    "yes": "Yes",
+    "no": "No",
+    "UPDATE": "UPDATE",
+    "CANCEL": "CANCEL"
 }
