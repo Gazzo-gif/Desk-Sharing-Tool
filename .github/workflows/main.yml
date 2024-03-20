@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
@@ -16,17 +19,12 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 14
 
-      # - name: Install frontend dependencies
-      #   working-directory: frontend
-      #   run: |
-      #     npm install
-
-      # - name: Build frontend
-      #   working-directory: frontend
-      #   run: |
-      #     npm run build
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: |
+          npm install
 
       - name: Set up JDK
         uses: actions/setup-java@v2
@@ -59,10 +57,6 @@ jobs:
             -d mariadb:latest
           # Wait for the container to finish initializing (adjust sleep time if needed)
           sleep 10
-
-      # - name: Connect to MariaDB container
-      #   working-directory: database
-      #   run: docker run --rm -i mariadb:latest mariadb -h database -u root -pmypass < init.sql
 
       - name: Cleanup Docker Compose
         run: |
