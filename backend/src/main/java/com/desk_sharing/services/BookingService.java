@@ -13,6 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+<<<<<<< HEAD
+=======
+import java.sql.Time;
+import java.time.Duration;
+import java.time.LocalDateTime;
+>>>>>>> a598f45 (booking tests)
 import java.time.LocalTime;
 import java.util.*;
 =======
@@ -132,12 +138,13 @@ public class BookingService {
     }
 
 	public Booking editBookingTimings(BookingEditDTO booking) {
-		Optional<Booking> bookingById = getBookingById(booking.getId());
-		if(bookingById.isPresent()) {
-			List<Booking> alreadyBookingList = bookingRepository.getAllBookings(
+        Optional<Booking> bookingById = getBookingById(booking.getId());
+        if(bookingById.isPresent()) {
+            List<Booking> alreadyBookingList = bookingRepository.getAllBookings(
                 bookingById.get().getId(), bookingById.get().getRoom().getId(), 
                 bookingById.get().getDesk().getId(), bookingById.get().getDay(), 
                 booking.getBegin(), booking.getEnd());
+<<<<<<< HEAD
 			List<Long> ids = alreadyBookingList.stream().map(e -> e.getId()).collect(Collectors.toList());
 			System.out.println("--->"+ids);
 			if(alreadyBookingList != null && !alreadyBookingList.isEmpty()) {
@@ -151,6 +158,61 @@ public class BookingService {
 		return null;
 	}
 <<<<<<< HEAD
+=======
+            if(alreadyBookingList != null && !alreadyBookingList.isEmpty()) {
+                throw new RuntimeException("Already some bookings exist with same time");
+            }
+    
+            // Convert java.sql.Time to LocalTime
+            LocalTime beginTime = booking.getBegin().toLocalTime();
+            LocalTime endTime = booking.getEnd().toLocalTime();
+    
+            // Calculate the duration of the booking
+            long duration = Duration.between(beginTime, endTime).toHours();
+    
+            // Check if duration is between 2 and 9 hours
+            if (duration < 2 || duration > 9) {
+                throw new RuntimeException("Booking duration should be between 2 and 9 hours");
+            }
+    
+            Booking booking2 = bookingById.get();
+            booking2.setBegin(booking.getBegin());
+            booking2.setEnd(booking.getEnd());
+            bookingRepository.save(booking2);
+        }
+        return null;
+    }    
+	
+	public Booking confirmBooking(long bookingId) {
+		Optional<Booking> bookingById = getBookingById(bookingId);
+		if(bookingById.isPresent()) {
+			Booking booking = bookingById.get();
+			booking.setBookingInProgress(false);
+			booking.setLockExpiryTime(null);
+			return bookingRepository.save(booking);
+		}
+		return null;
+	}
+	
+	
+	@Transactional
+	@Scheduled(cron = "0 0/2 * * * *")
+    public void releaseDeskLock() {
+        List<Booking> booking = bookingRepository.findAllByBookingInProgress(true);
+        if (booking != null && !booking.isEmpty()) {
+        	List<Booking> collect = booking.stream()
+        			.filter(e -> LocalDateTime.now().isAfter(e.getLockExpiryTime()))
+        			.map(each -> {
+        				each.setBookingInProgress(false);
+        				each.setLockExpiryTime(null);
+        				return each;
+        			})
+        			.collect(Collectors.toList());
+        	System.out.println("Matched bookings without confirm, size="+collect.size());
+            bookingRepository.deleteAll(collect);
+        }
+	}
+>>>>>>> a598f45 (booking tests)
 
     public Dictionary<Date, Integer> getAvailableDays(List<Date> days) {
         Dictionary<Date, Integer> slots= new Hashtable<>();
