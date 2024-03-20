@@ -1,21 +1,22 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
+import { useTranslation } from "react-i18next";
 
 export function ColumnGraph(props) {
-  // Define state to hold the received value
+  const { t } = useTranslation();
   const [receivedValue, setReceivedValue] = useState("");
   useEffect(() => {
     setReceivedValue(props.value);
   }, [receivedValue]);
 
   const data = [
-    ["Day of the Week", "Hours", { role: "style" }],
-    ["Monday", getRandomInt(7, 20), "gold"], // RGB value
-    ["Tuesday", getRandomInt(7, 20), "gold"], // English color name
-    ["Wednesday", getRandomInt(7, 20), "gold"],
-    ["Thursday", getRandomInt(7, 20), "gold"], // CSS-style declaration
-    ["Friday", getRandomInt(7, 20), "gold"],
+    [t("dayOfTheWeek"), t("hours"), { role: "style" }],
+    [t("monday"), getRandomInt(7, 20), "gold"], // RGB value
+    [t("tuesday"), getRandomInt(7, 20), "gold"], // English color name
+    [t("wednesday"), getRandomInt(7, 20), "gold"],
+    [t("thursday"), getRandomInt(7, 20), "gold"], // CSS-style declaration
+    [t("friday"), getRandomInt(7, 20), "gold"],
   ];
 
   // Function to generate random integer between min and max (inclusive)

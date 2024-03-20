@@ -698,21 +698,21 @@ const AdminPage = ({ collapsed, onCollapse }) => {
               {deskList === "" ? (
                 <div className="desk-component">
                   <div className="desk-description-no-data">
-                    <p className="item-name">No items available</p>
+                    <p className="item-name">{t("deskNotFound")}</p>
                   </div>
                 </div>
               ) : (
                 deskList.map((desk, index) => (
                   <div
                     onClick={() => randomiseData()}
-                    // onClick={() => setGraph(`${tempActive}`)}
                     className="desk-component"
                     key={index}
                   >
                     <div>{desk.id}.</div>
                     <div className="desk-description">
-                      <p className="item-name">{desk.floor}</p>
-                      <p className="item-taken">Some free slots</p>
+                      <p className="item-name">
+                        {desk.floor === "Ground" ? t("groundFloor") : t("firstFloor")}</p>
+                      <p className="item-taken">{t("available")}</p>
                     </div>
                   </div>
                 ))
@@ -755,7 +755,7 @@ const AdminPage = ({ collapsed, onCollapse }) => {
                   onClick={() => setGraph("usage-map")}
                   className={graph === "usage-map" ? "usage-map" : "map"}
                 >
-                  Usage
+                  {t("usage")}
                 </div>
               </div>
               {deskList === "" ? (

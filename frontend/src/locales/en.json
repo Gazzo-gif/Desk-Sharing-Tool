@@ -92,6 +92,11 @@
     "general": "General",
     "statistics": "Statistics",
 
+    "usage": "Usage",
+    "timePeriods": "Time Periods",
+    "numberOfBookings": "Number of Bookings",
+    "relativeChange": "Relative Change",
+
     "addEmployee": "Add Employee",
     "deleteEmployee": "Delete Employee",
     "editEmployee": "Edit Employee",
@@ -129,6 +134,14 @@
     "date": "Date",
     "time": "Time",
     "event": "Booking",
+    
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesdy",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "dayOfTheWeek": "Day of the week",
+    "hours": "Hours",
     
     "yes": "Yes",
     "no": "No",

@@ -1,10 +1,12 @@
 import React from "react";
 import { useEffect } from "react";
 import { Chart } from "react-google-charts";
+import { useTranslation } from "react-i18next";
 
 export function UsageGraph() {
+  const { t } = useTranslation();
   const data = [
-    ["Time Periods", "Number of Bookings", "Relative Change"],
+    [t("timePeriods"), t("numberOfBookings"), t("relativeChange")],
     [
       "08:00-10:00",
       { v: getRandomInt(5, 20), f: getRandomInt(1, 50).toString() },
