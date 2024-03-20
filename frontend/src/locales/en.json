@@ -19,7 +19,7 @@
     "hello": "Hello",
 
     "visible": "Visibility changed successfully to visible",
-    "anonymous": "Visibility changed successfully to anonymous",
+    "anonymousMessage": "Visibility changed successfully to anonymous",
     "failVisibility": "Failed to change visibility",
 
     "logoutConfirmation": "Are you sure you want to logout?",
@@ -51,6 +51,8 @@
     "full": "Fully booked",
     "some": "Some free slots",
     "freeSlots": "Free Slots",
+    "anonymous": "Anonymous",
+    "bookDesk": "Book Desk",
 
     "myBookings": "My Bookings",
     "edit": "Edit",

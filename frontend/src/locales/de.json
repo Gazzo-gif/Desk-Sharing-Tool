@@ -19,7 +19,7 @@
     "hello": "Hallo",
 
     "visible": "Die Sichtbarkeit wurde erfolgreich in „Sichtbar“ geändert",
-    "anonymous": "Die Sichtbarkeit wurde erfolgreich auf „Anonym“ geändert",
+    "anonymousMessage": "Die Sichtbarkeit wurde erfolgreich auf „Anonym“ geändert",
     "failVisibility": "Die Sichtbarkeit konnte nicht geändert werden",
 
     "logoutConfirmation": "Sind Sie sicher, dass sie sich abmelden wollen?",
@@ -51,6 +51,8 @@
     "full": "Ausgebucht",
     "some": "Geringe Verfügbarkeit",
     "freeSlots": "Freie Plätze",
+    "anonymous": "Anonym",
+    "bookDesk": "Büchertisch",
 
     "myBookings": "Meine Buchungen",
     "edit": "Bearbeiten",
