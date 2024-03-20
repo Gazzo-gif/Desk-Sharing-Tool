@@ -61,7 +61,7 @@
     "equipment": "Austattung",
     "choose": "Wählen Sie eine Buchung aus",
     "editBookingTime": "Buchungszeit bearbeiten",
-    "deleteBooking": "Sind Sie sicher, dass Sie diese Buchung entfernen möchten?",
+    "deleteBookingMessage": "Sind Sie sicher, dass Sie diese Buchung entfernen möchten?",
     "from": "von",
     "to": "bis",
 
@@ -76,6 +76,32 @@
     "deskCreated": "Arbeitsplatz erfolgreich erstellt",
     "roomStatus": "Status des Zimmers erfolgreich aktualisiert",
     "roomType": "Art des Zimmers erfolgreich aktualisiert",
+    "userCreated": "User created successfully",
+    "userUpdated": "User updated successfully",
+    "userDeleted": "User deleted successfully",
+    "bookingDeleted": "Bookings deleted successfully",
+    "bookingUpdated": "Bookings updated successfully",
+    
+    "adminPanel": "Administrationsmenü",
+    "userManagement": "Benutzerverwaltung",
+    "roomManagement": "Zimmer/Schreibtischverwaltung",
+    "bookingManagement": "Buchungsverwaltung",
+    "general": "General",
+    "statistics": "Statistiken",
+
+    "addEmployee": "Mitarbeiter Hinzufügen",
+    "deleteEmployee": "Mitarbeiter Entfernen",
+    "editEmployee": "Mitarbeiter Bearbeiten",
+    "name": "Vorame",
+    "surname": "Nachname",
+    
+    "editRoom": "Zimmer Bearbeiten",
+    "addWorkstation": "Arbeitsplatz Hinzufügen",
+    "deleteWorkstation": "Arbeitsplatz Entfernen",
+    "editWorkstation": "Arbeitsplatz Bearbeiten",
+    
+    "deleteBooking": "Buchung Entfernen",
+    "editBooking": "Buchung Bearbeiten",
 
     "next": "Nächste",
     "back": "Zurück",
@@ -90,6 +116,9 @@
     
     "yes": "Ja",
     "no": "Nein",
-    "UPDATE": "AKTUALISIEREN",
-    "CANCEL": "ABBRECHEN"
+    "true": "Richtig",
+    "false": "Falsch",
+    "begin": "Anfang",
+    "update": "Aktualisieren",
+    "close": "Schließen"
 }

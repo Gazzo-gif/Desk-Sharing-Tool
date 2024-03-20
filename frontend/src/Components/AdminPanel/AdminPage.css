@@ -45,7 +45,7 @@
   background-color: #008444;
   color: white;
   padding: 15px 20px;
-  width: 200px;
+  width: 240px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -201,9 +201,7 @@
   .column{
     width: 50%;
   }
-  .heat{
-    /* width: 50%; */
-  }
+  
   .map-content{
     /* background-color: #008444; */
     height: 60vh;

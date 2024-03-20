@@ -95,7 +95,7 @@ const MyBookings = () => {
   
   const handleDeleteEvent = () => {
     confirmAlert({
-      title: t("deleteBooking"),
+      title: t("deleteBookingMessage"),
       message:
         t("date") + ' ' +
         moment(selectedEvent.start).format('YYYY-MM-DD') +

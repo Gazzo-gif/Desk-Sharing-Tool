@@ -34,8 +34,8 @@
     "desk": "Desk",
 
     "chosenDate": "Chosen Date",
-    "groundFloor": "Floor Plan Ground",
-    "firstFloor": "Floor Plan First",
+    "groundFloor": "Ground Floor",
+    "firstFloor": "First Floor",
     "switchFloor": "Switch Floor",
     "all": "All",
     "normal": "Normal",
@@ -61,7 +61,7 @@
     "equipment": "Equipment",
     "choose": "Choose a booking",
     "editBookingTime": "Edit Booking Time",
-    "deleteBooking": "Are you sure you want to remove this booking?",
+    "deleteBookingMessage": "Are you sure you want to remove this booking?",
     "from": "from",
     "to": "to",
 
@@ -82,6 +82,27 @@
     "bookingDeleted": "Bookings deleted successfully",
     "bookingUpdated": "Bookings updated successfully",
     
+    "adminPanel": "Admin Panel",
+    "userManagement": "User Management",
+    "roomManagement": "Room/Desk Management",
+    "bookingManagement": "Booking Management",
+    "general": "General",
+    "statistics": "Statistics",
+
+    "addEmployee": "Add Employee",
+    "deleteEmployee": "Delete Employee",
+    "editEmployee": "Edit Employee",
+    "name": "Name",
+    "surname": "Surname",
+    
+    "editRoom": "Edit Room",
+    "addWorkstation": "Add Workstation",
+    "deleteWorkstation": "Delete Workstation",
+    "editWorkstation": "Edit Workstation",
+    
+    "deleteBooking": "Delete Booking",
+    "editBooking": "Edit Booking",
+    
     "next": "Next",
     "back": "Back",
     "today": "Today",
@@ -95,6 +116,9 @@
     
     "yes": "Yes",
     "no": "No",
-    "UPDATE": "UPDATE",
-    "CANCEL": "CANCEL"
+    "true": "True",
+    "false": "False",
+    "begin": "Begin",
+    "update": "Update",
+    "close": "Close"
 }

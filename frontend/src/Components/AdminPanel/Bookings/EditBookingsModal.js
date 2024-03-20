@@ -57,7 +57,7 @@ export default function EditBookingModal({ editBookingModal, id, startTimeFromDb
             <FormControl required={true} size="small" fullWidth variant="standard">
               <TextField
                 id="standard-adornment-reason"
-                label="Begin"
+                label={t("begin")}
                 size="small"
                 type={"time"}
                 value={startTime}
@@ -68,7 +68,7 @@ export default function EditBookingModal({ editBookingModal, id, startTimeFromDb
             <FormControl required={true} size="small" fullWidth variant="standard">
               <TextField
                 id="standard-adornment-reason"
-                label="End"
+                label={t("end")}
                 size="small"
                 type={"time"}
                 value={endTime}
@@ -79,8 +79,8 @@ export default function EditBookingModal({ editBookingModal, id, startTimeFromDb
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button onClick={()=>updateBooking()}>&nbsp;{t("UPDATE")}</Button>
-        <Button onClick={handleCloseBtn}>&nbsp;{t("CANCEL")}</Button>
+        <Button onClick={()=>updateBooking()}>&nbsp;{t("update").toUpperCase()}</Button>
+        <Button onClick={handleCloseBtn}>&nbsp;{t("cancel").toUpperCase()}</Button>
       </DialogActions>
     </React.Fragment>
   );
