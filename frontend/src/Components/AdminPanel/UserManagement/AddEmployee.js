@@ -107,7 +107,7 @@ export default function AddEmployee({ addEmployeeModal }) {
                         </FormControl>
                         <br></br> <br></br>
                         <FormControl>
-      <FormLabel id="demo-row-radio-buttons-group-label">Is Admin?</FormLabel>
+      <FormLabel id="demo-row-radio-buttons-group-label">{t("admin")}?</FormLabel>
       <RadioGroup
         row
         aria-labelledby="demo-row-radio-buttons-group-label"

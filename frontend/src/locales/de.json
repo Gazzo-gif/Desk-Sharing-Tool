@@ -94,6 +94,7 @@
     "editEmployee": "Mitarbeiter Bearbeiten",
     "name": "Vorame",
     "surname": "Nachname",
+    "action": "Aktion",
     
     "editRoom": "Zimmer Bearbeiten",
     "addWorkstation": "Arbeitsplatz Hinzufügen",

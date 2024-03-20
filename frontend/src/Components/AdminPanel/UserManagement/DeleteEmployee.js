@@ -8,55 +8,43 @@ import { useTranslation } from "react-i18next";
 
 export default function DeleteEmployee({ deleteEmployeeModal }) {
   const { t } = useTranslation();
-    const [allEmployee, setAllEmployee] = React.useState([]);
-    React.useEffect(() => {
-        getAllEmployee();
-      }, []);
+  const [allEmployee, setAllEmployee] = React.useState([]);
 
-      async function getAllEmployee(){
-        const response = await fetch("/users/get", {
-        method: "GET",
+  React.useEffect(() => {
+      getAllEmployee();
+    }, []);
+
+  async function getAllEmployee(){
+    const response = await fetch("/users/get", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then(resp => {
+    resp.json().then(data => {
+      console.log(data);
+      setAllEmployee(data);
+    });
+  }).catch(error => {
+    console.log("login user err " + error);
+  });
+  }
+
+  const handleClose = () => {
+      deleteEmployeeModal();
+  }
+
+  async function deleteEmployeeById(id){
+      const response = await fetch("/users/"+id, {
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
-      }).then(resp => {
-        resp.json().then(data => {
-          console.log(data);
-          setAllEmployee(data);
-        });
-      }).catch(error => {
-        console.log("login user err " + error);
+        body: JSON.stringify({}),
       });
-      }
-
-    const handleClose = () => {
-        deleteEmployeeModal();
-    }
-
-    async function handleRoomTypeChange(e, id){
-
-    //   const response = await fetch("/rooms/"+id+"/type/"+e.target.value, {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({}),
-    //   });
-    //   toast.success(t("roomType"));
-    //   getAllEmployee();
+      toast.success(t("userDeleted"));
+      getAllEmployee();
   }
-
-    async function deleteEmployeeById(id){
-        const response = await fetch("/users/"+id, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({}),
-        });
-        toast.success(t("userDeleted"));
-        getAllEmployee();
-    }
 
     return (
         <React.Fragment>
@@ -66,15 +54,13 @@ export default function DeleteEmployee({ deleteEmployeeModal }) {
       <Table sx={{ minWidth: 450, marginTop: 1, maxHeight:'400px' }} >
         <TableHead sx={{backgroundColor: 'green', color:'white'}}>
           <TableRow>
-          <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}> ID</TableCell>
-             
-            <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}> Email</TableCell>
-            {/* <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}> Password</TableCell> */}
-            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}> Name</TableCell>
-            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}> Surname</TableCell>
-            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}> Is Admin</TableCell>
-            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}> Visibility</TableCell>
-             <TableCell sx={{textAlign: 'center',fontSize:15,color:'white' }} colSpan={2}>Action</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}> ID</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}>{t("email")}</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("name")}</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("surname")}</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("admin")}</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("visibility")}</TableCell>
+            <TableCell sx={{textAlign: 'center',fontSize:15,color:'white' }} colSpan={2}>{t("action")}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -86,13 +72,6 @@ export default function DeleteEmployee({ deleteEmployeeModal }) {
               <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
                 {row.email}
               </TableCell>
-              {/* <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} component="th" scope="row">
-                {row.type}
-              </TableCell> */}
-
-{/* <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                {row.password?".......":""}
-              </TableCell> */}
 
               <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
                 {row.name}
@@ -101,16 +80,16 @@ export default function DeleteEmployee({ deleteEmployeeModal }) {
                 {row.surname}
               </TableCell>
               <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                {row.admin?"true":"false"}
+                {row.admin?t("true"):t("false")}
               </TableCell>
               <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                {row.visibility?"true":"false"}
+                {row.visibility?t("true"):t("false")}
               </TableCell>
               
               
               
               <TableCell sx={{textAlign: 'center', fontSize:14, width:'30%'   }} component="th" scope="row">
-              <Button onClick={() => deleteEmployeeById(row.id)} >DELETE</Button>
+              <Button onClick={() => deleteEmployeeById(row.id)} >{t("delete").toUpperCase()}</Button>
              </TableCell>
             </TableRow>
           ))}
@@ -121,7 +100,7 @@ export default function DeleteEmployee({ deleteEmployeeModal }) {
 
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>&nbsp;CLOSE</Button>
+                <Button onClick={handleClose}>&nbsp;{t("close").toUpperCase()}</Button>
             </DialogActions>
         </React.Fragment>
     );
