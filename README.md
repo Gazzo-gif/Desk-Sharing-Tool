@@ -46,3 +46,5 @@ If you didnt have any error you can now run using this command: `java -jar targe
 For the frontend we use npm, so make sure you have it. Go to the frontend directory and again, make sure you have all the necessary packages: `npm i` or `npm install`.
 
 And now run the frontend: `npm start`
+
+To run the tests, you can run: `npm run test`
