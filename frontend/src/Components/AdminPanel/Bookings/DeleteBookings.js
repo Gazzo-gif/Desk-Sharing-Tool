@@ -203,7 +203,7 @@ export default function DeleteBookings({ deleteBookingsModal }) {
 
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>&nbsp;CLOSE</Button>
+                <Button onClick={handleClose}>&nbsp;{t("close").toUpperCase()}</Button>
             </DialogActions>
         </React.Fragment>
     );

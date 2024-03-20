@@ -179,7 +179,7 @@ export default function EditBookings({ editBookingsModal }) {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>&nbsp;CLOSE</Button>
+        <Button onClick={handleClose}>&nbsp;{t("close").toUpperCase()}</Button>
       </DialogActions>
 
       <BootstrapWorkstationDialog onClose={toggleEditBookingModal} aria-labelledby="customized-dialog-title" open={isEditBookingOpen}>

@@ -85,20 +85,6 @@ export default function EditWorkstation({ editWorkstationModal }) {
             <DialogContent>
                 <Grid container >
                     <Box sx={{ flexGrow: 1, padding: '10px' }}>
-                        {/* <br></br><br></br>
-                        <FormControl required={true} size="small" fullWidth variant="standard" style={{ textAlign: 'center' }}>
-                            <TextField
-                                id="standard-adornment-tname"
-                                label="Description"
-                                size="small"
-                                rows={3}
-                                multiline
-                                type={'text'}
-                                value={description}
-                                onChange={handleProjectDescChange}
-                            />
-                        </FormControl>
-                        <br></br><br></br> */}
 
                         <Autocomplete
                             id="tags-filled"
@@ -113,18 +99,13 @@ export default function EditWorkstation({ editWorkstationModal }) {
                                 setSelectedRoom(
                                     newValue);
                             }}
-                            // renderTags={(value, getTagProps) =>
-                            //     value.map((option, index) => (
-                            //         <Chip avatar={<Avatar size="lg" color='danger' {...stringAvatar(option)} />} variant="outlined" label={option} {...getTagProps({ index })} />
-                            //     ))
-                            // }
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
                                     variant="outlined"
                                     size='small' 
-                                    label="Select Room"
-                                    placeholder="Select Room"
+                                    label={t("selectRoom")}
+                                    placeholder={t("selectRoom")}
                                 />
                             )}
                         />
@@ -147,22 +128,17 @@ export default function EditWorkstation({ editWorkstationModal }) {
                                 setSelectedDesk(
                                     newValue);
                             }}
-                            // renderTags={(value, getTagProps) =>
-                            //     value.map((option, index) => (
-                            //         <Chip avatar={<Avatar size="lg" color='danger' {...stringAvatar(option)} />} variant="outlined" label={option} {...getTagProps({ index })} />
-                            //     ))
-                            // }
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
                                     variant="outlined"
                                     size='small' 
-                                    label="Select Desk"
-                                    placeholder="Select Desk"
+                                    label={t("selectDesk")}
+                                    placeholder={t("selectDesk")}
                                 />
                             )}
                         />
-    ):<p style={{color: 'red', textAlign:'left'}}>No desk found</p>
+    ):<p style={{color: 'red', textAlign:'left'}}>{t("deskNotFound")}</p>
 }
 
  
@@ -172,7 +148,7 @@ export default function EditWorkstation({ editWorkstationModal }) {
     selectedDesk ? 
     (
 <FormControl fullWidth size='small'>
-                <InputLabel id="demo-simple-select-label">Equipments</InputLabel>
+                <InputLabel id="demo-simple-select-label">{t("equipment")}</InputLabel>
                 <Select
                 size='small'
                     labelId="demo-simple-select-label"
@@ -181,8 +157,8 @@ export default function EditWorkstation({ editWorkstationModal }) {
                     label="Equipments"
                     onChange={(e) => setEquipment(e.target.value)}
                 >
-                    <MenuItem value={"with equipment"}>WITH EQUIPMENT</MenuItem>
-                    <MenuItem value={"without equipment"}>WITHOUT EQUIPMENT</MenuItem>
+                    <MenuItem value={"with equipment"}>{t("withEquipment").toUpperCase()}</MenuItem>
+                    <MenuItem value={"without equipment"}>{t("withoutEquipment").toUpperCase()}</MenuItem>
                 </Select>
                 </FormControl>
     ):""
@@ -194,8 +170,8 @@ export default function EditWorkstation({ editWorkstationModal }) {
 
             </DialogContent>
             <DialogActions>
-                <Button onClick={()=>updateWorkstation()}>&nbsp;UPDATE</Button>
-                <Button onClick={handleCloseBtn}>&nbsp;CLOSE</Button>
+                <Button onClick={()=>updateWorkstation()}>&nbsp;{t("update").toUpperCase()}</Button>
+                <Button onClick={handleCloseBtn}>&nbsp;{t("close").toUpperCase()}</Button>
             </DialogActions>
 
            

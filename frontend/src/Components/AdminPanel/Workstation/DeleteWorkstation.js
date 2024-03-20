@@ -84,20 +84,6 @@ export default function DeleteWorkstation({ deleteWorkstationModal }) {
             <DialogContent>
                 <Grid container >
                     <Box sx={{ flexGrow: 1, padding: '10px' }}>
-                        {/* <br></br><br></br>
-                        <FormControl required={true} size="small" fullWidth variant="standard" style={{ textAlign: 'center' }}>
-                            <TextField
-                                id="standard-adornment-tname"
-                                label="Description"
-                                size="small"
-                                rows={3}
-                                multiline
-                                type={'text'}
-                                value={description}
-                                onChange={handleProjectDescChange}
-                            />
-                        </FormControl>
-                        <br></br><br></br> */}
 
                         <Autocomplete
                             id="tags-filled"
@@ -111,18 +97,13 @@ export default function DeleteWorkstation({ deleteWorkstationModal }) {
                                 setSelectedRoom(
                                     newValue);
                             }}
-                            // renderTags={(value, getTagProps) =>
-                            //     value.map((option, index) => (
-                            //         <Chip avatar={<Avatar size="lg" color='danger' {...stringAvatar(option)} />} variant="outlined" label={option} {...getTagProps({ index })} />
-                            //     ))
-                            // }
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
                                     variant="outlined"
                                     size='small' 
-                                    label="Select Room"
-                                    placeholder="Select Room"
+                                    label={t("selectRoom")}
+                                    placeholder={t("selectRoom")}
                                 />
                             )}
                         />
@@ -137,27 +118,20 @@ export default function DeleteWorkstation({ deleteWorkstationModal }) {
                             value={selectedDesk}
                             onChange={(event, newValue) => {
                                 console.log(newValue);
-                                var deskData = allDesks.find(e => e.id===newValue);
                                 
-                                setSelectedDesk(
-                                    newValue);
+                              setSelectedDesk(newValue);
                             }}
-                            // renderTags={(value, getTagProps) =>
-                            //     value.map((option, index) => (
-                            //         <Chip avatar={<Avatar size="lg" color='danger' {...stringAvatar(option)} />} variant="outlined" label={option} {...getTagProps({ index })} />
-                            //     ))
-                            // }
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
                                     variant="outlined"
                                     size='small' 
-                                    label="Select Desk"
-                                    placeholder="Select Desk"
+                                    label={t("selectDesk")}
+                                    placeholder={t("selectDesk")}
                                 />
                             )}
                         />
-    ):<p style={{color: 'red', textAlign:'left'}}>No desk found</p>
+    ):<p style={{color: 'red', textAlign:'left'}}>{t("deskNotFound")}</p>
 }
 
  
@@ -171,8 +145,8 @@ export default function DeleteWorkstation({ deleteWorkstationModal }) {
 
             </DialogContent>
             <DialogActions>
-                <Button onClick={()=>deleteWorkstation()}>&nbsp;DELETE</Button>
-                <Button onClick={handleCloseBtn}>&nbsp;CLOSE</Button>
+                <Button onClick={()=>deleteWorkstation()}>&nbsp;{t("delete").toUpperCase()}</Button>
+                <Button onClick={handleCloseBtn}>&nbsp;{t("close").toUpperCase()}</Button>
             </DialogActions>
 
            

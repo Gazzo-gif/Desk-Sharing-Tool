@@ -69,9 +69,9 @@ export default function EditRoom({ editRoomModal }) {
           <TableRow>
           <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}> ID</TableCell>
              
-            <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}> Floor</TableCell>
-            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}> Type</TableCell>
-             <TableCell sx={{textAlign: 'center',fontSize:15,color:'white' }} colSpan={2}>Action</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}>{t("floor")}</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("type")}</TableCell>
+             <TableCell sx={{textAlign: 'center',fontSize:15,color:'white' }} colSpan={2}>{t("action")}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -81,15 +81,12 @@ export default function EditRoom({ editRoomModal }) {
                 {row.id}
               </TableCell>
               <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                {row.floor}
+                {row.floor === "Ground" ? t("groundFloor") : t("firstFloor")}
               </TableCell>
-              {/* <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} component="th" scope="row">
-                {row.type}
-              </TableCell> */}
               
               <TableCell sx={{fontSize:14, width:'30%'   }} component="th" scope="row">
               <FormControl fullWidth size='small'>
-                <InputLabel id="demo-simple-select-label">TYPE</InputLabel>
+                <InputLabel id="demo-simple-select-label">{t("type")}</InputLabel>
                 <Select
                 size='small'
                     labelId="demo-simple-select-label"
@@ -98,15 +95,15 @@ export default function EditRoom({ editRoomModal }) {
                     label="Status"
                     onChange={(e) => handleRoomTypeChange(e, row.id)}
                 >
-                    <MenuItem value={"Silence"}>Silence</MenuItem>
-                    <MenuItem value={"Normal"}>Normal</MenuItem>
+                    <MenuItem value={"Silence"}>{t("silence")}</MenuItem>
+                    <MenuItem value={"Normal"}>{t("normal")}</MenuItem>
                 </Select>
                 </FormControl>
              </TableCell>
               
               <TableCell sx={{fontSize:14, width:'30%'   }} component="th" scope="row">
               <FormControl fullWidth size='small'>
-                <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                <InputLabel id="demo-simple-select-label">{t("status")}</InputLabel>
                 <Select
                 size='small'
                     labelId="demo-simple-select-label"
@@ -115,8 +112,8 @@ export default function EditRoom({ editRoomModal }) {
                     label="Status"
                     onChange={(e) => handleStatusChange(e, row.id)}
                 >
-                    <MenuItem value={"enable"}>ENABLE</MenuItem>
-                    <MenuItem value={"disable"}>DISABLE</MenuItem>
+                    <MenuItem value={"enable"}>{t("enable").toUpperCase()}</MenuItem>
+                    <MenuItem value={"disable"}>{t("disable").toUpperCase()}</MenuItem>
                 </Select>
                 </FormControl>
              </TableCell>
@@ -129,7 +126,7 @@ export default function EditRoom({ editRoomModal }) {
 
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>&nbsp;CLOSE</Button>
+                <Button onClick={handleClose}>&nbsp;{t("close").toUpperCase()}</Button>
             </DialogActions>
         </React.Fragment>
     );

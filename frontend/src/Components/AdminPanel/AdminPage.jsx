@@ -359,14 +359,14 @@ const AdminPage = () => {
 
       <BootstrapEmployeeDialog onClose={toggleEditBookingsModal} aria-labelledby="customized-dialog-title" open={isEditBookingsOpen}>
         <BootstrapDialogTitle id="customized-dialog-title" className="toolHeader" style={{ textAlign: 'center', backgroundColor: 'green', color: 'white' }}>
-          {t("editBookings").toUpperCase()}
+          {t("editBooking").toUpperCase()}
         </BootstrapDialogTitle>
         <EditBookings editBookingsModal={toggleEditBookingsModal} />
       </BootstrapEmployeeDialog>
 
       <BootstrapEmployeeDialog onClose={toggleDeleteBookingsModal} aria-labelledby="customized-dialog-title" open={isDeleteBookingsOpen}>
         <BootstrapDialogTitle id="customized-dialog-title" className="toolHeader" style={{ textAlign: 'center', backgroundColor: 'green', color: 'white' }}>
-          {t("deleteBookings").toUpperCase()}
+          {t("deleteBooking").toUpperCase()}
         </BootstrapDialogTitle>
         <DeleteBookings deleteBookingsModal={toggleDeleteBookingsModal} />
       </BootstrapEmployeeDialog>
