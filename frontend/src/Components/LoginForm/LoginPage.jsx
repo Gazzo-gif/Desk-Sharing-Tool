@@ -50,7 +50,7 @@ const LoginPage = () => {
         console.log(data);
         localStorage.setItem("userId", String(data.id));
         localStorage.setItem("name", String(data.name));
-        localStorage.setItem("visibility", data.visibility);
+        localStorage.setItem("visibility", String(data.visibility));
         localStorage.setItem("admin", String(data.admin));
         navigate("/home", { replace: true });
       } else {

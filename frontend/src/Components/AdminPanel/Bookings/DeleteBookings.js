@@ -114,8 +114,8 @@ export default function DeleteBookings({ deleteBookingsModal }) {
                       fullWidth
                       variant="outlined"
                       size='small' 
-                      label="Select Room"
-                      placeholder="Select Room"
+                      label={t("selectRoom")}
+                      placeholder={t("selectRoom")}
                   />
               )}
             />&nbsp;&nbsp;&nbsp;
@@ -123,7 +123,7 @@ export default function DeleteBookings({ deleteBookingsModal }) {
             <FormControl required={true} size="small" fullWidth variant="standard">
                             <TextField
                                 id="standard-adornment-reason"
-                                placeholder="Date"
+                                placeholder={t("date")}
                                 fullWidth
                                 size="small"
                                 type={"date"}
@@ -131,7 +131,7 @@ export default function DeleteBookings({ deleteBookingsModal }) {
                                 onChange={(e)=>setDate(e.target.value)}
                             />
                         </FormControl>&nbsp;&nbsp;&nbsp;
-                        <Button variant='contained' color='success' onClick={searchBooking}>Search</Button>
+                        <Button variant='contained' color='success' onClick={searchBooking}>{t("search")}</Button>
                         </Stack>
 
                         {
@@ -141,16 +141,14 @@ export default function DeleteBookings({ deleteBookingsModal }) {
       <Table sx={{ minWidth: 450, marginTop: 1, maxHeight:'400px' }} >
         <TableHead sx={{backgroundColor: 'green', color:'white'}}>
           <TableRow>
-          <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}> ID</TableCell>
-             
-            <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}> USER</TableCell>
-            {/* <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}> Password</TableCell> */}
-            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}> ROOM ID</TableCell>
-            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}> DESK ID</TableCell>
-            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}> DATE</TableCell>
-            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}> BEGIN</TableCell>
-            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}> END</TableCell>
-             <TableCell sx={{textAlign: 'center',fontSize:15,color:'white' }} colSpan={2}>ACTION</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}> ID</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}>{t("user").toUpperCase()}</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("roomID").toUpperCase()}</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("deskID").toUpperCase()}</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("date").toUpperCase()}</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("begin").toUpperCase()}</TableCell>
+            <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("end").toUpperCase()}</TableCell>
+             <TableCell sx={{textAlign: 'center',fontSize:15,color:'white' }} colSpan={2}>{t("action").toUpperCase()}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -162,13 +160,6 @@ export default function DeleteBookings({ deleteBookingsModal }) {
               <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
                 {row.user.name+" "+row.user.surname}
               </TableCell>
-              {/* <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} component="th" scope="row">
-                {row.type}
-              </TableCell> */}
-
-{/* <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                {row.password?".......":""}
-              </TableCell> */}
 
               <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
                 {row.room.id}
@@ -188,14 +179,14 @@ export default function DeleteBookings({ deleteBookingsModal }) {
               
               
               <TableCell sx={{textAlign: 'center', fontSize:14, width:'30%'   }} component="th" scope="row">
-              <Button onClick={() => deleteBookingsById(row.id)} >DELETE</Button>
+              <Button onClick={() => deleteBookingsById(row.id)} >{t("delete")}</Button>
              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-                          ):<p style={{color: 'red', textAlign:'left'}}>No data found</p>
+                          ):<p style={{color: 'red', textAlign:'left'}}>{t("dataNotFound")}</p>
                         }
                 
     </>

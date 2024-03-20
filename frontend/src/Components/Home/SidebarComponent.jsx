@@ -265,10 +265,14 @@ const SidebarComponent = ({ name }) => {
   const [isLogoutConfirmationOpen, setIsLogoutConfirmationOpen] = useState(false);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [isVisibilityOn, setIsVisibilityOn] = useState(true); // State to manage visibility toggle
 =======
   const [user, setUser] = useState({});
   const [visibility, setVisibility] = useState();
+=======
+  const [visibility, setVisibility] = useState(localStorage.getItem("visibility"));
+>>>>>>> fbe1284 (bookings localization)
 
   useEffect(() => {
     // Fetch user's name from the backend
@@ -408,12 +412,12 @@ const SidebarComponent = ({ name }) => {
       const data = await response.json();
       if (response.ok && data !== -1) {
         if (data === 1) {
-          setVisibility(true);
-          localStorage.setItem("visibility", true);
+          setVisibility("true");
+          localStorage.setItem("visibility", "true");
           toast.success(t("visible"));
         } else {
-          setVisibility(false);
-          localStorage.setItem("visibility", false);
+          setVisibility("false");
+          localStorage.setItem("visibility", "false");
           toast.success(t("anonymous"));
         }
       } else {
@@ -503,10 +507,14 @@ const SidebarComponent = ({ name }) => {
         <Menu>
           <SubMenu icon={<FaCog />} label={t("settings")}>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <MenuItem icon={isVisibilityOn ? <FaEye /> : <FaEyeSlash />} onClick={() => handleClick("toggleVisibility")}>{isVisibilityOn ? t("Visible") : t("Anonymous")}</MenuItem>
 =======
             <MenuItem icon={visibility ? <FaEye /> : <FaEyeSlash />} onClick={() => handleClick("visibility")}>{t("visibility")}</MenuItem>
 >>>>>>> 98adf4e (visibility)
+=======
+            <MenuItem icon={visibility === "true" ? <FaEye /> : <FaEyeSlash />} onClick={() => handleClick("visibility")}>{t("visibility")}</MenuItem>
+>>>>>>> fbe1284 (bookings localization)
             <MenuItem icon={<FaLock />} onClick={() => handleClick("changePassword")}>{t("password")}</MenuItem>
           </SubMenu>
         </Menu>

@@ -115,6 +115,9 @@
     
     "deleteBooking": "Delete Booking",
     "editBooking": "Edit Booking",
+    "search": "Search",
+    "roomID": "Room ID",
+    "dataNotFound": "Data not found",
     
     "next": "Next",
     "back": "Back",

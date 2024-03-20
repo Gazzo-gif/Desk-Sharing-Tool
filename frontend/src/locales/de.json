@@ -115,6 +115,9 @@
     
     "deleteBooking": "Buchung Entfernen",
     "editBooking": "Buchung Bearbeiten",
+    "search": "Suchen",
+    "roomID": "Tisch ID",
+    "dataNotFound": "Daten nicht gefunden",
 
     "next": "Nächste",
     "back": "Zurück",
