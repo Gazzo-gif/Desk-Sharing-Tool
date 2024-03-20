@@ -114,7 +114,7 @@ const SidebarComponent = () => {
         } else {
           setVisibility("false");
           localStorage.setItem("visibility", "false");
-          toast.success(t("anonymous"));
+          toast.success(t("anonymousMessage"));
         }
       } else {
         toast.warning(t("failVisibility"));

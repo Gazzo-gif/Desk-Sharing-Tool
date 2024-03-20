@@ -78,8 +78,8 @@ const Booking = () => {
           start: new Date(booking.day + 'T' + booking.begin),
           end: new Date(booking.day + 'T' + booking.end),
           title: booking.user.id.toString() === localStorage.getItem("userId")
-            ? "Yours"
-            : (booking.user.visibility ? booking.user.name : "Anonymous"),
+            ? ""
+            : (booking.user.visibility ? booking.user.name : t("anonymous")),
           id: 0,
         }));
         
@@ -121,8 +121,8 @@ const Booking = () => {
       start: new Date(booking.day + 'T' + booking.begin),
       end: new Date(booking.day + 'T' + booking.end),
       title: booking.user.id.toString() === localStorage.getItem("userId")
-        ? "Yours"
-        : (booking.user.visibility ? booking.user.name : "Anonymous"),
+        ? ""
+        : (booking.user.visibility ? booking.user.name : t("anonymous")),
       id: 0,
     }));
     
@@ -213,8 +213,8 @@ const Booking = () => {
     const data = await response.json();
     console.log(data);
     confirmAlert({
-      title: "Book Desk " + clickedDeskId,
-      message: "For day " + day + "\nFrom " + start + " to " + ending,
+      title: t("bookDesk") + " " + clickedDeskId,
+      message: t("date") + " " + day + " " + t("from") + " " + start + " " + t("to") + " " + ending,
       buttons: [
         {
           label: "Yes",
