@@ -1,5 +1,4 @@
-import { FormControl, FormControlLabel, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, Snackbar, TextField } from '@mui/material';
-import Autocomplete from '@mui/material/Autocomplete';
+import { FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
@@ -54,11 +53,8 @@ export default function AddEmployee({ addEmployeeModal }) {
     }).catch(error => {
       console.log("login user err " + error);
     });
+  }
 
-      
-    }
-
-    
   return (
     <React.Fragment>
       <DialogContent>
@@ -69,7 +65,7 @@ export default function AddEmployee({ addEmployeeModal }) {
             <FormControl required={true} size="small" fullWidth variant="standard">
                             <TextField
                                 id="standard-adornment-reason"
-                                label="Email"
+                                label={t("email")}
                                 size="small"
                                 type={"text"}
                                 value={email}
@@ -80,7 +76,7 @@ export default function AddEmployee({ addEmployeeModal }) {
                         <FormControl required={true} size="small" fullWidth variant="standard">
                             <TextField
                                 id="standard-adornment-reason"
-                                label="Password"
+                                label={t("password")}
                                 size="small"
                                 type={"password"}
                                 value={password}
@@ -91,7 +87,7 @@ export default function AddEmployee({ addEmployeeModal }) {
                         <FormControl required={true} size="small" fullWidth variant="standard">
                             <TextField
                                 id="standard-adornment-reason"
-                                label="Name"
+                                label={t("name")}
                                 size="small"
                                 type={"text"}
                                 value={name}
@@ -102,7 +98,7 @@ export default function AddEmployee({ addEmployeeModal }) {
                         <FormControl required={true} size="small" fullWidth variant="standard">
                             <TextField
                                 id="standard-adornment-reason"
-                                label="Surname"
+                                label={t("surname")}
                                 size="small"
                                 type={"text"}
                                 value={surname}
@@ -119,14 +115,14 @@ export default function AddEmployee({ addEmployeeModal }) {
         value={isAdmin}
         onChange={(e)=> setIsAdmin(e.target.value)}
       >
-        <FormControlLabel value="true" control={<Radio />} label="True" />
-        <FormControlLabel value="false" control={<Radio />} label="False" />
+        <FormControlLabel value="true" control={<Radio />} label={t("true")} />
+        <FormControlLabel value="false" control={<Radio />} label={t("false")} />
        
       </RadioGroup>
     </FormControl>
     <br></br>
                         <FormControl>
-      <FormLabel id="demo-row-radio-buttons-group-label">Visibility</FormLabel>
+      <FormLabel id="demo-row-radio-buttons-group-label">{t("visibility")}</FormLabel>
       <RadioGroup
         row
         aria-labelledby="demo-row-radio-buttons-group-label"
@@ -134,8 +130,8 @@ export default function AddEmployee({ addEmployeeModal }) {
         value={visibility}
         onChange={(e)=> setVisibility(e.target.value)}
       >
-        <FormControlLabel value="true" control={<Radio />} label="Yes" />
-        <FormControlLabel value="false" control={<Radio />} label="No" />
+        <FormControlLabel value="true" control={<Radio />} label={t("yes")} />
+        <FormControlLabel value="false" control={<Radio />} label={t("no")} />
         
       </RadioGroup>
     </FormControl>
@@ -144,8 +140,8 @@ export default function AddEmployee({ addEmployeeModal }) {
 
       </DialogContent>
       <DialogActions>
-        <Button onClick={()=>addEmployee()}>&nbsp;SUBMIT</Button>
-        <Button onClick={handleCloseBtn}>&nbsp;CLOSE</Button>
+        <Button onClick={()=>addEmployee()}>&nbsp;{t("submit").toUpperCase()}</Button>
+        <Button onClick={handleCloseBtn}>&nbsp;{t("close").toUpperCase()}</Button>
       </DialogActions>
     </React.Fragment>
   );
