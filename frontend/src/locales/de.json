@@ -60,6 +60,10 @@
     "type": "Art",
     "equipment": "Austattung",
     "choose": "Wählen Sie eine Buchung aus",
+    "editBookingTime": "Buchungszeit bearbeiten",
+    "deleteBooking": "Sind Sie sicher, dass Sie diese Buchung entfernen möchten?",
+    "from": "von",
+    "to": "bis",
 
     "minimum": "Aufenthaltsdauer mindestens 2 Stunden",
     "maximum": "Aufenthaltsdauer maximal 9 Stunden",
@@ -82,5 +86,10 @@
     "noEventsInRange": "In diesem Bereich liegen keine Buchungen vor",
     "date": "Datum",
     "time": "Zeit",
-    "event": "Buchung"
+    "event": "Buchung",
+    
+    "yes": "Ja",
+    "no": "Nein",
+    "UPDATE": "AKTUALISIEREN",
+    "CANCEL": "ABBRECHEN"
 }

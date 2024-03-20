@@ -79,8 +79,8 @@ export default function EditBookingModal({ editBookingModal, id, startTimeFromDb
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button onClick={()=>updateBooking()}>&nbsp;UPDATE</Button>
-        <Button onClick={handleCloseBtn}>&nbsp;CANCEL</Button>
+        <Button onClick={()=>updateBooking()}>&nbsp;{t("UPDATE")}</Button>
+        <Button onClick={handleCloseBtn}>&nbsp;{t("CANCEL")}</Button>
       </DialogActions>
     </React.Fragment>
   );

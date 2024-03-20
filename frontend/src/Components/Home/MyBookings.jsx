@@ -17,7 +17,6 @@ const MyBookings = () => {
   const [theEvent, setTheEvent] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const userId = localStorage.getItem("userId");
-
   const localizer = momentLocalizer(moment);
 
   useEffect(() => {
@@ -73,7 +72,6 @@ const MyBookings = () => {
   };
 
   const reloadCalendar = async () => {
-    console.log("Reloading calendar...");
     fetchBookings(userId);
     setSelectedEvent(null);
   };  
@@ -97,21 +95,21 @@ const MyBookings = () => {
   
   const handleDeleteEvent = () => {
     confirmAlert({
-      title: 'Delete Booking for ' + selectedEvent.title,
+      title: t("deleteBooking"),
       message:
-        'For day ' +
+        t("date") + ' ' +
         moment(selectedEvent.start).format('YYYY-MM-DD') +
-        '\nFrom ' +
-        moment(selectedEvent.start).format('HH:mm:ss') +
-        ' to ' +
-        moment(selectedEvent.end).format('HH:mm:ss'),
+        ' ' + t("from") + ' ' +
+        moment(selectedEvent.start).format('HH:mm') +
+        ' ' + t("to") + ' ' +
+        moment(selectedEvent.end).format('HH:mm'),
       buttons: [
         {
-          label: 'Yes',
+          label: t("yes"),
           onClick: deleteBooking // Call deleteBooking function when 'Yes' is clicked
         },
         {
-          label: 'No'
+          label: t("no")
         }
       ]
     });
@@ -211,7 +209,7 @@ const MyBookings = () => {
       </div>
       {showEditModal && (
         <Dialog open={showEditModal} onClose={() => setShowEditModal(false)}>
-          <DialogTitle>Edit Booking Time</DialogTitle>
+          <DialogTitle>{t("editBookingTime")}</DialogTitle>
           <DialogContent>
             <EditBookingModal
               editBookingModal={() => setShowEditModal(false)} // Close modal function
