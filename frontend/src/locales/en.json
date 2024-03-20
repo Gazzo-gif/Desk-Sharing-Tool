@@ -97,6 +97,7 @@
     "editEmployee": "Edit Employee",
     "name": "Name",
     "surname": "Surname",
+    "action": "Action",
     
     "editRoom": "Edit Room",
     "addWorkstation": "Add Workstation",
