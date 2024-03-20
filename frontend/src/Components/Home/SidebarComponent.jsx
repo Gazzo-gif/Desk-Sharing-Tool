@@ -22,7 +22,7 @@ const SidebarComponent = () => {
   const navigate = useNavigate();
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
   const [isLogoutConfirmationOpen, setIsLogoutConfirmationOpen] = useState(false);
-  const [visibility, setVisibility] = useState();
+  const [visibility, setVisibility] = useState(localStorage.getItem("visibility"));
 
   useEffect(() => {
     // Extract the current pathname from the location
@@ -57,6 +57,7 @@ const SidebarComponent = () => {
       case "bookings":
         setActiveTab("bookings");
         navigate("/mybookings", { replace: true });
+        break;
 
       case "language":
         const currentLanguage = i18n.language;
@@ -107,12 +108,12 @@ const SidebarComponent = () => {
       const data = await response.json();
       if (response.ok && data !== -1) {
         if (data === 1) {
-          setVisibility(true);
-          localStorage.setItem("visibility", true);
+          setVisibility("true");
+          localStorage.setItem("visibility", "true");
           toast.success(t("visible"));
         } else {
-          setVisibility(false);
-          localStorage.setItem("visibility", false);
+          setVisibility("false");
+          localStorage.setItem("visibility", "false");
           toast.success(t("anonymous"));
         }
       } else {
@@ -187,7 +188,7 @@ const SidebarComponent = () => {
         </Menu>
         <Menu>
           <SubMenu icon={<FaCog />} label={t("settings")}>
-            <MenuItem icon={visibility ? <FaEye /> : <FaEyeSlash />} onClick={() => handleClick("visibility")}>{t("visibility")}</MenuItem>
+            <MenuItem icon={visibility === "true" ? <FaEye /> : <FaEyeSlash />} onClick={() => handleClick("visibility")}>{t("visibility")}</MenuItem>
             <MenuItem icon={<FaLock />} onClick={() => handleClick("changePassword")}>{t("password")}</MenuItem>
             <MenuItem icon={<CiLogout />} onClick={() => handleClick("logout")}>{t("logout")}</MenuItem>
           </SubMenu>
