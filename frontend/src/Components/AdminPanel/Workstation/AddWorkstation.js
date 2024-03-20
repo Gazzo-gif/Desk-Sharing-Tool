@@ -92,25 +92,25 @@ export default function AddWorkstation({ addWorkstationModal }) {
                       {...params}
                       variant="outlined"
                       size='small' 
-                      label="Select Room"
-                      placeholder="Select Room"
+                      label={t("selectRoom")}
+                      placeholder={t("selectRoom")}
                   />
               )}
             />
             <br></br>
             <FormControl required={true} size="small" fullWidth variant="standard">
-                            <TextField
-                                id="standard-adornment-reason"
-                                label="Desk Id"
-                                size="small"
-                                type={"number"}
-                                value={deskId}
-                                onChange={(e)=>setDeskId(e.target.value)}
-                            />
-                        </FormControl>
-                        <br></br><br></br>
+              <TextField
+                id="standard-adornment-reason"
+                label={t("deskID")}
+                size="small"
+                type={"number"}
+                value={deskId}
+                onChange={(e)=>setDeskId(e.target.value)}
+              />
+            </FormControl>
+            <br></br><br></br>
             <FormControl fullWidth size='small'>
-              <InputLabel id="demo-simple-select-label">Equipments</InputLabel>
+              <InputLabel id="demo-simple-select-label">{t("equipment")}</InputLabel>
               <Select
                 size='small'
                 labelId="demo-simple-select-label"
@@ -120,8 +120,8 @@ export default function AddWorkstation({ addWorkstationModal }) {
                 label="Equipments"
                 onChange={(e) => setEquipment(e.target.value)}
               >
-                <MenuItem value={"with equipment"}>WITH EQUIPMENT</MenuItem>
-                <MenuItem value={"without equipment"}>WITHOUT EQUIPMENT</MenuItem>
+                <MenuItem value={"with equipment"}>{t("withEquipment").toUpperCase()}</MenuItem>
+                <MenuItem value={"without equipment"}>{t("withoutEquipment").toUpperCase()}</MenuItem>
               </Select>
             </FormControl>
           </Box>
@@ -129,8 +129,8 @@ export default function AddWorkstation({ addWorkstationModal }) {
 
       </DialogContent>
       <DialogActions>
-        <Button onClick={()=>addWorkstation()}>&nbsp;SUBMIT</Button>
-        <Button onClick={handleCloseBtn}>&nbsp;CLOSE</Button>
+        <Button onClick={()=>addWorkstation()}>&nbsp;{t("submit").toUpperCase()}</Button>
+        <Button onClick={handleCloseBtn}>&nbsp;{t("close").toUpperCase()}</Button>
       </DialogActions>
     </React.Fragment>
   );

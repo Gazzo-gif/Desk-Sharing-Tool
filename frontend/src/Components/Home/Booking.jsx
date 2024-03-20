@@ -598,7 +598,7 @@ const Booking = () => {
                   if (clickedDeskId !== null) {
                     selectSlot(data);
                   } else {
-                    toast.warning(t("selectDesk"))
+                    toast.warning(t("selectDeskMessage"))
                   }
                 }}
                 selectable={true}
