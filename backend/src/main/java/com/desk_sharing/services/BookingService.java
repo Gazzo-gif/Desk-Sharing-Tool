@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
@@ -118,24 +119,35 @@ public class BookingService {
     }
 
 	public Booking editBookingTimings(BookingEditDTO booking) {
-		Optional<Booking> bookingById = getBookingById(booking.getId());
-		if(bookingById.isPresent()) {
-			List<Booking> alreadyBookingList = bookingRepository.getAllBookings(
+        Optional<Booking> bookingById = getBookingById(booking.getId());
+        if(bookingById.isPresent()) {
+            List<Booking> alreadyBookingList = bookingRepository.getAllBookings(
                 bookingById.get().getId(), bookingById.get().getRoom().getId(), 
                 bookingById.get().getDesk().getId(), bookingById.get().getDay(), 
                 booking.getBegin(), booking.getEnd());
-			List<Long> ids = alreadyBookingList.stream().map(e -> e.getId()).collect(Collectors.toList());
-			System.out.println("--->"+ids);
-			if(alreadyBookingList != null && !alreadyBookingList.isEmpty()) {
-				throw new RuntimeException("Already some bookings exist with same time");
-			}
-			Booking booking2 = bookingById.get();
-			booking2.setBegin(booking.getBegin());
-			booking2.setEnd(booking.getEnd());
-			bookingRepository.save(booking2);
-		}
-		return null;
-	}
+            if(alreadyBookingList != null && !alreadyBookingList.isEmpty()) {
+                throw new RuntimeException("Already some bookings exist with same time");
+            }
+    
+            // Convert java.sql.Time to LocalTime
+            LocalTime beginTime = booking.getBegin().toLocalTime();
+            LocalTime endTime = booking.getEnd().toLocalTime();
+    
+            // Calculate the duration of the booking
+            long duration = Duration.between(beginTime, endTime).toHours();
+    
+            // Check if duration is between 2 and 9 hours
+            if (duration < 2 || duration > 9) {
+                throw new RuntimeException("Booking duration should be between 2 and 9 hours");
+            }
+    
+            Booking booking2 = bookingById.get();
+            booking2.setBegin(booking.getBegin());
+            booking2.setEnd(booking.getEnd());
+            bookingRepository.save(booking2);
+        }
+        return null;
+    }    
 	
 	public Booking confirmBooking(long bookingId) {
 		Optional<Booking> bookingById = getBookingById(bookingId);
