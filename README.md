@@ -1,6 +1,6 @@
 # Desk-Sharing-Tool
 
-Web application that allows to book worspaces in an office.
+Web application that allows to book workspaces in an office.
 
 ## How to run the project
 
