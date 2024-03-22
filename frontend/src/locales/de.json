@@ -13,8 +13,6 @@
     "bookings": "Buchungen",
     "settings": "Einstellungen",
     "visibility": "Sichtbarkeit",
-<<<<<<< HEAD
-=======
     "logout": "Abmeldung",
     "hello": "Hallo",
 
@@ -30,7 +28,6 @@
     "newPassword": "Neues Passwort",
     "newPasswordAgain": "Neues Passwort Nochmal",
     "submit": "Einreichen",
->>>>>>> 2300eb1 (localization)
 
     "selectedDate": "Datum Auswählen",
     "chooseDate": "Datum für eine Arbeitsplatzreservierung wählen",

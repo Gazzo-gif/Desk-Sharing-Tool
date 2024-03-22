@@ -1,119 +1,9 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import SidebarComponent from '../Home/SidebarComponent';
-import { FaAddressBook, FaPlusMinus } from "react-icons/fa6";
-import { FaBook } from "react-icons/fa";
-import './AdminPage.css'; // Import the CSS file for AdminPage
-import { MdDownload } from "react-icons/md";
-
-
-
-const AdminPage = ({ collapsed, onCollapse }) => {
-  const [showEmployeeButtons, setShowEmployeeButtons] = useState(false);
-  const [showWorkstationButtons, setShowWorkstationButtons] = useState(false);
-  const [showBookingButtons, setShowBookingButtons] = useState(false);
-
-  const toggleEmployeeButtons = () => {
-    setShowEmployeeButtons(!showEmployeeButtons);
-  };
-
-  const toggleWorkstationButtons = () => {
-    setShowWorkstationButtons(!showWorkstationButtons);
-  };
-
-  const toggleBookingButtons = () => {
-    setShowBookingButtons(!showBookingButtons);
-  };
-
-  return (
-    <div className="adminhome-page">
-      <SidebarComponent />
-      <div className="adminpage-content">
-        <div className="admin-content">
-          <h1>Admin Page Content</h1>
-          <div className="admin-controls-container">
-            {/* User Management button and logo */}
-            <div className="user-management-container">
-              <button className="user-management-button" onClick={toggleEmployeeButtons}>
-                User Management
-              </button>
-              <FaAddressBook className="logo" />
-            </div>
-            {/* Edit Rooms button and logo */}
-            <div className="edit-rooms-container">
-              <button className="edit-rooms-button" onClick={toggleWorkstationButtons}>
-                Edit Rooms
-              </button>
-              <FaPlusMinus className="logo" />
-            </div>
-            {/* Manage Bookings button and logo */}
-            <div className="manage-bookings-container">
-              <button className="manage-bookings-button" onClick={toggleBookingButtons}>
-                Manage Bookings
-              </button>
-              <FaBook className="logo" />
-            </div>
-            {/* Download Statistics button and logo */}
-            <div className="download-statistics-container">
-              <button className="download-statistics-button" onClick={() => console.log("Download Statistics clicked")}>
-                Download Statistics
-              </button>
-              <MdDownload className="logo" />
-            </div>
-          </div>
-          {/* Wrapper for employee buttons */}
-          <div className={`employee-button-wrapper ${showEmployeeButtons ? 'visible' : ''}`}>
-            <button className="employee-button" onClick={() => console.log("Add Employee clicked")}>
-              Add Employee
-            </button>
-            <button className="employee-button" onClick={() => console.log("Delete Employee clicked")}>
-              Delete Employee
-            </button>
-            <button className="employee-button" onClick={() => console.log("Edit Employee clicked")}>
-              Edit Employee
-            </button>
-          </div>
-          {/* Wrapper for workstation buttons */}
-          <div className={`workstation-button-wrapper ${showWorkstationButtons ? 'visible' : ''}`}>
-            <button className="workstation-button" onClick={() => console.log("Add Workstation clicked")}>
-              Add Workstation
-            </button>
-            <button className="workstation-button" onClick={() => console.log("Delete Workstation clicked")}>
-              Delete Workstation
-            </button>
-            <button className="workstation-button" onClick={() => console.log("Edit Workstation clicked")}>
-              Edit Workstation
-            </button>
-          </div>
-          {/* Wrapper for booking buttons */}
-          <div className={`booking-button-wrapper ${showBookingButtons ? 'visible' : ''}`}>
-            <button className="booking-button" onClick={() => console.log("Delete Booking clicked")}>
-              Delete Booking
-            </button>
-            <button className="booking-button" onClick={() => console.log("Edit Booking clicked")}>
-              Edit Booking
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-=======
-import React, { useState } from 'react';
-import SidebarComponent from '../Home/SidebarComponent';
-=======
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SidebarComponent from "../Home/SidebarComponent";
->>>>>>> a514437 (Added desks to Admin panel)
 import { FaAddressBook, FaPlusMinus } from "react-icons/fa6";
 import { FaBook } from "react-icons/fa";
 import "./AdminPage.css"; // Import the CSS file for AdminPage
 import { MdDownload } from "react-icons/md";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import styled from '@emotion/styled';
 import EditRoom from './Room/EditRoom';
 import { Dialog, DialogTitle, IconButton } from '@mui/material';
@@ -125,10 +15,6 @@ import DeleteEmployee from './UserManagement/DeleteEmployee';
 import EditEmployee from './UserManagement/EditEmployee';
 import DeleteBookings from './Bookings/DeleteBookings';
 import EditBookings from './Bookings/EditBookings';
-<<<<<<< HEAD
-
-const AdminPage = ({ collapsed, onCollapse }) => {
-=======
 import { ColumnGraph } from "./ColumnGraph";
 import { HeatMap } from "./HeatMap";
 import { UsageGraph } from "./UsageGraph";
@@ -171,7 +57,6 @@ const AdminPage = () => {
   const randomiseData = () => {
     setRefresh(!refresh);
   };
->>>>>>> ec050ca (admin panel localization)
   const [showEmployeeButtons, setShowEmployeeButtons] = useState(false);
   const [showWorkstationButtons, setShowWorkstationButtons] = useState(false);
   const [showBookingButtons, setShowBookingButtons] = useState(false);
@@ -250,142 +135,12 @@ const AdminPage = () => {
         ) : null}
       </DialogTitle>
     );
-=======
-=======
-import { useEffect } from "react";
-<<<<<<< HEAD
->>>>>>> a514437 (Added desks to Admin panel)
-=======
-import { ColumnGraph } from "./ColumnGraph";
-import { HeatMap } from "./HeatMap";
-import { UsageGraph } from "./UsageGraph";
-<<<<<<< HEAD
->>>>>>> 624b4a1 (Added Heat, Column, Usage Graphs)
-
-=======
-import noDataImage from "../Assets/nodb.png";
->>>>>>> 26c2494 (No data error shown for user)
-const AdminPage = ({ collapsed, onCollapse }) => {
-  const roomId = localStorage.getItem("roomId");
-  const [activeButton, setActiveButton] = useState(null);
-  const [graph, setGraph] = useState("column-map");
-  const [floor, setFloor] = useState("ground");
-  const [activeTab, setTab] = useState("general");
-  const [deskList, setDeskList] = useState([]);
-  const [desks, setDesks] = useState([]);
-  const [refresh, setRefresh] = useState(true);
-  let tempActive = graph;
-  const floorFilter = (currentFloor) => {
-    // const currentFloor = "Ground";
-    if (currentFloor === "Ground") {
-      setFloor("ground");
-    }
-    if (currentFloor === "First") {
-      setFloor("first");
-    }
-    fetch("http://188.34.162.76:8080/rooms")
-      .then((response) => response.json())
-      .then((data) => {
-        // Filter rooms based on the current floor
-        const filteredRooms = data.filter(
-          (room) => room.floor === currentFloor
-        );
-        setDeskList(filteredRooms);
-        setTab("statistics");
-        console.log(filteredRooms);
-        // setRooms(filteredRooms);
-      })
-      .catch((error) => {
-        console.error("Error fetching room data:", error);
-      });
   };
 
-  useEffect(() => {
-    // floorFilter("ground");
-    const fetchDesks = async () => {
-      try {
-        const response = await fetch(
-          `http://188.34.162.76:8080/desks/room/${roomId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Error fetching desk data");
-        }
-
-        const data = await response.json();
-        setDesks(data);
-      } catch (error) {
-        console.error("Error fetching desk data:", error);
-      }
-    };
-
-    if (roomId) {
-      fetchDesks();
-    }
-  }, [roomId, deskList]);
-
-  const toggleButtons = (button) => {
-    if (activeButton === button) {
-      setActiveButton(null); // Toggle off if the same button is clicked
-    } else {
-      setActiveButton(button);
-    }
->>>>>>> 0f71ca4 (Overlaping Solved)
-  };
-  const randomiseData = () => {
-    setRefresh(!refresh);
-  };
   return (
     <div className="adminhome-page">
-      <SidebarComponent collapsed={collapsed} onCollapse={onCollapse} />
+      <SidebarComponent />
       <div className="adminpage-content">
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <div className="admin-content">
-          <h1>Admin Page Content</h1>
-          <div className="admin-controls-container">
-            <div className="user-management-container">
-              <button
-                className="user-management-button"
-                onClick={() => toggleButtons("user-management")}
-              >
-                User Management
-              </button>
-              <FaAddressBook className="logo" />
-            </div>
-            <div className="edit-rooms-container">
-              <button
-                className="edit-rooms-button"
-                onClick={() => toggleButtons("edit-rooms")}
-              >
-                Edit Rooms
-              </button>
-              <FaPlusMinus className="logo" />
-            </div>
-            <div className="manage-bookings-container">
-              <button
-                className="manage-bookings-button"
-                onClick={() => toggleButtons("manage-bookings")}
-              >
-                Manage Bookings
-              </button>
-              <FaBook className="logo" />
-            </div>
-            <div className="download-statistics-container">
-              <button
-                className="download-statistics-button"
-                onClick={() => toggleButtons("download-statistics")}
-=======
-        {true ? (
-          <></>
-        ) : (
-=======
         <div className="maps">
           <div
             onClick={() => setTab("general")}
@@ -401,243 +156,9 @@ const AdminPage = ({ collapsed, onCollapse }) => {
           </div>
         </div>
         {activeTab === "general" ? (
->>>>>>> 570c53c (Separate tabs for Statistics)
           <div className="admin-content">
             <h1>{t("adminPanel")}</h1>
             <div className="admin-controls-container">
-<<<<<<< HEAD
-              {/* User Management button and logo */}
-              <div className="user-management-container">
-                <button
-                  className="user-management-button"
-                  onClick={() => toggleButtons("user-management")}
-                >
-                  User Management
-                </button>
-                <FaAddressBook className="logo" />
-              </div>
-              {/* Edit Rooms button and logo */}
-              <div className="edit-rooms-container">
-                <button
-                  className="edit-rooms-button"
-                  onClick={() => toggleButtons("edit-rooms")}
-                >
-                  Edit Rooms
-                </button>
-                <FaPlusMinus className="logo" />
-              </div>
-              {/* Manage Bookings button and logo */}
-              <div className="manage-bookings-container">
-                <button
-                  className="manage-bookings-button"
-                  onClick={() => toggleButtons("manage-bookings")}
-                >
-                  Manage Bookings
-                </button>
-                <FaBook className="logo" />
-              </div>
-              {/* Download Statistics button and logo */}
-              <div className="download-statistics-container">
-                <button
-                  className="download-statistics-button"
-                  onClick={() => toggleButtons("download-statistics")}
-                >
-                  Download Statistics
-                </button>
-                <MdDownload className="logo" />
-              </div>
-            </div>
-            {/* Wrapper for employee, workstation, and booking buttons */}
-            <div className="button-wrapper">
-              <div
-                className={`employee-button-wrapper ${
-                  activeButton === "user-management" ? "visible" : ""
-                }`}
-              >
-                <button
-                  className="employee-button"
-                  onClick={() => console.log("Add Employee clicked")}
-                >
-                  Add Employee
-                </button>
-                <button
-                  className="employee-button"
-                  onClick={() => console.log("Delete Employee clicked")}
-                >
-                  Delete Employee
-                </button>
-                <button
-                  className="employee-button"
-                  onClick={() => console.log("Edit Employee clicked")}
-                >
-                  Edit Employee
-                </button>
-              </div>
-              <div
-                className={`workstation-button-wrapper ${
-                  activeButton === "edit-rooms" ? "visible" : ""
-                }`}
-              >
-                <button
-                  className="workstation-button"
-                  onClick={() => console.log("Add Workstation clicked")}
-                >
-                  Add Workstation
-                </button>
-                <button
-                  className="workstation-button"
-                  onClick={() => console.log("Delete Workstation clicked")}
-                >
-                  Delete Workstation
-                </button>
-                <button
-                  className="workstation-button"
-                  onClick={() => console.log("Edit Workstation clicked")}
-                >
-                  Edit Workstation
-                </button>
-              </div>
-              <div
-                className={`booking-button-wrapper ${
-                  activeButton === "manage-bookings" ? "visible" : ""
-                }`}
->>>>>>> 624b4a1 (Added Heat, Column, Usage Graphs)
-              >
-                <button
-                  className="booking-button"
-                  onClick={() => console.log("Delete Booking clicked")}
-                >
-                  Delete Booking
-                </button>
-                <button
-                  className="booking-button"
-                  onClick={() => console.log("Edit Booking clicked")}
-                >
-                  Edit Booking
-                </button>
-              </div>
-            </div>
-          </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <div className={`employee-button-wrapper ${showEmployeeButtons ? 'visible' : ''}`}>
-            <button className="employee-button" onClick={toggleAddEmployeeModal}>
-              Add Employee
-            </button>
-            <button className="employee-button" onClick={toggleDeleteEmployeeModal}>
-              Delete Employee
-            </button>
-            <button className="employee-button" onClick={toggleEditEmployeeModal}>
-              Edit Employee
-            </button>
-          </div>
-          <div className={`workstation-button-wrapper ${showWorkstationButtons ? 'visible' : ''}`}>
-            <button className="workstation-button" onClick={toggleEditRoomModal}>
-              Edit Room
-            </button>
-            <button className="workstation-button" onClick={toggleAddWorkstationModal}>
-              Add Workstation
-            </button>
-            <button className="workstation-button" onClick={toggleDeleteWorkstationModal}>
-              Delete Workstation
-            </button>
-            <button className="workstation-button" onClick={toggleEditWorkstationModal}>
-              Edit Workstation
-            </button>
-          </div>
-          <div className={`booking-button-wrapper ${showBookingButtons ? 'visible' : ''}`}>
-            <button className="booking-button" onClick={toggleDeleteBookingsModal}>
-              Delete Booking
-            </button>
-            <button className="booking-button" onClick={toggleEditBookingsModal}>
-              Edit Booking
-            </button>
-=======
-          {/* Wrapper for employee, workstation, and booking buttons */}
-          <div className="button-wrapper">
-            <div
-              className={`employee-button-wrapper ${
-                activeButton === "user-management" ? "visible" : ""
-              }`}
-            >
-              <button
-                className="employee-button"
-                onClick={() => console.log("Add Employee clicked")}
-              >
-                Add Employee
-              </button>
-              <button
-                className="employee-button"
-                onClick={() => console.log("Delete Employee clicked")}
-              >
-                Delete Employee
-              </button>
-              <button
-                className="employee-button"
-                onClick={() => console.log("Edit Employee clicked")}
-              >
-                Edit Employee
-              </button>
-            </div>
-            <div
-              className={`workstation-button-wrapper ${
-                activeButton === "edit-rooms" ? "visible" : ""
-              }`}
-            >
-              <button
-                className="workstation-button"
-                onClick={() => console.log("Add Workstation clicked")}
-              >
-                Add Workstation
-              </button>
-              <button
-                className="workstation-button"
-                onClick={() => console.log("Delete Workstation clicked")}
-              >
-                Delete Workstation
-              </button>
-              <button
-                className="workstation-button"
-                onClick={() => console.log("Edit Workstation clicked")}
-              >
-                Edit Workstation
-              </button>
-            </div>
-            <div
-              className={`booking-button-wrapper ${
-                activeButton === "manage-bookings" ? "visible" : ""
-              }`}
-            >
-              <button
-                className="booking-button"
-                onClick={() => console.log("Delete Booking clicked")}
-              >
-                Delete Booking
-              </button>
-              <button
-                className="booking-button"
-                onClick={() => console.log("Edit Booking clicked")}
-              >
-                Edit Booking
-              </button>
-            </div>
->>>>>>> 0f71ca4 (Overlaping Solved)
-          </div>
-        </div>
-=======
-        )}
->>>>>>> 624b4a1 (Added Heat, Column, Usage Graphs)
-        <div className="bottom-container">
-          <div className="desk-container">
-            {desks.map((desk, index) => (
-              <div className="desk-component" key={index}>
-                <div>{desk.id}.</div>
-                <div className="desk-description">
-                  <p className="item-name">{desk.equipment}</p>
-                  <p className="item-taken">Some free slots</p>
-=======
-=======
               <div className="user-management-container">
                 <button className="user-management-button" onClick={toggleEmployeeButtons}>
                   {t("userManagement")}
@@ -691,7 +212,6 @@ const AdminPage = ({ collapsed, onCollapse }) => {
               </button>
             </div>
           </div>
->>>>>>> ec050ca (admin panel localization)
         ) : (
           <div className="bottom-container">
             <div className="desk-list">
@@ -730,12 +250,7 @@ const AdminPage = ({ collapsed, onCollapse }) => {
                   onClick={() => floorFilter("First")}
                   className={floor === "first" ? "heat-map" : "map"}
                 >
-<<<<<<< HEAD
-                  First Floor
->>>>>>> 570c53c (Separate tabs for Statistics)
-=======
                 {t("firstFloor")}
->>>>>>> ec050ca (admin panel localization)
                 </div>
               </div>
               <div className="maps">
@@ -859,9 +374,4 @@ const AdminPage = ({ collapsed, onCollapse }) => {
   );
 };
 
-<<<<<<< HEAD
->>>>>>> b270e92 (admin panal rooms and desks)
 export default AdminPage;
-=======
-export default AdminPage;
->>>>>>> 0f71ca4 (Overlaping Solved)

@@ -1,6 +1,5 @@
 package com.desk_sharing.services;
 
-<<<<<<< HEAD
 import com.desk_sharing.entities.Booking;
 import com.desk_sharing.entities.Desk;
 import com.desk_sharing.entities.Room;
@@ -13,36 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-<<<<<<< HEAD
-=======
 import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalDateTime;
->>>>>>> a598f45 (booking tests)
 import java.time.LocalTime;
 import java.util.*;
-=======
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
->>>>>>> 9973c73 (locking and tests)
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
 
-import com.desk_sharing.entities.Booking;
-import com.desk_sharing.entities.Desk;
-import com.desk_sharing.entities.Room;
 import com.desk_sharing.entities.User;
-import com.desk_sharing.model.BookingEditDTO;
-import com.desk_sharing.repositories.BookingRepository;
 
 @Service
 public class BookingService {
@@ -144,21 +125,6 @@ public class BookingService {
                 bookingById.get().getId(), bookingById.get().getRoom().getId(), 
                 bookingById.get().getDesk().getId(), bookingById.get().getDay(), 
                 booking.getBegin(), booking.getEnd());
-<<<<<<< HEAD
-			List<Long> ids = alreadyBookingList.stream().map(e -> e.getId()).collect(Collectors.toList());
-			System.out.println("--->"+ids);
-			if(alreadyBookingList != null && !alreadyBookingList.isEmpty()) {
-				throw new RuntimeException("Already some bookings exist with same time");
-			}
-			Booking booking2 = bookingById.get();
-			booking2.setBegin(booking.getBegin());
-			booking2.setEnd(booking.getEnd());
-			bookingRepository.save(booking2);
-		}
-		return null;
-	}
-<<<<<<< HEAD
-=======
             if(alreadyBookingList != null && !alreadyBookingList.isEmpty()) {
                 throw new RuntimeException("Already some bookings exist with same time");
             }
@@ -212,7 +178,6 @@ public class BookingService {
             bookingRepository.deleteAll(collect);
         }
 	}
->>>>>>> a598f45 (booking tests)
 
     public Dictionary<Date, Integer> getAvailableDays(List<Date> days) {
         Dictionary<Date, Integer> slots= new Hashtable<>();
@@ -259,36 +224,5 @@ public class BookingService {
             }
         }
         return slots;
-=======
-	
-	public Booking confirmBooking(long bookingId) {
-		Optional<Booking> bookingById = getBookingById(bookingId);
-		if(bookingById.isPresent()) {
-			Booking booking = bookingById.get();
-			booking.setBookingInProgress(false);
-			booking.setLockExpiryTime(null);
-			return bookingRepository.save(booking);
-		}
-		return null;
-	}
-	
-	
-	@Transactional
-	@Scheduled(cron = "0 0/2 * * * *")
-    public void releaseDeskLock() {
-        List<Booking> booking = bookingRepository.findAllByBookingInProgress(true);
-        if (booking != null && !booking.isEmpty()) {
-        	List<Booking> collect = booking.stream()
-        			.filter(e -> LocalDateTime.now().isAfter(e.getLockExpiryTime()))
-        			.map(each -> {
-        				each.setBookingInProgress(false);
-        				each.setLockExpiryTime(null);
-        				return each;
-        			})
-        			.collect(Collectors.toList());
-        	System.out.println("Matched bookings without confirm, size="+collect.size());
-            bookingRepository.deleteAll(collect);
-        }
->>>>>>> 9973c73 (locking and tests)
     }
 }

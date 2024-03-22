@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Dictionary;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,22 +29,6 @@ import com.desk_sharing.services.DeskService;
 import com.desk_sharing.services.RoomService;
 import com.desk_sharing.services.UserService;
 
-<<<<<<< HEAD
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Dictionary;
-import java.util.List;
-import java.util.Optional;
-import java.util.Map;
-
-import java.sql.Date;
-import java.sql.Time;
-
-=======
->>>>>>> 9973c73 (locking and tests)
 @RestController
 @CrossOrigin(origins = {"http://188.34.162.76:3000", "http://localhost:3000"})
 @RequestMapping("/bookings")
@@ -75,27 +60,6 @@ public class BookingController {
 
     @PostMapping
     public ResponseEntity<BookingDTO> addBooking(@RequestBody Map<String, Object> bookingData) {
-<<<<<<< HEAD
-
-        Long user_id = Long.parseLong(bookingData.get("user_id").toString());
-        Long room_id = Long.parseLong(bookingData.get("room_id").toString());
-        Long desk_id = Long.parseLong(bookingData.get("desk_id").toString());
-        Date day = Date.valueOf(bookingData.get("day").toString());
-        Time begin = Time.valueOf(bookingData.get("begin").toString());
-        Time end = Time.valueOf(bookingData.get("end").toString());
-
-        User user = userService.getUser(user_id);
-        Room room = roomService.getRoom(room_id);
-        Desk desk = deskService.getDesk(desk_id);
-
-    
-        Booking newBooking = new Booking(user, room, desk, day, begin, end);
-        Booking savedBooking = bookingService.addBooking(newBooking);
-    
-        BookingDTO bookingDTO = convertToDTO(savedBooking);
-    
-        return new ResponseEntity<>(bookingDTO, HttpStatus.CREATED);
-=======
         try {
             Booking savedBooking = bookingService.createBooking(bookingData);
             BookingDTO bookingDTO = convertToDTO(savedBooking);
@@ -107,7 +71,6 @@ public class BookingController {
             // Handle missing room/desk errors
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
->>>>>>> 9973c73 (locking and tests)
     }
     
     @PutMapping("/confirm/{id}")

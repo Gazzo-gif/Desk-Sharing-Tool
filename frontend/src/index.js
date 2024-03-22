@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { I18nextProvider } from 'react-i18next'; // Import the I18nextProvider
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import i18n from './i18n'; // Import the i18n instance
-
-const root = createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <I18nextProvider i18n={i18n}> {/* Wrap your App component with the I18nextProvider */}
-      <App />
-    </I18nextProvider>
-  </React.StrictMode>
-);
-
-reportWebVitals();
-=======
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { I18nextProvider } from 'react-i18next'; // Import the I18nextProvider
@@ -26,33 +6,19 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import i18n from './i18n'; // Import the i18n instance
+import i18n from './i18n';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <I18nextProvider i18n={i18n}> {/* Wrap your App component with the I18nextProvider */}
+    <I18nextProvider i18n={i18n}>
       <App />
       <ToastContainer 
-<<<<<<< HEAD
-     position="bottom-right"
-     autoClose={2000}
-     hideProgressBar={false}
-     newestOnTop={false}
-     closeOnClick
-     rtl={false}
-     pauseOnFocusLoss
-     draggable
-     pauseOnHover
-     theme="light" 
-=======
         // position="bottom-right"
         autoClose={2000}
->>>>>>> faeb6a2 (popups)
       />
     </I18nextProvider>
   </React.StrictMode>
 );
 
 reportWebVitals();
->>>>>>> b270e92 (admin panal rooms and desks)

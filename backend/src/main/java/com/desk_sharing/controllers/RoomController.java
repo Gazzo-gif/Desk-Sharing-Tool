@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = {"http://188.34.162.76:3000", "http://localhost:3000"})
@@ -28,16 +29,35 @@ public class RoomController {
         List<Room> rooms = roomService.getAllRooms();
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
+    
+    @GetMapping("/status")
+    public ResponseEntity<List<Room>> getAllRoomsByActiveStatus() {
+        List<Room> rooms = roomService.getAllRoomsByActiveStatus();
+        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Room> getRoomById(@PathVariable("id") Long id) {
-        Room room = roomService.getRoom(id);
-        return new ResponseEntity<>(room, HttpStatus.OK);
+        Optional<Room> room = roomService.getRoomById(id);
+        return room.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Room> updateRoom(@PathVariable("id") Long id, @RequestBody Room room) {
         Room updatedRoom = roomService.updateRoom(id, room);
+        return new ResponseEntity<>(updatedRoom, HttpStatus.OK);
+    }
+    
+    @PutMapping("/{id}/type/{type}")
+    public ResponseEntity<Room> updateRoomType(@PathVariable("id") Long id, @PathVariable("type") String type) {
+        Room updatedRoom = roomService.updateRoomType(id, type);
+        return new ResponseEntity<>(updatedRoom, HttpStatus.OK);
+    }
+    
+    @PutMapping("/{id}/{status}")
+    public ResponseEntity<Room> updateRoomStatus(@PathVariable("id") Long id, @PathVariable("status") String status) {
+        Room updatedRoom = roomService.updateRoomStatus(id, status);
         return new ResponseEntity<>(updatedRoom, HttpStatus.OK);
     }
 
