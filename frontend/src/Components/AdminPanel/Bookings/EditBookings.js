@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import moment from 'moment';
 import styled from '@emotion/styled';
 import EditBookingModal from './EditBookingsModal';
+import BookingTable from './BookingTable';
 
 export default function EditBookings({ editBookingsModal }) {
   const { t } = useTranslation();
@@ -127,52 +128,7 @@ export default function EditBookings({ editBookingsModal }) {
             </Stack>
             {
               allBookings && allBookings.length > 0 ? (
-                <TableContainer  component={Paper}>
-                  <Table sx={{ minWidth: 450, marginTop: 1, maxHeight:'400px' }} >
-                    <TableHead sx={{backgroundColor: 'green', color:'white'}}>
-                      <TableRow>
-                        <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}> ID</TableCell>
-                        <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}>{t("user").toUpperCase()}</TableCell>
-                        <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("roomID").toUpperCase()}</TableCell>
-                        <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("deskID").toUpperCase()}</TableCell>
-                        <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("date").toUpperCase()}</TableCell>
-                        <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("begin").toUpperCase()}</TableCell>
-                        <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("end").toUpperCase()}</TableCell>
-                        <TableCell sx={{textAlign: 'center',fontSize:15,color:'white' }} colSpan={2}>{t("action").toUpperCase()}</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {allBookings.map((row) => (
-                        <TableRow  key={row.id}>
-                          <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} component="th" scope="row">
-                            {row.id}
-                          </TableCell>
-                          <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                            {row.user.name+" "+row.user.surname}
-                          </TableCell>
-                          <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                            {row.room.id}
-                          </TableCell>
-                          <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                            {row.desk.id}
-                          </TableCell>
-                          <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                            {row.day}
-                          </TableCell>
-                          <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                            {row.begin}
-                          </TableCell>
-                          <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                            {row.end}
-                          </TableCell>    
-                          <TableCell sx={{textAlign: 'center', fontSize:14, width:'30%'   }} component="th" scope="row">
-                            <Button onClick={() => editBookingsById(row.id, row.begin, row.end)} >{t("edit").toUpperCase()}</Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
+                <BookingTable  bookings={allBookings} onAction={editBookingsById} action={"EDIT"}/>
               ):<p style={{color: 'red', textAlign:'left'}}>{t("dataNotFound")}</p>
             }   
           </>
