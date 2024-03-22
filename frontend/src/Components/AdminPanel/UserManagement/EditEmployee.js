@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from "react-i18next";
 import styled from '@emotion/styled';
 import EditEmployeeModal from './EditEmployeeModal';
+import EmployeeTable from './EmployeeTable';
 
 export default function EditEmployee({ editEmployeeModal }) {
   const { t } = useTranslation();
@@ -91,49 +92,7 @@ export default function EditEmployee({ editEmployeeModal }) {
     <React.Fragment>
       <DialogContent>
         <Grid container >
-          <TableContainer  component={Paper}>
-            <Table sx={{ minWidth: 450, marginTop: 1, maxHeight:'400px' }} >
-              <TableHead sx={{backgroundColor: 'green', color:'white'}}>
-                <TableRow>
-                  <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}> ID</TableCell>
-                  <TableCell sx={{textAlign: 'center', fontSize:15, color:'white'}}>{t("email")}</TableCell>
-                  <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("name")}</TableCell>
-                  <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("surname")}</TableCell>
-                  <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("admin")}</TableCell>
-                  <TableCell sx={{textAlign: 'center', fontSize:15,color:'white' }}>{t("visibility")}</TableCell>
-                  <TableCell sx={{textAlign: 'center',fontSize:15,color:'white' }} colSpan={2}>{t("action")}</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {allEmployee.map((row) => (
-                  <TableRow  key={row.id}>
-                    <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} component="th" scope="row">
-                      {row.id}
-                    </TableCell>
-                    <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                      {row.email}
-                    </TableCell>
-                    <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                      {row.name}
-                    </TableCell>
-                    <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                      {row.surname}
-                    </TableCell>
-                    <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                      {row.admin?t("true"):t("false")}
-                    </TableCell>
-                    <TableCell sx={{textAlign: 'center', fontSize:14, fontWeight:400 }} >
-                      {row.visibility?t("true"):t("false")}
-                    </TableCell>
-
-                    <TableCell sx={{textAlign: 'center', fontSize:14, width:'30%'   }} component="th" scope="row">
-                    <Button onClick={() => editEmployeeById(row.id)} >{t("edit").toUpperCase()}</Button>
-                  </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+        <EmployeeTable employees={allEmployee} onAction={editEmployeeById} action={t("edit").toUpperCase()} t={t}/>
         </Grid>
 
       </DialogContent>
